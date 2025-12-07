@@ -46,7 +46,8 @@ clap = { version = "4.4", features = ["derive", "cargo"], optional = true }
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 wasm-bindgen = "0.2"
 console_error_panic_hook = "0.1"
-wee_alloc = "0.4"
+# Note: wee_alloc was removed as it is unmaintained and has known memory leaks.
+# Rust 1.71+ provides a suitable default allocator for wasm32 targets.
 
 [dev-dependencies]
 # Testing

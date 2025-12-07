@@ -19,10 +19,8 @@
 use crate::{Error, NickelLoader};
 use wasm_bindgen::prelude::*;
 
-// When the `wee_alloc` feature is enabled, use `wee_alloc` as the global allocator
-#[cfg(feature = "wee_alloc")]
-#[global_allocator]
-static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
+// Note: wee_alloc was removed as it is unmaintained and has known memory leaks.
+// Rust 1.71+ provides a suitable default allocator for wasm32 targets.
 
 /// Initialize WASM module
 ///
