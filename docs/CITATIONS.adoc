@@ -1,0 +1,36 @@
+= bunsenite - Citation Guide
+:toc:
+
+== BibTeX
+
+[source,bibtex]
+----
+@software{bunsenite_2025,
+  author = {Polymath, Hyper},
+  title = {bunsenite},
+  year = {2025},
+  url = {https://github.com/hyperpolymath/bunsenite},
+  license = {AGPL-3.0-or-later}
+}
+----
+
+== Harvard Style
+
+Polymath, H. (2025) _bunsenite_ [Computer software]. Available at: https://github.com/hyperpolymath/bunsenite
+
+== OSCOLA
+
+Hyper Polymath, 'bunsenite' (2025) <https://github.com/hyperpolymath/bunsenite>
+
+== MLA
+
+Polymath, Hyper. "bunsenite." 2025, github.com/hyperpolymath/bunsenite.
+
+== APA 7
+
+Polymath, H. (2025). _bunsenite_ [Computer software]. GitHub. https://github.com/hyperpolymath/bunsenite
+
+== See Also
+
+* link:../CITATION.cff[CITATION.cff]
+* link:../codemeta.json[codemeta.json]

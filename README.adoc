@@ -1,4 +1,4 @@
-# Bunsenite
+= Bunsenite
 
 > Nickel configuration file parser with multi-language FFI bindings
 
@@ -7,37 +7,37 @@
 [![License: MIT OR Palimpsest-0.8](https://img.shields.io/badge/License-MIT%20OR%20Palimpsest--0.8-green)](./LICENSE)
 [![Build Status](https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/badges/main/pipeline.svg)](https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/pipelines)
 
-## Overview
+== Overview
 
-Bunsenite is a **Nickel configuration file parser** with a Rust core library and multi-language FFI bindings. It provides a stable C ABI layer (via Zig) that enables bindings for **Deno** (JavaScript/TypeScript), **Rescript**, and **WebAssembly** for browser and universal use.
+Bunsenite is a *Nickel configuration file parser* with a Rust core library and multi-language FFI bindings. It provides a stable C ABI layer (via Zig) that enables bindings for *Deno* (JavaScript/TypeScript), *Rescript*, and *WebAssembly* for browser and universal use.
 
-### Key Features
+=== Key Features
 
-- ✅ **Type Safety**: Compile-time guarantees via Rust's type system
-- ✅ **Memory Safety**: Rust ownership model, **zero `unsafe` blocks**
-- ✅ **Offline-First**: Works completely air-gapped, no network dependencies
-- ✅ **Multi-Language**: FFI bindings for Deno, Rescript, and WASM
-- ✅ **Standards Compliant**: RSR Bronze tier, TPCF Perimeter 3
-- ✅ **Well-Documented**: Comprehensive API docs, examples, and guides
-- ✅ **Production-Ready**: 100% test pass rate, CI/CD, semantic versioning
+- ✅ *Type Safety*: Compile-time guarantees via Rust's type system
+- ✅ *Memory Safety*: Rust ownership model, *zero `unsafe` blocks*
+- ✅ *Offline-First*: Works completely air-gapped, no network dependencies
+- ✅ *Multi-Language*: FFI bindings for Deno, Rescript, and WASM
+- ✅ *Standards Compliant*: RSR Bronze tier, TPCF Perimeter 3
+- ✅ *Well-Documented*: Comprehensive API docs, examples, and guides
+- ✅ *Production-Ready*: 100% test pass rate, CI/CD, semantic versioning
 
-## Quick Start
+== Quick Start
 
-### Installation
+=== Installation
 
 ```bash
-# From crates.io
+= From crates.io
 cargo install bunsenite
 
-# From source
+= From source
 git clone https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite.git
 cd bunsenite
 cargo install --path .
 ```
 
-### Usage
+=== Usage
 
-#### Rust Library
+==== Rust Library
 
 ```rust
 use bunsenite::NickelLoader;
@@ -58,23 +58,23 @@ fn main() {
 }
 ```
 
-#### CLI
+==== CLI
 
 ```bash
-# Parse and evaluate a config file
+= Parse and evaluate a config file
 bunsenite parse config.ncl
 
-# Pretty-print output
+= Pretty-print output
 bunsenite parse config.ncl --pretty
 
-# Validate without evaluating
+= Validate without evaluating
 bunsenite validate config.ncl
 
-# Show version and compliance info
+= Show version and compliance info
 bunsenite info
 ```
 
-#### WebAssembly (Browser)
+==== WebAssembly (Browser)
 
 ```javascript
 import init, { parse_nickel } from './bunsenite.js';
@@ -87,7 +87,7 @@ async function main() {
 }
 ```
 
-#### Deno (TypeScript)
+==== Deno (TypeScript)
 
 ```typescript
 // See bindings/deno/ for full example
@@ -98,7 +98,7 @@ const result = parseNickel(config, "config.ncl");
 console.log(result);
 ```
 
-## Architecture
+== Architecture
 
 ```
 ┌─────────────────────────────────────────────────┐
@@ -126,27 +126,27 @@ console.log(result);
               └─────────────────┘
 ```
 
-### Design Rationale
+=== Design Rationale
 
-**Zig FFI Layer**: Provides stable C ABI, isolating consumers from Rust ABI changes. This allows language bindings to remain stable across Rust compiler versions.
+*Zig FFI Layer*: Provides stable C ABI, isolating consumers from Rust ABI changes. This allows language bindings to remain stable across Rust compiler versions.
 
-**WASM Support**: Enables browser deployment and universal compatibility at ~95% native speed.
+*WASM Support*: Enables browser deployment and universal compatibility at ~95% native speed.
 
-**Deno .ts Files**: Required syntax for Deno runtime FFI (NOT plain TypeScript). Uses `Deno.dlopen` for native FFI calls to Zig layer.
+*Deno .ts Files*: Required syntax for Deno runtime FFI (NOT plain TypeScript). Uses `Deno.dlopen` for native FFI calls to Zig layer.
 
-## Documentation
+== Documentation
 
-- **[CLAUDE.md](./CLAUDE.md)**: Comprehensive guide for AI assistants and developers
-- **[SECURITY.md](./SECURITY.md)**: Security policies and vulnerability reporting
-- **[CONTRIBUTING.md](./CONTRIBUTING.md)**: Contribution guidelines
-- **[CHANGELOG.md](./CHANGELOG.md)**: Version history and release notes
-- **[API Docs](https://docs.rs/bunsenite)**: Full Rust API documentation
+- *[CLAUDE.md](./CLAUDE.md)*: Comprehensive guide for AI assistants and developers
+- *[SECURITY.md](./SECURITY.md)*: Security policies and vulnerability reporting
+- *[CONTRIBUTING.md](./CONTRIBUTING.md)*: Contribution guidelines
+- *[CHANGELOG.md](./CHANGELOG.md)*: Version history and release notes
+- *[API Docs](https://docs.rs/bunsenite)*: Full Rust API documentation
 
-## Standards Compliance
+== Standards Compliance
 
-### RSR Framework: Bronze Tier
+=== RSR Framework: Bronze Tier
 
-Bunsenite meets all **Rhodium Standard Repository (RSR) Bronze tier** requirements:
+Bunsenite meets all *Rhodium Standard Repository (RSR) Bronze tier* requirements:
 
 - ✅ Type safety (Rust compile-time guarantees)
 - ✅ Memory safety (ownership model, `#![deny(unsafe_code)]`)
@@ -157,19 +157,19 @@ Bunsenite meets all **Rhodium Standard Repository (RSR) Bronze tier** requiremen
 - ✅ CI/CD pipeline (GitLab CI)
 - ✅ 100% test pass rate
 
-### TPCF: Perimeter 3 (Community Sandbox)
+=== TPCF: Perimeter 3 (Community Sandbox)
 
-This project uses the **Tri-Perimeter Contribution Framework (TPCF)**:
+This project uses the *Tri-Perimeter Contribution Framework (TPCF)*:
 
-- **Perimeter 1**: Core maintainers only (restricted)
-- **Perimeter 2**: Trusted contributors (by invitation)
-- **Perimeter 3**: **Community Sandbox** - Open to all contributors
+- *Perimeter 1*: Core maintainers only (restricted)
+- *Perimeter 2*: Trusted contributors (by invitation)
+- *Perimeter 3*: *Community Sandbox* - Open to all contributors
 
 All contributions are welcome! See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
 
-## Building from Source
+== Building from Source
 
-### Prerequisites
+=== Prerequisites
 
 - Rust 1.70+ (`rustup install stable`)
 - `just` command runner (`cargo install just`)
@@ -177,58 +177,58 @@ All contributions are welcome! See [CONTRIBUTING.md](./CONTRIBUTING.md) for deta
 - Optional: `wasm-pack` (for WASM builds: `cargo install wasm-pack`)
 - Optional: Deno runtime (for Deno bindings)
 
-### Build Commands
+=== Build Commands
 
 ```bash
-# Build all targets
+= Build all targets
 just all
 
-# Build Rust library and CLI
+= Build Rust library and CLI
 cargo build --release
 
-# Build WebAssembly
+= Build WebAssembly
 just wasm
 
-# Run tests
+= Run tests
 cargo test
 
-# Run linter
+= Run linter
 cargo clippy
 
-# Format code
+= Format code
 cargo fmt
 
-# Check RSR compliance
+= Check RSR compliance
 just rsr-check
 ```
 
 See `Justfile` for all available commands.
 
-## Testing
+== Testing
 
 ```bash
-# Run all tests
+= Run all tests
 cargo test
 
-# Run tests with output
+= Run tests with output
 cargo test -- --nocapture
 
-# Run specific test
+= Run specific test
 cargo test test_name
 
-# Run with coverage (requires tarpaulin)
+= Run with coverage (requires tarpaulin)
 cargo tarpaulin --out Html
 ```
 
-Current status: **100% test pass rate** (30+ tests covering core functionality, error handling, and edge cases)
+Current status: *100% test pass rate* (30+ tests covering core functionality, error handling, and edge cases)
 
-## Performance
+== Performance
 
-- **Native Rust**: Baseline performance
-- **WebAssembly**: ~95% native speed
-- **FFI (Deno/Rescript)**: ~90% native speed (C ABI overhead minimal)
+- *Native Rust*: Baseline performance
+- *WebAssembly*: ~95% native speed
+- *FFI (Deno/Rescript)*: ~90% native speed (C ABI overhead minimal)
 
-## Security
+== Security
 
 We take security seriously. See [SECURITY.md](./SECURITY.md) for:
 
@@ -237,20 +237,20 @@ We take security seriously. See [SECURITY.md](./SECURITY.md) for:
 - Security best practices
 - Responsible disclosure policy
 
-**Security contact**: See `.well-known/security.txt` or [SECURITY.md](./SECURITY.md)
+*Security contact*: See `.well-known/security.txt` or [SECURITY.md](./SECURITY.md)
 
-## License
+== License
 
 Dual licensed under your choice of:
 
-- **MIT License** ([LICENSE-MIT](./LICENSE) or http://opensource.org/licenses/MIT)
-- **Palimpsest License v0.8** ([LICENSE-PALIMPSEST](./LICENSE) or https://palingenesis.org/palimpsest-license)
+- *MIT License* ([LICENSE-MIT](./LICENSE) or http://opensource.org/licenses/MIT)
+- *Palimpsest License v0.8* ([LICENSE-PALIMPSEST](./LICENSE) or https://palingenesis.org/palimpsest-license)
 
 This allows maximum flexibility for use while preserving reversibility and emotional safety principles.
 
-## Contributing
+== Contributing
 
-Contributions are welcome! This is a **TPCF Perimeter 3** (Community Sandbox) project.
+Contributions are welcome! This is a *TPCF Perimeter 3* (Community Sandbox) project.
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for:
 
@@ -260,20 +260,20 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for:
 - Commit message conventions
 - Pull request process
 
-## Community
+== Community
 
-- **Issues**: [GitLab Issues](https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/issues)
-- **Discussions**: [GitLab Discussions](https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/issues)
-- **Security**: See [SECURITY.md](./SECURITY.md)
+- *Issues*: [GitLab Issues](https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/issues)
+- *Discussions*: [GitLab Discussions](https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/issues)
+- *Security*: See [SECURITY.md](./SECURITY.md)
 
-## Acknowledgments
+== Acknowledgments
 
 - [Nickel Language Team](https://github.com/tweag/nickel) for the excellent configuration language
 - RSR Framework contributors
 - TPCF community
 - All contributors to this project
 
-## Roadmap
+== Roadmap
 
 See [NEXT_STEPS.md](./NEXT_STEPS.md) for planned features and enhancements:
 
@@ -284,14 +284,14 @@ See [NEXT_STEPS.md](./NEXT_STEPS.md) for planned features and enhancements:
 - [ ] Watch mode for auto-reload
 - [ ] Plugin system
 
-## Version History
+== Version History
 
 See [CHANGELOG.md](./CHANGELOG.md) for detailed version history.
 
-Current version: **0.1.0** (Bronze tier compliant, production-ready)
+Current version: *0.1.0* (Bronze tier compliant, production-ready)
 
 ---
 
-**Made with ❤️ by the Campaign for Cooler Coding and Programming**
+*Made with ❤️ by the Campaign for Cooler Coding and Programming*
 
 *Politically autonomous software for emotionally safe development*
