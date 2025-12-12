@@ -72,7 +72,7 @@
         # Package derivation
         packages.default = pkgs.rustPlatform.buildRustPackage rec {
           pname = "bunsenite";
-          version = "0.1.0";
+          version = "1.0.0";
 
           src = ./.;
 
@@ -95,7 +95,7 @@
 
           meta = with pkgs.lib; {
             description = "Nickel configuration file parser with multi-language FFI bindings";
-            homepage = "https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite";
+            homepage = "https://github.com/hyperpolymath/bunsenite";
             license = with licenses; [ mit ]; # Dual MIT + Palimpsest
             maintainers = [ "Campaign for Cooler Coding and Programming" ];
             platforms = platforms.all;
@@ -105,7 +105,7 @@
         # WASM package
         packages.wasm = pkgs.stdenv.mkDerivation {
           pname = "bunsenite-wasm";
-          version = "0.1.0";
+          version = "1.0.0";
 
           src = ./.;
 
@@ -125,7 +125,7 @@
 
           meta = with pkgs.lib; {
             description = "Bunsenite WebAssembly module";
-            homepage = "https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite";
+            homepage = "https://github.com/hyperpolymath/bunsenite";
             license = with licenses; [ mit ];
           };
         };
