@@ -11,10 +11,9 @@
 //! - NO `into_diagnostics()` method available (deprecated)
 
 use crate::error::{Error, Result};
-use nickel_lang_core::cache::InputFormat;
 use nickel_lang_core::program::Program;
 use serde_json::Value;
-use std::io::Write;
+use std::io::Cursor;
 use std::path::Path;
 
 /// Nickel configuration loader
@@ -74,11 +73,10 @@ impl NickelLoader {
     /// ```
     pub fn parse_string(&self, source: &str, name: &str) -> Result<Value> {
         // Create a Program from source
-        // API change in 0.9.1: new_from_source requires trace parameter
+        // API in 0.9.1: new_from_source(impl Read, impl Into<SourceName>, impl Write)
         let mut program = Program::new_from_source(
-            source.to_string(),
-            name.to_string(),
-            InputFormat::Nickel,
+            Cursor::new(source.as_bytes()),
+            name,
             std::io::sink(), // Trace output (discarded)
         )
         .map_err(|e| {
@@ -160,9 +158,8 @@ impl NickelLoader {
     pub fn validate(&self, source: &str, name: &str) -> Result<()> {
         // Just try to create a Program - this performs parsing and type-checking
         Program::new_from_source(
-            source.to_string(),
-            name.to_string(),
-            InputFormat::Nickel,
+            Cursor::new(source.as_bytes()),
+            name,
             std::io::sink(),
         )
         .map_err(|e| {
@@ -171,6 +168,13 @@ impl NickelLoader {
         })?;
 
         Ok(())
+    }
+
+    /// Parse and evaluate a Nickel configuration (alias for parse_string)
+    ///
+    /// This is a convenience alias for `parse_string` for API compatibility.
+    pub fn parse(&self, source: &str, name: &str) -> Result<Value> {
+        self.parse_string(source, name)
     }
 }
 
