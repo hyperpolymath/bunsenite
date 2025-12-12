@@ -1,14 +1,29 @@
-# TypeScript/JavaScript → ReScript Conversion (Partial)
+# TypeScript/JavaScript Status
 
-This repo has some ReScript but still contains TS/JS that needs conversion.
+## RSR-Compliant Files (No Conversion Needed)
 
-## Remaining Work
-1. Find all `.ts`/`.tsx`/`.js`/`.jsx` files (excluding `.res.js`)
-2. Create ReScript equivalents
-3. Migrate logic and update imports
-4. Delete original TS/JS files
+The following `.ts` files are **Deno-specific FFI bindings** and are RSR-compliant:
+
+- `bindings/deno/bunsenite.ts` - Uses `Deno.dlopen()` for native FFI
+- `bindings/deno/example.ts` - Deno FFI usage example
+
+These files use Deno's native FFI system (`Deno.dlopen`), NOT plain TypeScript.
+They call into the Zig C ABI layer which wraps the Rust core.
+
+## Architecture
+
+```
+Deno Runtime → Deno.dlopen() → Zig FFI (C ABI) → Rust Core
+```
 
 ## Policy
-- No NEW TypeScript/JavaScript allowed
-- CI will block new TS/JS files
-- Existing TS/JS should be migrated over time
+
+- **Deno FFI `.ts` files**: ALLOWED (Deno-specific, not plain TypeScript)
+- **Plain TypeScript/JavaScript**: NOT ALLOWED
+- **New JS/TS modules**: Use ReScript instead
+- CI blocks new plain `.ts`/`.js` files (Deno FFI exempted)
+
+## ReScript Bindings
+
+The ReScript bindings at `bindings/rescript/Bunsenite.res` are fully implemented
+and provide type-safe access to the Zig FFI layer.
