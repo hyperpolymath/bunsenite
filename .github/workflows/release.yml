@@ -73,6 +73,19 @@ jobs:
         if: matrix.cross
         run: cross build --release --features full --target ${{ matrix.target }}
 
+      - name: Prepare Rust library for Zig (Unix)
+        if: runner.os != 'Windows'
+        run: |
+          mkdir -p target/release
+          cp target/${{ matrix.target }}/release/libbunsenite.* target/release/ || true
+
+      - name: Prepare Rust library for Zig (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path target/release
+          Copy-Item target/${{ matrix.target }}/release/bunsenite.* target/release/ -ErrorAction SilentlyContinue
+
       - name: Build Zig FFI (Unix)
         if: runner.os != 'Windows'
         run: cd zig && zig build -Doptimize=ReleaseFast
