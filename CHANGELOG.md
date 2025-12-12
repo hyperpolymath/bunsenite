@@ -8,12 +8,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planned
+- TUI (Ada/SPARK)
+- Language Server Protocol (LSP)
 - Additional language bindings (Python, Ruby, Node.js)
-- Performance benchmarking suite
-- REPL/interactive mode
-- Schema validation
-- Watch mode for auto-reload
 - Plugin system
+
+## [1.0.0] - 2025-12-12
+
+### Added
+- Zig FFI layer for stable C ABI across Rust compiler versions
+- Complete Deno bindings using `Deno.dlopen` FFI
+- Complete ReScript bindings via C FFI
+- Watch mode with file change detection (`bunsenite watch`)
+- Interactive REPL (`bunsenite repl`)
+- JSON Schema validation (`bunsenite schema`)
+- miette 7.0 integration for beautiful error diagnostics
+
+### Changed
+- Upgraded nickel-lang-core to 0.9.1 (CBNCache moved to lazy module)
+- CLI expanded from 3 commands to 6 commands
+- Documentation updated for v1.0.0 release
+
+### Fixed
+- CBNCache import path for nickel-lang-core 0.9.1 compatibility
+
+### Compliance
+- RSR Bronze Tier: Verified
+- TPCF Perimeter 3: Maintained
+- No plain TypeScript, npm, or Python dependencies
 
 ## [0.1.0] - 2025-11-22
 
