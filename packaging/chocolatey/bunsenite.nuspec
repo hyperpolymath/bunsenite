@@ -6,8 +6,8 @@
     <title>Bunsenite</title>
     <authors>Campaign for Cooler Coding and Programming</authors>
     <owners>Campaign for Cooler Coding and Programming</owners>
-    <licenseUrl>https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/blob/main/LICENSE-MIT</licenseUrl>
-    <projectUrl>https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite</projectUrl>
+    <licenseUrl>https://github.com/hyperpolymath/bunsenite/-/blob/main/LICENSE-MIT</licenseUrl>
+    <projectUrl>https://github.com/hyperpolymath/bunsenite</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Nickel configuration file parser with multi-language FFI bindings.
 
@@ -21,10 +21,10 @@ Features:
 
 RSR Compliance: Bronze Tier | TPCF Perimeter: 3</description>
     <summary>Nickel configuration file parser with FFI bindings</summary>
-    <releaseNotes>https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/releases</releaseNotes>
+    <releaseNotes>https://github.com/hyperpolymath/bunsenite/-/releases</releaseNotes>
     <copyright>Copyright 2025 Campaign for Cooler Coding and Programming</copyright>
     <tags>nickel config parser ffi wasm rust</tags>
-    <packageSourceUrl>https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite</packageSourceUrl>
+    <packageSourceUrl>https://github.com/hyperpolymath/bunsenite</packageSourceUrl>
     <docsUrl>https://docs.rs/bunsenite</docsUrl>
   </metadata>
   <files>

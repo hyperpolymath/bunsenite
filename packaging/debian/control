@@ -4,9 +4,9 @@ Priority: optional
 Maintainer: Campaign for Cooler Coding and Programming <packages@example.com>
 Build-Depends: debhelper-compat (= 13), cargo, rustc (>= 1.70), zig
 Standards-Version: 4.6.2
-Homepage: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite
-Vcs-Git: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite.git
-Vcs-Browser: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite
+Homepage: https://github.com/hyperpolymath/bunsenite
+Vcs-Git: https://github.com/hyperpolymath/bunsenite.git
+Vcs-Browser: https://github.com/hyperpolymath/bunsenite
 Rules-Requires-Root: no
 
 Package: bunsenite

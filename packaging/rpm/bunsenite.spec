@@ -7,7 +7,7 @@ Release:        1%{?dist}
 Summary:        Nickel configuration file parser with multi-language FFI bindings
 
 License:        MIT OR Palimpsest-0.8
-URL:            https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite
+URL:            https://github.com/hyperpolymath/bunsenite
 Source0:        %{name}-%{version}.tar.gz
 
 BuildRequires:  rust >= 1.70

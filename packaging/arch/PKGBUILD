@@ -6,7 +6,7 @@ pkgver=1.0.0
 pkgrel=1
 pkgdesc="Nickel configuration file parser with multi-language FFI bindings"
 arch=('x86_64' 'aarch64')
-url="https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite"
+url="https://github.com/hyperpolymath/bunsenite"
 license=('MIT' 'custom:Palimpsest-0.8')
 depends=('gcc-libs')
 makedepends=('rust' 'cargo' 'zig')
@@ -15,11 +15,11 @@ optdepends=(
 )
 provides=('bunsenite')
 conflicts=('bunsenite-git')
-source=("$pkgname-$pkgver.tar.gz::https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz")
+source=("$pkgname-$pkgver.tar.gz::https://github.com/hyperpolymath/bunsenite/archive/refs/tags/v$pkgver.tar.gz")
 sha256sums=('SKIP')
 
 build() {
-    cd "$pkgname-v$pkgver"
+    cd "$pkgname-$pkgver"
 
     # Build Rust library and CLI with all features
     cargo build --release --features full
@@ -30,12 +30,12 @@ build() {
 }
 
 check() {
-    cd "$pkgname-v$pkgver"
+    cd "$pkgname-$pkgver"
     cargo test --release
 }
 
 package() {
-    cd "$pkgname-v$pkgver"
+    cd "$pkgname-$pkgver"
 
     # Install binary
     install -Dm755 "target/release/bunsenite" "$pkgdir/usr/bin/bunsenite"
@@ -47,9 +47,8 @@ package() {
     install -Dm644 "target/release/libbunsenite.rlib" "$pkgdir/usr/lib/libbunsenite.rlib"
 
     # Install license
-    install -Dm644 LICENSE-MIT "$pkgdir/usr/share/licenses/$pkgname/LICENSE-MIT"
-    install -Dm644 LICENSE-PALIMPSEST "$pkgdir/usr/share/licenses/$pkgname/LICENSE-PALIMPSEST"
+    install -Dm644 LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE.txt"
 
     # Install documentation
-    install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
+    install -Dm644 README.adoc "$pkgdir/usr/share/doc/$pkgname/README.adoc"
 }

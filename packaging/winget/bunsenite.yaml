@@ -1,15 +1,15 @@
 # winget manifest for bunsenite
 # yaml-language-server: $schema=https://aka.ms/winget-manifest.version.1.4.0.schema.json
 
-PackageIdentifier: CampaignForCoolerCoding.Bunsenite
+PackageIdentifier: Hyperpolymath.Bunsenite
 PackageVersion: 1.0.0
 PackageLocale: en-US
-Publisher: Campaign for Cooler Coding and Programming
-PublisherUrl: https://gitlab.com/campaign-for-cooler-coding-and-programming
+Publisher: hyperpolymath
+PublisherUrl: https://github.com/hyperpolymath
 PackageName: Bunsenite
-PackageUrl: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite
+PackageUrl: https://github.com/hyperpolymath/bunsenite
 License: MIT OR Palimpsest-0.8
-LicenseUrl: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/blob/main/LICENSE-MIT
+LicenseUrl: https://github.com/hyperpolymath/bunsenite/blob/main/LICENSE.txt
 ShortDescription: Nickel configuration file parser with multi-language FFI bindings
 Description: |
   Bunsenite is a Nickel configuration file parser with multi-language FFI bindings.
@@ -36,7 +36,7 @@ Commands:
 Installers:
   - Architecture: x64
     InstallerType: zip
-    InstallerUrl: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/releases/v1.0.0/downloads/bunsenite-1.0.0-x86_64-pc-windows-msvc.zip
+    InstallerUrl: https://github.com/hyperpolymath/bunsenite/releases/download/v1.0.0/bunsenite-1.0.0-x86_64-pc-windows-msvc.zip
     InstallerSha256: TODO
 ManifestType: singleton
 ManifestVersion: 1.4.0

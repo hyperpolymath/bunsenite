@@ -1,24 +1,22 @@
 {
     "version": "1.0.0",
     "description": "Nickel configuration file parser with multi-language FFI bindings",
-    "homepage": "https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite",
+    "homepage": "https://github.com/hyperpolymath/bunsenite",
     "license": "MIT|Palimpsest-0.8",
     "architecture": {
         "64bit": {
-            "url": "https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/releases/v1.0.0/downloads/bunsenite-1.0.0-x86_64-pc-windows-msvc.zip",
+            "url": "https://github.com/hyperpolymath/bunsenite/releases/download/v1.0.0/bunsenite-1.0.0-x86_64-pc-windows-msvc.zip",
             "hash": "TODO",
             "bin": "bunsenite.exe"
         }
     },
     "checkver": {
-        "url": "https://gitlab.com/api/v4/projects/campaign-for-cooler-coding-and-programming%2Fbunsenite/releases",
-        "jsonpath": "$[0].tag_name",
-        "regex": "v([\\d.]+)"
+        "github": "https://github.com/hyperpolymath/bunsenite"
     },
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/releases/v$version/downloads/bunsenite-$version-x86_64-pc-windows-msvc.zip"
+                "url": "https://github.com/hyperpolymath/bunsenite/releases/download/v$version/bunsenite-$version-x86_64-pc-windows-msvc.zip"
             }
         }
     }

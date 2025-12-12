@@ -28,5 +28,5 @@ modules:
       - install -Dm755 zig/zig-out/lib/libbunsenite.so /app/lib/libbunsenite.so
     sources:
       - type: git
-        url: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite.git
+        url: https://github.com/hyperpolymath/bunsenite.git
         tag: v1.0.0

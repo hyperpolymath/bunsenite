@@ -1,11 +1,11 @@
 # Homebrew formula for bunsenite
 class Bunsenite < Formula
   desc "Nickel configuration file parser with multi-language FFI bindings"
-  homepage "https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite"
-  url "https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/archive/v1.0.0/bunsenite-v1.0.0.tar.gz"
+  homepage "https://github.com/hyperpolymath/bunsenite"
+  url "https://github.com/hyperpolymath/bunsenite/archive/refs/tags/v1.0.0.tar.gz"
   sha256 "TODO"
   license any_of: ["MIT", "Palimpsest-0.8"]
-  head "https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite.git", branch: "main"
+  head "https://github.com/hyperpolymath/bunsenite.git", branch: "main"
 
   depends_on "rust" => :build
   depends_on "zig" => :build
