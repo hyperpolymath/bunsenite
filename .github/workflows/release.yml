@@ -87,7 +87,7 @@ jobs:
           Copy-Item target/${{ matrix.target }}/release/bunsenite.* target/release/ -ErrorAction SilentlyContinue
 
       - name: Build Zig FFI (Unix)
-        if: runner.os != 'Windows'
+        if: runner.os != 'Windows' && !matrix.cross
         run: cd zig && zig build -Doptimize=ReleaseFast
 
       - name: Build Zig FFI (Windows)
