@@ -11,7 +11,7 @@
 //! - NO `into_diagnostics()` method available (deprecated)
 
 use crate::error::{Error, Result};
-use nickel_lang_core::eval::cache::CBNCache;
+use nickel_lang_core::eval::cache::lazy::CBNCache;
 use nickel_lang_core::program::Program;
 use serde_json::Value;
 use std::io::Cursor;
