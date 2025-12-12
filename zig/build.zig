@@ -20,14 +20,14 @@ pub fn build(b: *std.Build) void {
     // Create shared library
     const lib = b.addSharedLibrary(.{
         .name = "bunsenite",
-        .root_source_file = b.path("bunsenite.zig"),
+        .root_source_file = .{ .path = "bunsenite.zig" },
         .target = target,
         .optimize = optimize,
     });
 
     // Link to Rust library
     // The Rust cdylib is built with: cargo build --release
-    lib.addLibraryPath(.{ .cwd_relative = "../target/release" });
+    lib.addLibraryPath(.{ .path = "../target/release" });
     lib.linkSystemLibrary("bunsenite");
 
     // Link libc for C runtime
@@ -38,12 +38,12 @@ pub fn build(b: *std.Build) void {
 
     // Create test step
     const lib_unit_tests = b.addTest(.{
-        .root_source_file = b.path("bunsenite.zig"),
+        .root_source_file = .{ .path = "bunsenite.zig" },
         .target = target,
         .optimize = optimize,
     });
 
-    lib_unit_tests.addLibraryPath(.{ .cwd_relative = "../target/release" });
+    lib_unit_tests.addLibraryPath(.{ .path = "../target/release" });
     lib_unit_tests.linkSystemLibrary("bunsenite");
     lib_unit_tests.linkLibC();
 
