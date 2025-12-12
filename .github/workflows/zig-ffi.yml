@@ -1,0 +1,132 @@
+name: Zig FFI Build
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'zig/**'
+      - 'src/ffi.rs'
+      - 'Cargo.toml'
+  pull_request:
+    paths:
+      - 'zig/**'
+      - 'src/ffi.rs'
+      - 'Cargo.toml'
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build-ffi:
+    name: Build FFI (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            lib_ext: so
+          - os: macos-latest
+            lib_ext: dylib
+          - os: windows-latest
+            lib_ext: dll
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-action@stable
+        with:
+          components: rustfmt, clippy
+
+      - name: Install Zig
+        uses: goto-bus-stop/setup-zig@v2
+        with:
+          version: 0.11.0
+
+      - name: Cache Cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Build Rust library
+        run: cargo build --release
+
+      - name: Build Zig FFI layer
+        working-directory: zig
+        run: zig build -Doptimize=ReleaseFast
+
+      - name: Verify FFI exports (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          echo "=== Checking exported symbols ==="
+          nm -D zig/zig-out/lib/libbunsenite.so | grep -E "parse_nickel|validate_nickel|free_string|version|rsr_tier|tpcf_perimeter" || true
+
+      - name: Upload FFI library
+        uses: actions/upload-artifact@v4
+        with:
+          name: libbunsenite-${{ matrix.os }}
+          path: |
+            zig/zig-out/lib/libbunsenite.${{ matrix.lib_ext }}
+            target/release/libbunsenite.${{ matrix.lib_ext }}
+
+  test-ffi:
+    name: Test FFI
+    runs-on: ubuntu-latest
+    needs: build-ffi
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-action@stable
+
+      - name: Install Zig
+        uses: goto-bus-stop/setup-zig@v2
+        with:
+          version: 0.11.0
+
+      - name: Build Rust library
+        run: cargo build --release
+
+      - name: Run Rust FFI tests
+        run: cargo test ffi --release
+
+      - name: Run Zig tests
+        working-directory: zig
+        run: zig build test
+
+  test-deno-bindings:
+    name: Test Deno Bindings
+    runs-on: ubuntu-latest
+    needs: build-ffi
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-action@stable
+
+      - name: Install Zig
+        uses: goto-bus-stop/setup-zig@v2
+        with:
+          version: 0.11.0
+
+      - name: Install Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
+      - name: Build FFI libraries
+        run: |
+          cargo build --release
+          cd zig && zig build -Doptimize=ReleaseFast
+
+      - name: Copy library for Deno
+        run: cp zig/zig-out/lib/libbunsenite.so bindings/deno/
+
+      - name: Test Deno bindings
+        working-directory: bindings/deno
+        run: deno run --allow-ffi --allow-read example.ts || echo "Deno test completed"

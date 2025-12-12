@@ -71,6 +71,14 @@
 pub mod error;
 pub mod loader;
 
+/// C FFI exports for native bindings (Deno, ReScript via Zig)
+///
+/// This module uses `unsafe` for FFI boundary crossing.
+/// The Zig layer provides additional safety and stable ABI guarantees.
+#[allow(unsafe_code)]
+#[cfg(not(target_arch = "wasm32"))]
+pub mod ffi;
+
 #[cfg(target_arch = "wasm32")]
 #[cfg_attr(docsrs, doc(cfg(target_arch = "wasm32")))]
 pub mod wasm;
