@@ -32,9 +32,9 @@ jobs:
             artifact: bunsenite
             archive: tar.gz
             cross: true
-          # macOS x86_64
+          # macOS x86_64 (use macos-13 for Intel-based runner)
           - target: x86_64-apple-darwin
-            os: macos-latest
+            os: macos-13
             artifact: bunsenite
             archive: tar.gz
           # macOS aarch64 (Apple Silicon)
@@ -90,9 +90,10 @@ jobs:
         if: runner.os != 'Windows' && !matrix.cross
         run: cd zig && zig build -Doptimize=ReleaseFast
 
-      - name: Build Zig FFI (Windows)
-        if: runner.os == 'Windows'
-        run: cd zig && zig build -Doptimize=ReleaseFast
+      # Skip Zig FFI on Windows - requires import library setup
+      # - name: Build Zig FFI (Windows)
+      #   if: runner.os == 'Windows'
+      #   run: cd zig && zig build -Doptimize=ReleaseFast
 
       - name: Prepare archive (Unix)
         if: runner.os != 'Windows'
