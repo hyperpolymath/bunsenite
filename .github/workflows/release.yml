@@ -61,7 +61,7 @@ jobs:
         run: cargo install cross --git https://github.com/cross-rs/cross
 
       - name: Install Zig
-        uses: goto-bus-stop/setup-zig@7ab2955eb728f5440978d7bce08423506fca392c # v2.2.1
+        uses: goto-bus-stop/setup-zig@abea47f85e598557f500fa1fd2ab7464fcb39406 # v2
         with:
           version: 0.11.0
 
