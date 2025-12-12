@@ -11,10 +11,14 @@
 //! - NO `into_diagnostics()` method available (deprecated)
 
 use crate::error::{Error, Result};
+use nickel_lang_core::eval::cache::CBNCache;
 use nickel_lang_core::program::Program;
 use serde_json::Value;
 use std::io::Cursor;
 use std::path::Path;
+
+/// Type alias for the standard Program with CBN caching
+type NickelProgram = Program<CBNCache>;
 
 /// Nickel configuration loader
 ///
@@ -73,8 +77,8 @@ impl NickelLoader {
     /// ```
     pub fn parse_string(&self, source: &str, name: &str) -> Result<Value> {
         // Create a Program from source
-        // API in 0.9.1: new_from_source(impl Read, impl Into<SourceName>, impl Write)
-        let mut program = Program::new_from_source(
+        // API in 0.9.1: Program<CBNCache>::new_from_source(impl Read, impl Into<SourceName>, impl Write)
+        let mut program: NickelProgram = Program::new_from_source(
             Cursor::new(source.as_bytes()),
             name,
             std::io::sink(), // Trace output (discarded)
@@ -157,7 +161,7 @@ impl NickelLoader {
     /// ```
     pub fn validate(&self, source: &str, name: &str) -> Result<()> {
         // Just try to create a Program - this performs parsing and type-checking
-        Program::new_from_source(
+        let _program: NickelProgram = Program::new_from_source(
             Cursor::new(source.as_bytes()),
             name,
             std::io::sink(),
