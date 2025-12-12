@@ -100,7 +100,7 @@ jobs:
           mkdir -p dist
           cp target/${{ matrix.target }}/release/${{ matrix.artifact }} dist/
           cp zig/zig-out/lib/libbunsenite.* dist/ || true
-          cp README.md LICENSE-MIT dist/
+          cp README.adoc LICENSE.txt dist/
           cd dist && tar -czvf ../bunsenite-${{ github.ref_name }}-${{ matrix.target }}.${{ matrix.archive }} *
 
       - name: Prepare archive (Windows)
@@ -110,7 +110,7 @@ jobs:
           New-Item -ItemType Directory -Force -Path dist
           Copy-Item target/${{ matrix.target }}/release/${{ matrix.artifact }} dist/
           Copy-Item zig/zig-out/lib/bunsenite.* dist/ -ErrorAction SilentlyContinue
-          Copy-Item README.md,LICENSE-MIT dist/
+          Copy-Item README.adoc,LICENSE.txt dist/
           Compress-Archive -Path dist/* -DestinationPath bunsenite-${{ github.ref_name }}-${{ matrix.target }}.${{ matrix.archive }}
 
       - name: Upload artifact
