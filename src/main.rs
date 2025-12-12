@@ -4,6 +4,7 @@
 
 use bunsenite::{NickelLoader, VERSION};
 use clap::{Parser, Subcommand};
+use miette::IntoDiagnostic;
 use std::path::PathBuf;
 use std::process;
 
@@ -46,11 +47,51 @@ enum Commands {
         file: PathBuf,
     },
 
+    /// Watch a file for changes and re-evaluate on save
+    #[cfg(feature = "watch")]
+    Watch {
+        /// Path to the Nickel configuration file to watch
+        #[arg(value_name = "FILE")]
+        file: PathBuf,
+
+        /// Pretty-print the output JSON
+        #[arg(short, long)]
+        pretty: bool,
+    },
+
+    /// Start an interactive REPL for Nickel expressions
+    #[cfg(feature = "repl")]
+    Repl,
+
+    /// Validate a Nickel config against a JSON schema
+    #[cfg(feature = "schema")]
+    Schema {
+        /// Path to the Nickel configuration file
+        #[arg(value_name = "CONFIG")]
+        config: PathBuf,
+
+        /// Path to the JSON schema file
+        #[arg(value_name = "SCHEMA")]
+        schema: PathBuf,
+    },
+
     /// Show version and compliance information
     Info,
 }
 
 fn main() {
+    // Install miette's pretty error handler
+    miette::set_hook(Box::new(|_| {
+        Box::new(
+            miette::MietteHandlerOpts::new()
+                .terminal_links(true)
+                .unicode(true)
+                .context_lines(2)
+                .build(),
+        )
+    }))
+    .ok();
+
     let cli = Cli::parse();
 
     let result = match cli.command {
@@ -59,6 +100,18 @@ fn main() {
         }
         Some(Commands::Validate { file }) => {
             handle_validate(file, cli.verbose)
+        }
+        #[cfg(feature = "watch")]
+        Some(Commands::Watch { file, pretty }) => {
+            handle_watch(file, pretty, cli.verbose)
+        }
+        #[cfg(feature = "repl")]
+        Some(Commands::Repl) => {
+            handle_repl(cli.verbose)
+        }
+        #[cfg(feature = "schema")]
+        Some(Commands::Schema { config, schema }) => {
+            handle_schema(config, schema, cli.verbose)
         }
         Some(Commands::Info) => {
             handle_info();
@@ -72,10 +125,8 @@ fn main() {
     };
 
     if let Err(e) = result {
-        eprintln!("Error: {}", e);
-        if let Some(suggestion) = e.suggestion() {
-            eprintln!("\nSuggestion: {}", suggestion);
-        }
+        // Use miette's error reporting
+        eprintln!("{:?}", miette::Report::new(e));
         process::exit(1);
     }
 }
@@ -120,6 +171,147 @@ fn handle_validate(file: PathBuf, verbose: bool) -> bunsenite::Result<()> {
     Ok(())
 }
 
+/// Watch a file for changes and re-parse on save
+#[cfg(feature = "watch")]
+fn handle_watch(file: PathBuf, pretty: bool, verbose: bool) -> bunsenite::Result<()> {
+    use notify::{Config, RecommendedWatcher, RecursiveMode, Watcher};
+    use std::sync::mpsc::channel;
+    use std::time::Duration;
+
+    println!("Watching {} for changes (Ctrl+C to stop)...", file.display());
+
+    // Initial parse
+    if let Err(e) = handle_parse(file.clone(), pretty, verbose) {
+        eprintln!("{:?}", miette::Report::new(e));
+    }
+
+    let (tx, rx) = channel();
+
+    let mut watcher = RecommendedWatcher::new(
+        move |res| {
+            if let Ok(event) = res {
+                let _ = tx.send(event);
+            }
+        },
+        Config::default().with_poll_interval(Duration::from_millis(500)),
+    )
+    .map_err(|e| bunsenite::Error::watch_error(e.to_string()))?;
+
+    watcher
+        .watch(&file, RecursiveMode::NonRecursive)
+        .map_err(|e| bunsenite::Error::watch_error(e.to_string()))?;
+
+    loop {
+        match rx.recv() {
+            Ok(event) => {
+                if event.kind.is_modify() {
+                    println!("\n--- File changed, re-parsing... ---\n");
+                    if let Err(e) = handle_parse(file.clone(), pretty, verbose) {
+                        eprintln!("{:?}", miette::Report::new(e));
+                    }
+                }
+            }
+            Err(e) => {
+                return Err(bunsenite::Error::watch_error(e.to_string()));
+            }
+        }
+    }
+}
+
+/// Validate a Nickel config against a JSON schema
+#[cfg(feature = "schema")]
+fn handle_schema(config: PathBuf, schema: PathBuf, verbose: bool) -> bunsenite::Result<()> {
+    use bunsenite::SchemaValidator;
+
+    if verbose {
+        eprintln!("Validating {} against schema {}", config.display(), schema.display());
+    }
+
+    let loader = NickelLoader::new().with_verbose(verbose);
+    let result = loader.parse_file(&config)?;
+
+    let validator = SchemaValidator::from_file(&schema)?;
+    validator.validate(&result)?;
+
+    println!("✓ Configuration matches schema");
+
+    Ok(())
+}
+
+/// Interactive REPL for Nickel expressions
+#[cfg(feature = "repl")]
+fn handle_repl(verbose: bool) -> bunsenite::Result<()> {
+    use rustyline::error::ReadlineError;
+    use rustyline::DefaultEditor;
+
+    println!("Bunsenite v{} - Nickel REPL", VERSION);
+    println!("Type Nickel expressions to evaluate. Use :help for commands, :quit to exit.\n");
+
+    let mut rl = DefaultEditor::new().map_err(|e| bunsenite::Error::internal(e.to_string()))?;
+    let loader = NickelLoader::new().with_verbose(verbose);
+
+    loop {
+        match rl.readline("nickel> ") {
+            Ok(line) => {
+                let trimmed = line.trim();
+                if trimmed.is_empty() {
+                    continue;
+                }
+
+                // Handle REPL commands
+                match trimmed {
+                    ":quit" | ":q" | ":exit" => {
+                        println!("Goodbye!");
+                        break;
+                    }
+                    ":help" | ":h" => {
+                        println!("REPL Commands:");
+                        println!("  :help, :h     Show this help");
+                        println!("  :quit, :q     Exit the REPL");
+                        println!("  :clear, :c    Clear the screen");
+                        println!("  :version, :v  Show version info");
+                        println!("\nEnter any Nickel expression to evaluate it.");
+                        continue;
+                    }
+                    ":clear" | ":c" => {
+                        print!("\x1B[2J\x1B[1;1H");
+                        continue;
+                    }
+                    ":version" | ":v" => {
+                        println!("Bunsenite v{}", VERSION);
+                        continue;
+                    }
+                    _ => {}
+                }
+
+                let _ = rl.add_history_entry(&line);
+
+                match loader.parse(&trimmed, "<repl>") {
+                    Ok(result) => {
+                        println!("{}", serde_json::to_string_pretty(&result).unwrap());
+                    }
+                    Err(e) => {
+                        eprintln!("{:?}", miette::Report::new(e));
+                    }
+                }
+            }
+            Err(ReadlineError::Interrupted) => {
+                println!("^C");
+                continue;
+            }
+            Err(ReadlineError::Eof) => {
+                println!("Goodbye!");
+                break;
+            }
+            Err(e) => {
+                return Err(bunsenite::Error::internal(e.to_string()));
+            }
+        }
+    }
+
+    Ok(())
+}
+
 fn handle_info() {
     println!("Bunsenite v{}", VERSION);
     println!();
@@ -141,25 +333,33 @@ fn handle_info() {
 }
 
 fn get_help_text() -> String {
-    format!(
-        r#"Bunsenite v{VERSION}
-Nickel configuration file parser
-
-USAGE:
-    bunsenite <COMMAND>
-
-COMMANDS:
+    let mut commands = r#"COMMANDS:
     parse       Parse and evaluate a Nickel configuration file
-    validate    Validate a Nickel configuration without evaluating it
+    validate    Validate a Nickel configuration without evaluating it"#
+        .to_string();
+
+    #[cfg(feature = "watch")]
+    {
+        commands.push_str("\n    watch       Watch a file and re-evaluate on changes");
+    }
+
+    #[cfg(feature = "repl")]
+    {
+        commands.push_str("\n    repl        Start an interactive Nickel REPL");
+    }
+
+    #[cfg(feature = "schema")]
+    {
+        commands.push_str("\n    schema      Validate config against JSON schema");
+    }
+
+    commands.push_str(
+        r#"
     info        Show version and compliance information
-    help        Print this message or the help of the given subcommand(s)
+    help        Print this message or the help of the given subcommand(s)"#,
+    );
 
-OPTIONS:
-    -v, --verbose    Enable verbose output
-    -h, --help       Print help information
-    -V, --version    Print version information
-
-EXAMPLES:
+    let mut examples = r#"EXAMPLES:
     # Parse and evaluate a config file
     bunsenite parse config.ncl
 
@@ -167,10 +367,61 @@ EXAMPLES:
     bunsenite parse config.ncl --pretty
 
     # Validate without evaluating
-    bunsenite validate config.ncl
+    bunsenite validate config.ncl"#
+        .to_string();
+
+    #[cfg(feature = "watch")]
+    {
+        examples.push_str(
+            r#"
+
+    # Watch for changes
+    bunsenite watch config.ncl --pretty"#,
+        );
+    }
+
+    #[cfg(feature = "repl")]
+    {
+        examples.push_str(
+            r#"
+
+    # Start interactive REPL
+    bunsenite repl"#,
+        );
+    }
+
+    #[cfg(feature = "schema")]
+    {
+        examples.push_str(
+            r#"
+
+    # Validate against JSON schema
+    bunsenite schema config.ncl schema.json"#,
+        );
+    }
+
+    examples.push_str(
+        r#"
 
     # Show info
-    bunsenite info
+    bunsenite info"#,
+    );
+
+    format!(
+        r#"Bunsenite v{VERSION}
+Nickel configuration file parser
+
+USAGE:
+    bunsenite <COMMAND>
+
+{commands}
+
+OPTIONS:
+    -v, --verbose    Enable verbose output
+    -h, --help       Print help information
+    -V, --version    Print version information
+
+{examples}
 
 For more information, visit:
 https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite

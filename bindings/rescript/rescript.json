@@ -1,0 +1,20 @@
+{
+  "name": "bunsenite-rescript",
+  "sources": [
+    {
+      "dir": ".",
+      "subdirs": false
+    }
+  ],
+  "package-specs": [
+    {
+      "module": "es6",
+      "in-source": true
+    }
+  ],
+  "suffix": ".res.js",
+  "bs-dependencies": [],
+  "warnings": {
+    "error": "+101"
+  }
+}

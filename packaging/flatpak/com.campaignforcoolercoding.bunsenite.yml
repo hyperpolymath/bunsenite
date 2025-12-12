@@ -1,0 +1,32 @@
+app-id: com.campaignforcoolercoding.bunsenite
+runtime: org.freedesktop.Platform
+runtime-version: '23.08'
+sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.rust-stable
+  - org.freedesktop.Sdk.Extension.zig
+
+command: bunsenite
+
+finish-args:
+  - --filesystem=home:ro
+  - --filesystem=xdg-config:ro
+
+build-options:
+  append-path: /usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/zig/bin
+  env:
+    CARGO_HOME: /run/build/bunsenite/cargo
+    RUSTUP_HOME: /usr/lib/sdk/rust-stable
+
+modules:
+  - name: bunsenite
+    buildsystem: simple
+    build-commands:
+      - cargo build --release --features full
+      - cd zig && zig build -Doptimize=ReleaseFast
+      - install -Dm755 target/release/bunsenite /app/bin/bunsenite
+      - install -Dm755 zig/zig-out/lib/libbunsenite.so /app/lib/libbunsenite.so
+    sources:
+      - type: git
+        url: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite.git
+        tag: v1.0.0

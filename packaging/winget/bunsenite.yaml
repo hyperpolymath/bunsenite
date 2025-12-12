@@ -1,0 +1,42 @@
+# winget manifest for bunsenite
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.version.1.4.0.schema.json
+
+PackageIdentifier: CampaignForCoolerCoding.Bunsenite
+PackageVersion: 1.0.0
+PackageLocale: en-US
+Publisher: Campaign for Cooler Coding and Programming
+PublisherUrl: https://gitlab.com/campaign-for-cooler-coding-and-programming
+PackageName: Bunsenite
+PackageUrl: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite
+License: MIT OR Palimpsest-0.8
+LicenseUrl: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/blob/main/LICENSE-MIT
+ShortDescription: Nickel configuration file parser with multi-language FFI bindings
+Description: |
+  Bunsenite is a Nickel configuration file parser with multi-language FFI bindings.
+  It provides a Rust core library with a stable C ABI layer (via Zig) that enables
+  bindings for Deno (JavaScript/TypeScript), Rescript, and WebAssembly.
+
+  Features:
+  - Type Safety: Compile-time guarantees via Rust's type system
+  - Memory Safety: Rust ownership model, zero unsafe blocks
+  - Offline-First: Works completely air-gapped
+  - Multi-Language: FFI bindings for Deno, Rescript, and WASM
+
+  RSR Compliance: Bronze Tier | TPCF Perimeter: 3
+Tags:
+  - nickel
+  - config
+  - parser
+  - ffi
+  - rust
+  - cli
+Moniker: bunsenite
+Commands:
+  - bunsenite
+Installers:
+  - Architecture: x64
+    InstallerType: zip
+    InstallerUrl: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/releases/v1.0.0/downloads/bunsenite-1.0.0-x86_64-pc-windows-msvc.zip
+    InstallerSha256: TODO
+ManifestType: singleton
+ManifestVersion: 1.4.0

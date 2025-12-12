@@ -1,0 +1,44 @@
+Source: bunsenite
+Section: devel
+Priority: optional
+Maintainer: Campaign for Cooler Coding and Programming <packages@example.com>
+Build-Depends: debhelper-compat (= 13), cargo, rustc (>= 1.70), zig
+Standards-Version: 4.6.2
+Homepage: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite
+Vcs-Git: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite.git
+Vcs-Browser: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite
+Rules-Requires-Root: no
+
+Package: bunsenite
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Suggests: deno
+Description: Nickel configuration file parser with FFI bindings
+ Bunsenite is a Nickel configuration file parser with multi-language
+ FFI bindings. It provides a Rust core library with a stable C ABI
+ layer (via Zig) that enables bindings for Deno (JavaScript/TypeScript),
+ Rescript, and WebAssembly.
+ .
+ Features:
+  - Type Safety: Compile-time guarantees via Rust's type system
+  - Memory Safety: Rust ownership model, zero unsafe blocks
+  - Offline-First: Works completely air-gapped
+  - Multi-Language: FFI bindings for Deno, Rescript, and WASM
+ .
+ RSR Compliance: Bronze Tier | TPCF Perimeter: 3
+
+Package: libbunsenite-dev
+Architecture: any
+Section: libdevel
+Depends: libbunsenite1 (= ${binary:Version}), ${misc:Depends}
+Description: Nickel configuration file parser - development files
+ This package contains the development files for bunsenite,
+ including headers and static libraries for FFI integration.
+
+Package: libbunsenite1
+Architecture: any
+Section: libs
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Nickel configuration file parser - shared library
+ This package contains the shared library for bunsenite,
+ providing FFI access from Deno, Rescript, and other languages.

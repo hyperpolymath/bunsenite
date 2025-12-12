@@ -1,0 +1,28 @@
+#!/usr/bin/make -f
+# Debian rules file for bunsenite
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export CARGO_HOME = $(CURDIR)/.cargo
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	cargo build --release --features full
+	cd zig && zig build -Doptimize=ReleaseFast
+
+override_dh_auto_test:
+	cargo test --release
+
+override_dh_auto_install:
+	# Install binary
+	install -D -m 755 target/release/bunsenite debian/bunsenite/usr/bin/bunsenite
+	# Install shared library
+	install -D -m 644 zig/zig-out/lib/libbunsenite.so debian/libbunsenite1/usr/lib/$(DEB_HOST_MULTIARCH)/libbunsenite.so.1.0.0
+	ln -s libbunsenite.so.1.0.0 debian/libbunsenite1/usr/lib/$(DEB_HOST_MULTIARCH)/libbunsenite.so.1
+	# Install development files
+	install -D -m 644 zig/zig-out/lib/libbunsenite.so debian/libbunsenite-dev/usr/lib/$(DEB_HOST_MULTIARCH)/libbunsenite.so
+
+override_dh_auto_clean:
+	cargo clean || true
+	rm -rf zig/zig-out zig/zig-cache || true

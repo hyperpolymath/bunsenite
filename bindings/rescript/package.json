@@ -1,0 +1,61 @@
+{
+  "name": "bunsenite",
+  "version": "1.0.0",
+  "description": "Nickel configuration file parser - ReScript/Node.js bindings",
+  "main": "bunsenite_ffi_node.js",
+  "module": "bunsenite_ffi.js",
+  "types": "bunsenite.d.ts",
+  "exports": {
+    ".": {
+      "bun": "./bunsenite_ffi.js",
+      "node": "./bunsenite_ffi_node.js",
+      "default": "./bunsenite_ffi_node.js"
+    }
+  },
+  "scripts": {
+    "build": "rescript build",
+    "clean": "rescript clean",
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite.git"
+  },
+  "keywords": [
+    "nickel",
+    "config",
+    "parser",
+    "ffi",
+    "rescript"
+  ],
+  "author": "Campaign for Cooler Coding and Programming",
+  "license": "MIT OR Palimpsest-0.8",
+  "bugs": {
+    "url": "https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/issues"
+  },
+  "homepage": "https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite",
+  "peerDependencies": {
+    "ffi-napi": "^4.0.0",
+    "ref-napi": "^3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "ffi-napi": {
+      "optional": true
+    },
+    "ref-napi": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "bunsenite_ffi.js",
+    "bunsenite_ffi_node.js",
+    "Bunsenite.res",
+    "Bunsenite.res.js",
+    "bunsenite.d.ts",
+    "rescript.json",
+    "README.md"
+  ]
+}

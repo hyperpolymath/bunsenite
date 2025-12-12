@@ -71,6 +71,11 @@
 pub mod error;
 pub mod loader;
 
+/// JSON Schema validation for parsed Nickel configurations
+#[cfg(feature = "schema")]
+#[cfg_attr(docsrs, doc(cfg(feature = "schema")))]
+pub mod schema;
+
 /// C FFI exports for native bindings (Deno, ReScript via Zig)
 ///
 /// This module uses `unsafe` for FFI boundary crossing.
@@ -86,6 +91,9 @@ pub mod wasm;
 // Re-exports for convenience
 pub use error::{Error, Result};
 pub use loader::NickelLoader;
+
+#[cfg(feature = "schema")]
+pub use schema::{validate_config, SchemaValidator};
 
 /// Library version, updated automatically from Cargo.toml
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");
