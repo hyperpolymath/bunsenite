@@ -5,7 +5,7 @@
 [![RSR Bronze](https://img.shields.io/badge/RSR-Bronze-CD7F32)](https://example.com/rsr)
 [![TPCF Perimeter 3](https://img.shields.io/badge/TPCF-Perimeter%203-blue)](https://example.com/tpcf)
 [![License: MIT OR Palimpsest-0.8](https://img.shields.io/badge/License-MIT%20OR%20Palimpsest--0.8-green)](./LICENSE)
-[![Build Status](https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/badges/main/pipeline.svg)](https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/pipelines)
+[![Build Status](https://github.com/hyperpolymath/bunsenite/actions/workflows/ci.yml/badge.svg)](https://github.com/hyperpolymath/bunsenite/actions)
 
 == Overview
 
@@ -30,7 +30,7 @@ Bunsenite is a *Nickel configuration file parser* with a Rust core library and m
 cargo install bunsenite
 
 = From source
-git clone https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite.git
+git clone https://github.com/hyperpolymath/bunsenite.git
 cd bunsenite
 cargo install --path .
 ```
@@ -262,8 +262,8 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for:
 
 == Community
 
-- *Issues*: [GitLab Issues](https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/issues)
-- *Discussions*: [GitLab Discussions](https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/issues)
+- *Issues*: [GitHub Issues](https://github.com/hyperpolymath/bunsenite/issues)
+- *Discussions*: [GitHub Discussions](https://github.com/hyperpolymath/bunsenite/discussions)
 - *Security*: See [SECURITY.md](./SECURITY.md)
 
 == Acknowledgments
