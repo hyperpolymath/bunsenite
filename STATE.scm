@@ -335,12 +335,16 @@
     ;; ═══════════════════════════════════════════════════════════════════
 
     (files-modified-this-session
-     (".github/workflows/release.yml"
+     (".github/workflows/*.yml"  ; 17 workflow files fixed for OpenSSF Scorecard
       "STATE.scm"
-      "CLAUDE.md"
-      "Cargo.toml"
-      "packaging/arch/PKGBUILD"
-      "packaging/arch/PKGBUILD-bin"))
+      "CLAUDE.md"))
+
+    (openssf-scorecard-fixes
+     ((date . "2025-12-13")
+      (files-fixed . 17)
+      (fixes-applied . ("permissions: read-all"
+                        "SHA-pinned GitHub Actions"
+                        "SPDX-License-Identifier headers"))))
 
     (context-notes
      "Bunsenite v1.0.0 is complete with all planned features:
