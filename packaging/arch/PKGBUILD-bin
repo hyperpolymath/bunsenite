@@ -1,0 +1,33 @@
+# Maintainer: hyperpolymath <hyperpolymath@users.noreply.github.com>
+# Contributor: Campaign for Cooler Coding and Programming
+# Pre-built binary package for bunsenite
+
+pkgname=bunsenite-bin
+pkgver=1.0.2
+pkgrel=1
+pkgdesc="Nickel configuration file parser with multi-language FFI bindings (pre-built binary)"
+arch=('x86_64' 'aarch64')
+url="https://github.com/hyperpolymath/bunsenite"
+license=('MIT' 'custom:Palimpsest-0.8')
+depends=('gcc-libs')
+provides=('bunsenite')
+conflicts=('bunsenite')
+source_x86_64=("${pkgname}-${pkgver}-x86_64.tar.gz::https://github.com/hyperpolymath/bunsenite/releases/download/v${pkgver}/bunsenite-v${pkgver}-x86_64-unknown-linux-gnu.tar.gz")
+source_aarch64=("${pkgname}-${pkgver}-aarch64.tar.gz::https://github.com/hyperpolymath/bunsenite/releases/download/v${pkgver}/bunsenite-v${pkgver}-aarch64-unknown-linux-gnu.tar.gz")
+sha256sums_x86_64=('cca819ddf5459163c49877e6284f2910f2fd7e6ad39c7f824152831a01d2c07e')
+sha256sums_aarch64=('1393cd3ba4e476e18e806105ce1d621e080ebb4c06950ed50524efb32db22618')
+
+package() {
+    install -Dm755 "${srcdir}/bunsenite" "${pkgdir}/usr/bin/bunsenite"
+
+    # Install shared library if present
+    if [[ -f "${srcdir}/libbunsenite.so" ]]; then
+        install -Dm755 "${srcdir}/libbunsenite.so" "${pkgdir}/usr/lib/libbunsenite.so"
+    fi
+
+    # Install license
+    install -Dm644 "${srcdir}/LICENSE.txt" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+
+    # Install README
+    install -Dm644 "${srcdir}/README.adoc" "${pkgdir}/usr/share/doc/${pkgname}/README.adoc"
+}

@@ -6,7 +6,7 @@
 
 (define state
   '((metadata
-     (version . "1.0.0")
+     (version . "1.0.2")
      (created . "2025-12-08")
      (updated . "2025-12-12")
      (generator . "claude-opus-4"))
@@ -167,23 +167,23 @@
 
      ((id . "github-release")
       (name . "Create GitHub Release")
-      (status . in-progress)
-      (completion . 50)
+      (status . complete)
+      (completion . 100)
       (category . infra)
-      (phase . "ready")
+      (phase . "released")
       (depends . (rust-core))
-      (notes . "Workflow exists, needs v1.0.0 tag")
-      (next-action . "git tag v1.0.0 && git push --tags"))
+      (notes . "v1.0.2 released with all platform binaries")
+      (next-action . "none"))
 
      ((id . "package-managers")
       (name . "Submit to Package Managers")
       (status . in-progress)
-      (completion . 20)
+      (completion . 60)
       (category . infra)
-      (phase . "packaging-ready")
+      (phase . "partially-complete")
       (depends . (github-release))
-      (notes . "AUR, Homebrew, Flathub, nixpkgs, Chocolatey, winget, Scoop")
-      (next-action . "submit after release artifacts available"))
+      (notes . "Homebrew tap updated. AUR PKGBUILDs ready. Flathub, nixpkgs, Chocolatey, winget, Scoop pending.")
+      (next-action . "submit to remaining package managers"))
 
      ;; ─────────────────────────────────────────────────────────────────
      ;; FUTURE WORK (PLANNED)
@@ -287,21 +287,21 @@
 
     (critical-next
      ((priority . 1)
-      (action . "Create wiki page")
-      (project . "docs")
-      (command . "via GitHub wiki")
+      (action . "Submit AUR packages")
+      (project . "package-managers")
+      (command . "git clone ssh://aur@aur.archlinux.org/bunsenite-bin.git")
       (deadline . #f))
 
      ((priority . 2)
-      (action . "Tag v1.0.0 release")
-      (project . "github-release")
-      (command . "git tag -a v1.0.0 -m 'Release v1.0.0' && git push --tags")
+      (action . "Submit to nixpkgs")
+      (project . "package-managers")
+      (command . "PR to nixpkgs repo")
       (deadline . #f))
 
      ((priority . 3)
-      (action . "Submit to package managers")
+      (action . "Submit remaining package managers")
       (project . "package-managers")
-      (command . "multiple submissions")
+      (command . "Flathub, Chocolatey, winget, Scoop")
       (deadline . #f)))
 
     ;; ═══════════════════════════════════════════════════════════════════
@@ -323,16 +323,24 @@
       (milestone . "v1.0.0 complete")
       (completed . (zig-ffi deno-bindings rescript-bindings error-messages
                     schema-validation watch-mode repl))
-      (notes . "All MVP features complete, ready for release")))
+      (notes . "All MVP features complete, ready for release"))
+
+     ((date . "2025-12-13")
+      (milestone . "v1.0.2 released")
+      (completed . (github-release homebrew-tap aur-pkgbuild))
+      (notes . "Released to GitHub, Homebrew tap updated, AUR PKGBUILDs created")))
 
     ;; ═══════════════════════════════════════════════════════════════════
     ;; SESSION TRACKING
     ;; ═══════════════════════════════════════════════════════════════════
 
     (files-modified-this-session
-     (".github/workflows/rsr-antipattern.yml"
+     (".github/workflows/release.yml"
       "STATE.scm"
-      "CLAUDE.md"))
+      "CLAUDE.md"
+      "Cargo.toml"
+      "packaging/arch/PKGBUILD"
+      "packaging/arch/PKGBUILD-bin"))
 
     (context-notes
      "Bunsenite v1.0.0 is complete with all planned features:
