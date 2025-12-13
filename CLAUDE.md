@@ -179,11 +179,16 @@ just rsr-report        # Generate compliance report
 - WebAssembly bindings
 - Justfile for builds
 
-**NOT ALLOWED:**
+**NOT ALLOWED (RSR Compliance):**
 - Plain TypeScript (Deno .ts files are FFI, not compiled TS)
 - Shell scripts (use Justfile)
 - npm/bun for primary build (package.json for ReScript npm publishing only)
+- bun:ffi (ALWAYS use Deno.dlopen instead)
+- ffi-napi / Node.js FFI (ALWAYS use Deno.dlopen instead)
 - Python (except SaltStack support contexts)
+
+**IMPORTANT:** If JavaScript FFI is needed, ALWAYS use Deno's Deno.dlopen.
+Never create bun:ffi or node ffi-napi files. This is a strict RSR requirement.
 
 **Future:**
 - TUI: Ada/SPARK (planned for v2.0)
@@ -231,6 +236,28 @@ The `STATE.scm` file tracks project state in machine-readable Scheme format. Upd
 - No shell scripts (Justfile only)
 - Offline-first design
 - Emotional safety considerations
+
+## CI/CD Notes
+
+**Build Times (per platform):**
+- Rust compilation: ~7-10 minutes (with `--features full`)
+- Zig FFI build: ~30 seconds
+- Packaging/upload: ~1 minute
+- Total: ~10-15 minutes per platform
+
+**Important:** Build times do NOT affect end users - they download pre-built binaries.
+These times are CI/CD only (release workflow on tag push).
+
+**Optimization opportunities:**
+- Cargo caching is configured but GitHub's cache service can be unreliable
+- Consider reducing targets if not all platforms are needed
+- Cross-compilation (aarch64-linux) uses Docker containers and is slower
+
+**Zig FFI Status by Platform:**
+- Linux x86_64: Full Zig FFI support
+- macOS (both archs): Full Zig FFI support
+- Linux aarch64: Rust binary only (cross-compilation, Zig FFI skipped)
+- Windows: Rust binary only (Zig FFI skipped, needs import library setup)
 
 ## Changelog
 

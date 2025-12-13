@@ -220,9 +220,43 @@
      (memory-safety . "rust-ownership")
      (no-typescript . #t)  ; Deno FFI uses .ts but is Deno.dlopen, not plain TS
      (no-npm . #t)         ; ReScript package.json is for npm publishing only
+     (no-bun . #t)         ; DO NOT use bun:ffi - always use Deno.dlopen
+     (no-node . #t)        ; DO NOT use ffi-napi - always use Deno.dlopen
      (no-python . #t)
      (no-shell-scripts . #t)
      (justfile . #t))
+
+    ;; ═══════════════════════════════════════════════════════════════════
+    ;; CI/CD NOTES
+    ;; ═══════════════════════════════════════════════════════════════════
+    ;;
+    ;; Build times (per platform):
+    ;;   - Rust compilation: ~7-10 minutes (with --features full)
+    ;;   - Zig FFI build: ~30 seconds
+    ;;   - Packaging/upload: ~1 minute
+    ;;   - Total: ~10-15 minutes per platform
+    ;;
+    ;; Optimization opportunities:
+    ;;   - Enable Cargo caching (configured but GitHub cache sometimes fails)
+    ;;   - Consider fewer targets if not all are needed
+    ;;   - Cross-compilation (aarch64-linux) uses Docker and is slower
+    ;;
+    ;; Build times do NOT affect end users - they download pre-built binaries.
+    ;; These times are CI/CD only (release workflow on tag push).
+
+    (cicd
+     (rust-compile-time . "7-10 minutes")
+     (zig-ffi-time . "30 seconds")
+     (total-per-platform . "10-15 minutes")
+     (targets . (x86_64-unknown-linux-gnu
+                 aarch64-unknown-linux-gnu
+                 x86_64-apple-darwin
+                 aarch64-apple-darwin
+                 x86_64-pc-windows-msvc))
+     (zig-ffi-platforms . (x86_64-unknown-linux-gnu
+                           x86_64-apple-darwin
+                           aarch64-apple-darwin))
+     (notes . "Zig FFI skipped for cross-compiled (aarch64-linux) and Windows targets"))
 
     ;; ═══════════════════════════════════════════════════════════════════
     ;; ROUTE TO V1.0.0 RELEASE
