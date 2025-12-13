@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
 # separate terms of service, privacy policy, and support
@@ -15,6 +16,9 @@ on:
   workflow_dispatch:
   release:
     types: [created]
+
+
+permissions: read-all
 
 jobs:
   build:

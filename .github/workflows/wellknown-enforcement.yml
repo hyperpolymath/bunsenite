@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 name: Well-Known Standards (RFC 9116 + RSR)
 on:
   push:
@@ -12,6 +13,9 @@ on:
     # Weekly expiry check
     - cron: '0 9 * * 1'
   workflow_dispatch:
+
+
+permissions: read-all
 
 jobs:
   validate:

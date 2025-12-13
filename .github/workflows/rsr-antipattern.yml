@@ -12,6 +12,9 @@ on:
   pull_request:
     branches: [main, master, develop]
 
+
+permissions: read-all
+
 jobs:
   antipattern-check:
     runs-on: ubuntu-latest
