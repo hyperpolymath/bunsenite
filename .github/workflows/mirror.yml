@@ -15,6 +15,8 @@ jobs:
   mirror-gitlab:
     runs-on: ubuntu-latest
     if: ${{ vars.GITLAB_MIRROR_ENABLED == 'true' }}
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout
@@ -34,6 +36,8 @@ jobs:
   mirror-bitbucket:
     runs-on: ubuntu-latest
     if: ${{ vars.BITBUCKET_MIRROR_ENABLED == 'true' }}
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout

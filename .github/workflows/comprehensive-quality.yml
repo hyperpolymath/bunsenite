@@ -13,6 +13,8 @@ jobs:
   # DEPENDABILITY - Stability and reliability
   dependability:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Check test coverage
@@ -32,6 +34,8 @@ jobs:
   # SECURITY - Multi-layer security scanning
   security:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Secret scanning
@@ -52,6 +56,8 @@ jobs:
   # INTEROPERABILITY - API and format compatibility
   interoperability:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Check API specs
@@ -69,6 +75,8 @@ jobs:
   # VALIDATION - Input/output validation
   validation:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Check for validation patterns
@@ -99,6 +107,8 @@ jobs:
   # VERIFICATION - Formal methods where applicable
   verification:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Check SPARK proofs
@@ -115,6 +125,8 @@ jobs:
   # FUNCTIONALITY - Feature completeness
   functionality:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Check TODOs and FIXMEs
@@ -128,6 +140,8 @@ jobs:
   # PERFORMANCE - Benchmarks and profiling
   performance:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Check for benchmarks
@@ -145,6 +159,8 @@ jobs:
   accessibility:
     runs-on: ubuntu-latest
     if: hashFiles('**/*.html') != ''
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: HTML accessibility check
@@ -159,6 +175,8 @@ jobs:
   # LICENSE COMPLIANCE
   license:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Check license files
@@ -177,6 +195,8 @@ jobs:
   # DOCUMENTATION QUALITY
   documentation:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Check docs completeness
