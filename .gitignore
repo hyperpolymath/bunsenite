@@ -1,57 +1,79 @@
-# Rust
-/target/
-**/*.rs.bk
-*.pdb
-Cargo.lock
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# RSR-compliant .gitignore
 
-# WASM
-/pkg/
-/pkg-node/
-/wasm-pack.log
-
-# IDEs
-.idea/
-.vscode/
+# OS & Editor
+.DS_Store
+Thumbs.db
 *.swp
 *.swo
 *~
-.DS_Store
+.idea/
+.vscode/
 
-# OS
-Thumbs.db
-.directory
+# Build
+/target/
+/_build/
+/build/
+/dist/
+/out/
 
-# Testing
-/target/coverage/
-*.profraw
-*.profdata
+# Dependencies
+/node_modules/
+/vendor/
+/deps/
+/.elixir_ls/
 
-# Documentation
-/target/doc/
+# Rust
+# Cargo.lock  # Keep for binaries
 
-# Build artifacts
-*.so
-*.dylib
-*.dll
-*.a
-*.lib
+# Elixir
+/cover/
+/doc/
+*.ez
+erl_crash.dump
 
-# Temporary files
-*.tmp
-*.temp
-*.log
+# Julia
+*.jl.cov
+*.jl.mem
+/Manifest.toml
 
-# Node/Deno
-node_modules/
-.deno/
+# ReScript
+/lib/bs/
+/.bsb.lock
 
-# Nix
-result
-result-*
+# Python (SaltStack only)
+__pycache__/
+*.py[cod]
+.venv/
 
-# Environment
+# Ada/SPARK
+*.ali
+/obj/
+/bin/
+
+# Haskell
+/.stack-work/
+/dist-newstyle/
+
+# Chapel
+*.chpl.tmp.*
+
+# Secrets
 .env
-.env.local
+.env.*
+*.pem
+*.key
+secrets/
 
-# Cache
-.cargo/
+# Test/Coverage
+/coverage/
+htmlcov/
+
+# Logs
+*.log
+/logs/
+
+# Temp
+/tmp/
+*.tmp
+*.bak
