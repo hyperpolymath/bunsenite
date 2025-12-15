@@ -35,7 +35,7 @@
 
 (define development-practices
   '((code-style
-     (languages . ("Just" "Makefile" "Nix" "ReScript" "Ruby" "Rust" "Scheme" "Shell" "Tcl" "TypeScript" "Zig"))
+     (languages . ("Dockerfile" "Just" "Makefile" "Nix" "ReScript" "Ruby" "Rust" "Scheme" "Shell" "Tcl" "TypeScript" "Zig"))
      (formatter . "auto-detect")
      (linter . "auto-detect")
      (line-length . 100)
