@@ -1,26 +1,19 @@
-SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Palimpsest-0.5
-
-This software is dual-licensed under:
-  1. GNU Affero General Public License v3.0 or later
-  2. Palimpsest License v0.5
-
-See https://spdx.org/licenses/ for license details.
-================================================================================
-
-Bunsenite is dual-licensed under your choice of either:
-
-- MIT License (LICENSE-MIT below)
-- Palimpsest License v0.8 (LICENSE-PALIMPSEST below)
-
-You may use this software under the terms of either license.
+SPDX-License-Identifier: MIT OR AGPL-3.0-or-later
+SPDX-FileCopyrightText: 2024-2025 hyperpolymath
 
 ================================================================================
-LICENSE-MIT
+DUAL LICENSE: MIT OR AGPL-3.0-or-later
 ================================================================================
 
-MIT License
+This project is dual-licensed under the MIT License OR the GNU Affero General
+Public License v3.0 or later. You may choose to use, copy, modify, and
+distribute this work under the terms of EITHER license (your choice).
 
-Copyright (c) 2025 Campaign for Cooler Coding and Programming
+--------------------------------------------------------------------------------
+MIT LICENSE
+--------------------------------------------------------------------------------
+
+Copyright (c) 2024-2025 hyperpolymath
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -40,140 +33,59 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+--------------------------------------------------------------------------------
+GNU AFFERO GENERAL PUBLIC LICENSE v3.0 OR LATER
+--------------------------------------------------------------------------------
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU Affero General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option) any
+later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+details.
+
+You should have received a copy of the GNU Affero General Public License along
+with this program. If not, see <https://www.gnu.org/licenses/>.
+
+The full text of the AGPL-3.0 is available at:
+  https://www.gnu.org/licenses/agpl-3.0.txt
+
+--------------------------------------------------------------------------------
+CHOOSING YOUR LICENSE
+--------------------------------------------------------------------------------
+
+You may choose to use this work under:
+  1. MIT License - Standard permissive open source license
+  2. AGPL-3.0-or-later - Copyleft license requiring source disclosure for
+     network services
+
+For most uses, MIT License provides maximum flexibility.
+For ensuring open source remains open (especially for SaaS/network services),
+AGPL-3.0-or-later provides stronger protections.
+
 ================================================================================
-LICENSE-PALIMPSEST v0.8
+PALIMPSEST PHILOSOPHICAL OVERLAY (NON-BINDING)
 ================================================================================
 
-Palimpsest License v0.8
+This project encourages (but does not legally require) adherence to the
+principles of the Palimpsest License - a framework for consent-based digital
+interaction and the future web.
 
-Copyright (c) 2025 Campaign for Cooler Coding and Programming
+Core Principles (Encouraged):
+  - Respect for emotional and creative lineage
+  - Transparent AI training practices with explicit consent
+  - Preservation of metadata and attribution
+  - Protection of narrative intent and cultural context
 
-PREAMBLE
+The Palimpsest principles represent our vision for a consent-based internet.
+While not legally binding for use of this software, we encourage all users
+and contributors to familiarize themselves with these principles.
 
-The Palimpsest License embodies principles of reversibility, emotional safety,
-and political autonomy in software development. It ensures that all changes
-remain traceable, experimentation is encouraged, and communities maintain
-sovereignty over their technical decisions.
+Learn more: https://github.com/hyperpolymath/palimpsest-license
 
-This license grants you extensive freedoms while preserving the ability to
-understand, reverse, and learn from all modifications.
-
-TERMS AND CONDITIONS
-
-1. DEFINITIONS
-
-"Software" refers to the program, library, or work licensed under this license.
-
-"Modification" means any change to the Software, including additions, deletions,
-or alterations to the source code, documentation, or associated files.
-
-"Distribution" means providing the Software or Modifications to any third party
-by any means.
-
-"Reversibility" means the ability to understand, trace, and undo any Modification
-through version control history, documentation, or other recorded means.
-
-2. GRANT OF LICENSE
-
-Subject to the terms of this license, you are granted a perpetual, worldwide,
-non-exclusive, no-charge, royalty-free license to:
-
-a) Use the Software for any purpose
-b) Study how the Software works and modify it
-c) Redistribute copies of the Software
-d) Distribute your Modifications
-
-3. REVERSIBILITY REQUIREMENTS
-
-All Modifications must preserve Reversibility:
-
-a) Version Control: Modifications must be tracked in a version control system
-   (e.g., Git, Mercurial) that records:
-   - What changed
-   - Who made the change
-   - When the change was made
-   - Why the change was made (via commit messages)
-
-b) Documentation: Significant Modifications should include documentation
-   explaining the rationale and impact of changes.
-
-c) Attribution: Modifications must preserve existing attribution and add
-   appropriate attribution for new work.
-
-4. EMOTIONAL SAFETY
-
-This license promotes emotional safety in development:
-
-a) Experimentation: You are encouraged to experiment freely, knowing all
-   changes are reversible.
-
-b) Anxiety Reduction: The ability to undo changes reduces anxiety around
-   making mistakes.
-
-c) Learning: Reversibility enables learning from both successes and failures.
-
-5. POLITICAL AUTONOMY
-
-Communities using this Software maintain technical sovereignty:
-
-a) No Gatekeeping: No entity may restrict access to the Software or its
-   Modifications based on political views, geographic location, or other
-   discriminatory criteria (except as required by law).
-
-b) Fork Freedom: You may fork and maintain independent versions without
-   restriction.
-
-c) Decision Independence: Communities may make technical decisions autonomously.
-
-6. DISTRIBUTION REQUIREMENTS
-
-When Distributing the Software or Modifications:
-
-a) Include this license text
-b) Preserve copyright notices
-c) Provide access to version control history (or include CHANGELOG)
-d) Make source code available (for binary distributions)
-
-7. NO WARRANTY
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-
-8. LIMITATION OF LIABILITY
-
-IN NO EVENT SHALL THE COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
-OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-IN THE SOFTWARE.
-
-9. COMPATIBILITY
-
-This license is compatible with:
-- MIT License
-- Apache License 2.0
-- BSD licenses
-- GPL v3 (when used as the "or later" clause)
-
-10. TERMINATION
-
-This license terminates automatically if you fail to comply with its terms.
-Upon termination, you must cease Distribution but may continue to use your
-existing copies.
-
-11. INTERPRETATION
-
-This license should be interpreted in favor of:
-- Reversibility and traceability
-- Developer emotional safety
-- Community autonomy
-- Maximum freedom consistent with these principles
-
+================================================================================
 END OF LICENSE
-
 ================================================================================
-
-For more information:
-- MIT License: https://opensource.org/licenses/MIT
-- Palimpsest License: https://palingenesis.org/palimpsest-license
-- Project: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite
