@@ -18,22 +18,38 @@ jobs:
     if: ${{ vars.GITLAB_MIRROR_ENABLED == 'true' }}
 
     steps:
+      - name: Check SSH key configured
+        id: check-key
+        env:
+          SSH_KEY: ${{ secrets.GITLAB_SSH_KEY }}
+        run: |
+          if [ -z "$SSH_KEY" ]; then
+            echo "::warning::GITLAB_SSH_KEY secret not configured. Skipping GitLab mirror."
+            echo "configured=false" >> $GITHUB_OUTPUT
+          else
+            echo "configured=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Checkout
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        if: steps.check-key.outputs.configured == 'true'
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
 
       - name: Setup SSH
-        uses: webfactory/ssh-agent@dc588b651fe13675774614f8e6a936a468676387 # v0.9.0
+        if: steps.check-key.outputs.configured == 'true'
+        uses: webfactory/ssh-agent@a6f90b1f127823b31c7c27b366ef5d486f4fe3c1 # v0.9.1
         with:
           ssh-private-key: ${{ secrets.GITLAB_SSH_KEY }}
 
       - name: Add GitLab to known hosts
+        if: steps.check-key.outputs.configured == 'true'
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan -t ed25519 gitlab.com >> ~/.ssh/known_hosts
 
       - name: Push to GitLab
+        if: steps.check-key.outputs.configured == 'true'
         env:
           REPO_NAME: ${{ github.event.repository.name }}
         run: |
@@ -48,22 +64,38 @@ jobs:
     if: ${{ vars.BITBUCKET_MIRROR_ENABLED == 'true' }}
 
     steps:
+      - name: Check SSH key configured
+        id: check-key
+        env:
+          SSH_KEY: ${{ secrets.BITBUCKET_SSH_KEY }}
+        run: |
+          if [ -z "$SSH_KEY" ]; then
+            echo "::warning::BITBUCKET_SSH_KEY secret not configured. Skipping Bitbucket mirror."
+            echo "configured=false" >> $GITHUB_OUTPUT
+          else
+            echo "configured=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Checkout
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        if: steps.check-key.outputs.configured == 'true'
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
 
       - name: Setup SSH
-        uses: webfactory/ssh-agent@dc588b651fe13675774614f8e6a936a468676387 # v0.9.0
+        if: steps.check-key.outputs.configured == 'true'
+        uses: webfactory/ssh-agent@a6f90b1f127823b31c7c27b366ef5d486f4fe3c1 # v0.9.1
         with:
           ssh-private-key: ${{ secrets.BITBUCKET_SSH_KEY }}
 
       - name: Add Bitbucket to known hosts
+        if: steps.check-key.outputs.configured == 'true'
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan -t ed25519 bitbucket.org >> ~/.ssh/known_hosts
 
       - name: Push to Bitbucket
+        if: steps.check-key.outputs.configured == 'true'
         env:
           REPO_NAME: ${{ github.event.repository.name }}
         run: |
