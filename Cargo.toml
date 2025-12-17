@@ -10,7 +10,7 @@ repository = "https://github.com/hyperpolymath/bunsenite"
 license = "MIT OR Palimpsest-0.8"
 keywords = ["nickel", "config", "parser", "ffi", "wasm"]
 categories = ["config", "parsing", "wasm", "api-bindings"]
-readme = "README.md"
+readme = "README.adoc"
 exclude = [
     "/.git",
     "/.gitlab",
