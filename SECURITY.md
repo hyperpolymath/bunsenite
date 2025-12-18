@@ -6,8 +6,8 @@ We take security seriously and provide security updates for the following versio
 
 | Version | Supported          | Notes                    |
 | ------- | ------------------ | ------------------------ |
-| 0.1.x   | :white_check_mark: | Current stable release   |
-| < 0.1.0 | :x:                | Pre-release, not supported |
+| 1.0.x   | :white_check_mark: | Current stable release   |
+| < 1.0.0 | :x:                | Pre-release, not supported |
 
 ## Security Guarantees
 
@@ -48,9 +48,8 @@ Bunsenite provides the following security guarantees:
 
 Report security vulnerabilities via:
 
-1. **Email**: security@example.com <!-- TODO: Update with real email -->
-2. **Encrypted email**: Use our PGP key (see `.well-known/security.txt`)
-3. **GitLab Security**: Use GitLab's confidential issue feature
+1. **GitHub Security Advisories**: [Create a new security advisory](https://github.com/hyperpolymath/bunsenite/security/advisories/new) (preferred)
+2. **GitLab Confidential Issue**: Use GitLab's confidential issue feature
 
 ### What to Include
 
@@ -182,8 +181,7 @@ We use:
 
 ## Contact
 
-- **Security email**: security@example.com <!-- TODO: Update -->
-- **PGP key**: See `.well-known/security.txt`
+- **GitHub Security Advisories**: [Report a vulnerability](https://github.com/hyperpolymath/bunsenite/security/advisories/new)
 - **Security.txt**: See `.well-known/security.txt` (RFC 9116 compliant)
 
 ## Attribution
@@ -212,5 +210,5 @@ We support security researchers and the white-hat community.
 
 ---
 
-**Last updated**: 2025-11-22
-**Version**: 0.1.0
+**Last updated**: 2025-12-18
+**Version**: 1.0.2

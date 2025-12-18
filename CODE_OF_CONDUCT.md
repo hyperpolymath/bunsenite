@@ -45,7 +45,7 @@ This Code of Conduct applies within all community spaces, and also applies when 
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the community leaders responsible for enforcement at:
 
-- **Email**: conduct@example.com <!-- TODO: Update with real email -->
+- **GitHub Issues**: [Report a concern](https://github.com/hyperpolymath/bunsenite/issues/new?labels=conduct)
 - **GitLab**: Confidential issue on the repository
 
 All complaints will be reviewed and investigated promptly and fairly.
