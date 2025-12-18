@@ -110,12 +110,12 @@ web-scraping: allowed
 # ===================
 # For questions about AI usage of this codebase:
 
-contact: mailto:ai-policy@example.com
-contact: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/issues
+contact: https://github.com/hyperpolymath/bunsenite/issues
+contact: https://gitlab.com/hyperpolymath/bunsenite/-/issues
 
 # Additional Resources
 # ====================
-# - Project: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite
+# - Project: https://github.com/hyperpolymath/bunsenite
 # - License: LICENSE (dual MIT + Palimpsest 0.8)
 # - AI Guide: CLAUDE.md
 # - Contributing: CONTRIBUTING.md
@@ -124,8 +124,8 @@ contact: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite
 # Version and Expiration
 # =======================
 version: 1.0.0
-last-updated: 2025-11-22
-review-date: 2026-11-22
+last-updated: 2025-12-18
+review-date: 2026-12-18
 
 # Notes
 # =====
@@ -138,5 +138,3 @@ review-date: 2026-11-22
 # We believe AI can amplify human creativity when used ethically and
 # transparently. This policy aims to maximize benefit while preserving
 # our community values.
-
-# TODO: Update ai-policy@example.com with real contact

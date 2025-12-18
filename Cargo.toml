@@ -116,4 +116,4 @@ offline-first = true
 type-safety = "compile-time"
 memory-safety = "rust-ownership"
 tpcf-perimeter = 3  # Community Sandbox
-security-contact = "security@example.com"  # TODO: Update with real contact
+security-contact = "https://github.com/hyperpolymath/bunsenite/security/advisories/new"

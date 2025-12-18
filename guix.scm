@@ -11,15 +11,17 @@
 (define-public bunsenite
   (package
     (name "bunsenite")
-    (version "0.1.0")
+    (version "1.0.2")
     (source (local-file "." "bunsenite-checkout"
                         #:recursive? #t
                         #:select? (git-predicate ".")))
     (build-system cargo-build-system)
-    (synopsis "Rust application")
-    (description "Rust application - part of the RSR ecosystem.")
+    (synopsis "Nickel configuration file parser with multi-language FFI bindings")
+    (description "Bunsenite provides a Rust core library with a stable C ABI layer (via Zig)
+that enables bindings for Deno (JavaScript/TypeScript), ReScript, and WebAssembly
+for browser and universal use.")
     (home-page "https://github.com/hyperpolymath/bunsenite")
-    (license license:agpl3+)))
+    (license license:expat)))
 
 ;; Return package for guix shell
 bunsenite

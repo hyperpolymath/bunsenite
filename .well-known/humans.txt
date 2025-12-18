@@ -5,8 +5,8 @@
 
 Project Lead & Founder: Campaign for Cooler Coding and Programming
 Location: Worldwide
-Email: maintainers@example.com
-GitLab: @cccp
+GitHub: @hyperpolymath
+GitLab: @hyperpolymath
 
 /* THANKS */
 
@@ -31,7 +31,7 @@ All Contributors (Perimeter 3)
 
 /* SITE */
 
-Last updated: 2025-11-22
+Last updated: 2025-12-18
 Standards: RSR Bronze Tier, TPCF Perimeter 3
 Languages: Rust, Zig, TypeScript (Deno), Rescript, WebAssembly
 Doctype: GitLab Repository
@@ -59,13 +59,13 @@ See LICENSE file for full terms
 /* PROJECT */
 
 Name: Bunsenite
-Version: 0.1.0
+Version: 1.0.2
 Description: Nickel configuration file parser with multi-language FFI bindings
-Repository: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite
-Homepage: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite
-Issues: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/issues
-CI/CD: GitLab CI
-Package: crates.io/crates/bunsenite (coming soon)
+Repository: https://github.com/hyperpolymath/bunsenite
+Homepage: https://github.com/hyperpolymath/bunsenite
+Issues: https://github.com/hyperpolymath/bunsenite/issues
+CI/CD: GitHub Actions + GitLab CI
+Package: crates.io/crates/bunsenite
 
 /* ARCHITECTURE */
 
@@ -155,7 +155,7 @@ No network deps: Offline-first design
 Regular audits: cargo audit in CI
 
 Report vulnerabilities:
-  Email: security@example.com
+  GitHub: https://github.com/hyperpolymath/bunsenite/security/advisories/new
   GitLab: Confidential issue
   Response: Within 48 hours
 
@@ -163,10 +163,10 @@ See SECURITY.md for full policy
 
 /* CONTACT */
 
-General: maintainers@example.com
-Security: security@example.com
-Code of Conduct: conduct@example.com
-GitLab Issues: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/issues
+General: https://github.com/hyperpolymath/bunsenite/issues
+Security: https://github.com/hyperpolymath/bunsenite/security/advisories/new
+GitHub: https://github.com/hyperpolymath
+GitLab: https://gitlab.com/hyperpolymath
 
 /* ATTRIBUTION */
 
@@ -201,7 +201,5 @@ We are part of a larger movement toward:
 
 /* END */
 
-Made with ❤️ by humans, for humans.
+Made with care by humans, for humans.
 Politically autonomous software for emotionally safe development.
-
-TODO: Update email addresses with real contacts

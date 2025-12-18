@@ -10,8 +10,7 @@ These individuals have write access to the main repository and make final decisi
 
 - **Campaign for Cooler Coding and Programming** (@cccp)
   - Role: Lead Maintainer, Project Founder
-  - Email: maintainers@example.com <!-- TODO: Update -->
-  - PGP: See `.well-known/security.txt`
+  - Contact: [GitHub Issues](https://github.com/hyperpolymath/bunsenite/issues)
   - Focus: Overall architecture, releases, community
 
 ### Trusted Contributors (Perimeter 2)
@@ -85,7 +84,7 @@ This project uses the **Tri-Perimeter Contribution Framework**:
 
 ### Security
 - **Lead**: Core Team
-- **Contact**: security@example.com <!-- TODO: Update -->
+- **Contact**: [GitHub Security Advisories](https://github.com/hyperpolymath/bunsenite/security/advisories/new)
 - **Focus**: Vulnerability response, security audits, dependency audits
 - **Reviewers**: Core Team only
 
@@ -187,10 +186,10 @@ Maintainers may step down at any time:
 
 ## Contact
 
-- **General**: maintainers@example.com <!-- TODO: Update -->
-- **Security**: security@example.com <!-- TODO: Update -->
-- **Code of Conduct**: conduct@example.com <!-- TODO: Update -->
-- **GitLab**: [@cccp](https://gitlab.com/cccp)
+- **General**: [GitHub Issues](https://github.com/hyperpolymath/bunsenite/issues)
+- **Security**: [GitHub Security Advisories](https://github.com/hyperpolymath/bunsenite/security/advisories/new)
+- **GitHub**: [@hyperpolymath](https://github.com/hyperpolymath)
+- **GitLab**: [@hyperpolymath](https://gitlab.com/hyperpolymath)
 
 ## Acknowledgments
 
