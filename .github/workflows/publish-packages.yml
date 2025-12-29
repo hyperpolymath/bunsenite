@@ -218,3 +218,35 @@ jobs:
               "version": "${{ needs.extract-release-info.outputs.version }}",
               "tag": "${{ needs.extract-release-info.outputs.tag }}"
             }
+
+  dispatch-obs:
+    name: Dispatch OBS (openSUSE)
+    needs: extract-release-info
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger OBS publisher
+        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        with:
+          token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          event-type: publish-obs
+          client-payload: >-
+            {
+              "version": "${{ needs.extract-release-info.outputs.version }}",
+              "tag": "${{ needs.extract-release-info.outputs.tag }}"
+            }
+
+  dispatch-nixpkgs:
+    name: Dispatch Nixpkgs
+    needs: extract-release-info
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Nixpkgs publisher
+        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        with:
+          token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          event-type: publish-nixpkgs
+          client-payload: >-
+            {
+              "version": "${{ needs.extract-release-info.outputs.version }}",
+              "tag": "${{ needs.extract-release-info.outputs.tag }}"
+            }
