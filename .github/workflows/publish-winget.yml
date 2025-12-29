@@ -1,0 +1,174 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+name: Publish WinGet
+
+on:
+  repository_dispatch:
+    types: [publish-winget]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version (e.g., 1.0.2)'
+        required: true
+      tag:
+        description: 'Git tag (e.g., v1.0.2)'
+        required: true
+      sha_windows_x64:
+        description: 'SHA256 for Windows x64'
+        required: true
+      submit_official:
+        description: 'Submit to official winget-pkgs'
+        type: boolean
+        default: false
+
+permissions: read-all
+
+env:
+  TAP_REPO: hyperpolymath/homebrew-tap
+
+jobs:
+  update-tap:
+    name: Update WinGet in Tap
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for TAP_GITHUB_TOKEN
+        id: check-secret
+        run: |
+          if [ -z "${{ secrets.TAP_GITHUB_TOKEN }}" ]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "::warning::TAP_GITHUB_TOKEN not configured. Skipping WinGet tap update."
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout homebrew-tap
+        if: steps.check-secret.outputs.skip != 'true'
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: ${{ env.TAP_REPO }}
+          token: ${{ secrets.TAP_GITHUB_TOKEN }}
+
+      - name: Get inputs
+        if: steps.check-secret.outputs.skip != 'true'
+        id: inputs
+        run: |
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            echo "version=${{ github.event.client_payload.version }}" >> $GITHUB_OUTPUT
+            echo "tag=${{ github.event.client_payload.tag }}" >> $GITHUB_OUTPUT
+            echo "sha_windows_x64=${{ github.event.client_payload.sha_windows_x64 }}" >> $GITHUB_OUTPUT
+          else
+            echo "version=${{ inputs.version }}" >> $GITHUB_OUTPUT
+            echo "tag=${{ inputs.tag }}" >> $GITHUB_OUTPUT
+            echo "sha_windows_x64=${{ inputs.sha_windows_x64 }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update WinGet manifest
+        if: steps.check-secret.outputs.skip != 'true'
+        run: |
+          VERSION="${{ steps.inputs.outputs.version }}"
+          TAG="${{ steps.inputs.outputs.tag }}"
+          SHA="${{ steps.inputs.outputs.sha_windows_x64 }}"
+
+          mkdir -p "winget/Hyperpolymath.Bunsenite/${VERSION}"
+
+          cat > "winget/Hyperpolymath.Bunsenite/${VERSION}/Hyperpolymath.Bunsenite.yaml" << EOF
+          # yaml-language-server: \$schema=https://aka.ms/winget-manifest.singleton.1.6.0.schema.json
+          # SPDX-License-Identifier: AGPL-3.0-or-later
+          PackageIdentifier: Hyperpolymath.Bunsenite
+          PackageVersion: ${VERSION}
+          PackageLocale: en-US
+          Publisher: hyperpolymath
+          PublisherUrl: https://github.com/hyperpolymath
+          PublisherSupportUrl: https://github.com/hyperpolymath/bunsenite/issues
+          PackageName: Bunsenite
+          PackageUrl: https://github.com/hyperpolymath/bunsenite
+          License: MIT OR Palimpsest-0.8
+          LicenseUrl: https://github.com/hyperpolymath/bunsenite/blob/main/LICENSE.txt
+          ShortDescription: Nickel configuration file parser with multi-language FFI bindings
+          Description: |
+            Bunsenite is a Nickel configuration file parser with multi-language FFI bindings.
+            Features include parse, validate, watch mode, interactive REPL, and JSON Schema validation.
+          Tags:
+            - nickel
+            - config
+            - configuration
+            - parser
+            - rust
+            - cli
+          Moniker: bunsenite
+          Commands:
+            - bunsenite
+          ReleaseNotesUrl: https://github.com/hyperpolymath/bunsenite/releases/tag/${TAG}
+          Installers:
+            - Architecture: x64
+              InstallerType: zip
+              InstallerUrl: https://github.com/hyperpolymath/bunsenite/releases/download/${TAG}/bunsenite-${TAG}-x86_64-pc-windows-msvc.zip
+              InstallerSha256: ${SHA}
+              NestedInstallerType: portable
+              NestedInstallerFiles:
+                - RelativeFilePath: bunsenite.exe
+                  PortableCommandAlias: bunsenite
+          ManifestType: singleton
+          ManifestVersion: 1.6.0
+          EOF
+
+          echo "Generated WinGet manifest:"
+          cat "winget/Hyperpolymath.Bunsenite/${VERSION}/Hyperpolymath.Bunsenite.yaml"
+
+      - name: Commit and push
+        if: steps.check-secret.outputs.skip != 'true'
+        run: |
+          VERSION="${{ steps.inputs.outputs.version }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "winget/Hyperpolymath.Bunsenite/${VERSION}/"
+          git diff --staged --quiet || git commit -m "winget: bunsenite ${VERSION}"
+          git push
+
+  submit-official:
+    name: Submit to Official WinGet
+    runs-on: windows-latest
+    if: ${{ inputs.submit_official == true }}
+    steps:
+      - name: Check for WINGET_GITHUB_TOKEN
+        id: check-secret
+        shell: pwsh
+        run: |
+          if ([string]::IsNullOrEmpty("${{ secrets.WINGET_GITHUB_TOKEN }}")) {
+            echo "skip=true" >> $env:GITHUB_OUTPUT
+            Write-Warning "WINGET_GITHUB_TOKEN not configured. Skipping official WinGet submission."
+          } else {
+            echo "skip=false" >> $env:GITHUB_OUTPUT
+          }
+
+      - name: Get inputs
+        if: steps.check-secret.outputs.skip != 'true'
+        id: inputs
+        shell: pwsh
+        run: |
+          if ("${{ github.event_name }}" -eq "repository_dispatch") {
+            echo "version=${{ github.event.client_payload.version }}" >> $env:GITHUB_OUTPUT
+            echo "tag=${{ github.event.client_payload.tag }}" >> $env:GITHUB_OUTPUT
+          } else {
+            echo "version=${{ inputs.version }}" >> $env:GITHUB_OUTPUT
+            echo "tag=${{ inputs.tag }}" >> $env:GITHUB_OUTPUT
+          }
+
+      - name: Install wingetcreate
+        if: steps.check-secret.outputs.skip != 'true'
+        shell: pwsh
+        run: |
+          Invoke-WebRequest -Uri https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
+
+      - name: Submit to winget-pkgs
+        if: steps.check-secret.outputs.skip != 'true'
+        shell: pwsh
+        run: |
+          $VERSION = "${{ steps.inputs.outputs.version }}"
+          $TAG = "${{ steps.inputs.outputs.tag }}"
+          $URL = "https://github.com/hyperpolymath/bunsenite/releases/download/${TAG}/bunsenite-${TAG}-x86_64-pc-windows-msvc.zip"
+
+          ./wingetcreate.exe update Hyperpolymath.Bunsenite `
+            --urls $URL `
+            --version $VERSION `
+            --token ${{ secrets.WINGET_GITHUB_TOKEN }} `
+            --submit

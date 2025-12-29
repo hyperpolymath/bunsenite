@@ -1,0 +1,105 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+name: Publish Scoop
+
+on:
+  repository_dispatch:
+    types: [publish-scoop]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version (e.g., 1.0.2)'
+        required: true
+      tag:
+        description: 'Git tag (e.g., v1.0.2)'
+        required: true
+      sha_windows_x64:
+        description: 'SHA256 for Windows x64'
+        required: true
+
+permissions: read-all
+
+env:
+  TAP_REPO: hyperpolymath/homebrew-tap
+
+jobs:
+  update-bucket:
+    name: Update Scoop Bucket
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for TAP_GITHUB_TOKEN
+        id: check-secret
+        run: |
+          if [ -z "${{ secrets.TAP_GITHUB_TOKEN }}" ]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "::warning::TAP_GITHUB_TOKEN not configured. Skipping Scoop publish."
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout homebrew-tap
+        if: steps.check-secret.outputs.skip != 'true'
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: ${{ env.TAP_REPO }}
+          token: ${{ secrets.TAP_GITHUB_TOKEN }}
+
+      - name: Get inputs
+        if: steps.check-secret.outputs.skip != 'true'
+        id: inputs
+        run: |
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            echo "version=${{ github.event.client_payload.version }}" >> $GITHUB_OUTPUT
+            echo "tag=${{ github.event.client_payload.tag }}" >> $GITHUB_OUTPUT
+            echo "sha_windows_x64=${{ github.event.client_payload.sha_windows_x64 }}" >> $GITHUB_OUTPUT
+          else
+            echo "version=${{ inputs.version }}" >> $GITHUB_OUTPUT
+            echo "tag=${{ inputs.tag }}" >> $GITHUB_OUTPUT
+            echo "sha_windows_x64=${{ inputs.sha_windows_x64 }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update manifest
+        if: steps.check-secret.outputs.skip != 'true'
+        run: |
+          VERSION="${{ steps.inputs.outputs.version }}"
+          TAG="${{ steps.inputs.outputs.tag }}"
+          SHA="${{ steps.inputs.outputs.sha_windows_x64 }}"
+
+          mkdir -p bucket
+
+          cat > bucket/bunsenite.json << EOF
+          {
+              "version": "${VERSION}",
+              "description": "Nickel configuration file parser with multi-language FFI bindings",
+              "homepage": "https://github.com/hyperpolymath/bunsenite",
+              "license": "MIT|Palimpsest-0.8",
+              "architecture": {
+                  "64bit": {
+                      "url": "https://github.com/hyperpolymath/bunsenite/releases/download/${TAG}/bunsenite-${TAG}-x86_64-pc-windows-msvc.zip",
+                      "hash": "${SHA}",
+                      "bin": "bunsenite.exe"
+                  }
+              },
+              "checkver": {
+                  "github": "https://github.com/hyperpolymath/bunsenite"
+              },
+              "autoupdate": {
+                  "architecture": {
+                      "64bit": {
+                          "url": "https://github.com/hyperpolymath/bunsenite/releases/download/v\$version/bunsenite-v\$version-x86_64-pc-windows-msvc.zip"
+                      }
+                  }
+              }
+          }
+          EOF
+
+          echo "Generated bucket/bunsenite.json:"
+          cat bucket/bunsenite.json
+
+      - name: Commit and push
+        if: steps.check-secret.outputs.skip != 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add bucket/bunsenite.json
+          git diff --staged --quiet || git commit -m "scoop: bunsenite ${{ steps.inputs.outputs.tag }}"
+          git push

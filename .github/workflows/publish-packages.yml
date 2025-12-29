@@ -1,0 +1,220 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+name: Publish Packages
+
+on:
+  workflow_run:
+    workflows: ["Release"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g., v1.0.2)'
+        required: true
+
+permissions: read-all
+
+jobs:
+  extract-release-info:
+    name: Extract Release Info
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.info.outputs.version }}
+      tag: ${{ steps.info.outputs.tag }}
+      sha_linux_x64: ${{ steps.info.outputs.sha_linux_x64 }}
+      sha_linux_arm64: ${{ steps.info.outputs.sha_linux_arm64 }}
+      sha_macos_x64: ${{ steps.info.outputs.sha_macos_x64 }}
+      sha_macos_arm64: ${{ steps.info.outputs.sha_macos_arm64 }}
+      sha_windows_x64: ${{ steps.info.outputs.sha_windows_x64 }}
+    steps:
+      - name: Determine tag
+        id: tag
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "tag=${{ inputs.tag }}" >> $GITHUB_OUTPUT
+          else
+            # Get tag from the release workflow run
+            TAG=$(gh api repos/${{ github.repository }}/releases/latest --jq '.tag_name')
+            echo "tag=$TAG" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract release info
+        id: info
+        run: |
+          TAG="${{ steps.tag.outputs.tag }}"
+          VERSION="${TAG#v}"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+          # Download SHA256SUMS.txt from release
+          gh release download "$TAG" --pattern "SHA256SUMS.txt" --repo ${{ github.repository }}
+
+          # Parse hashes - format is: SHA256  ./bunsenite-{target}/bunsenite-{tag}-{target}.{ext}
+          echo "sha_linux_x64=$(grep 'x86_64-unknown-linux-gnu' SHA256SUMS.txt | awk '{print $1}')" >> $GITHUB_OUTPUT
+          echo "sha_linux_arm64=$(grep 'aarch64-unknown-linux-gnu' SHA256SUMS.txt | awk '{print $1}')" >> $GITHUB_OUTPUT
+          echo "sha_macos_x64=$(grep 'x86_64-apple-darwin' SHA256SUMS.txt | awk '{print $1}')" >> $GITHUB_OUTPUT
+          echo "sha_macos_arm64=$(grep 'aarch64-apple-darwin' SHA256SUMS.txt | awk '{print $1}')" >> $GITHUB_OUTPUT
+          echo "sha_windows_x64=$(grep 'x86_64-pc-windows-msvc' SHA256SUMS.txt | awk '{print $1}')" >> $GITHUB_OUTPUT
+
+          # Debug output
+          echo "Extracted version: $VERSION"
+          echo "Extracted tag: $TAG"
+          cat SHA256SUMS.txt
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  dispatch-homebrew:
+    name: Dispatch Homebrew
+    needs: extract-release-info
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Homebrew publisher
+        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        with:
+          token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          event-type: publish-homebrew
+          client-payload: >-
+            {
+              "version": "${{ needs.extract-release-info.outputs.version }}",
+              "tag": "${{ needs.extract-release-info.outputs.tag }}",
+              "sha_linux_x64": "${{ needs.extract-release-info.outputs.sha_linux_x64 }}",
+              "sha_linux_arm64": "${{ needs.extract-release-info.outputs.sha_linux_arm64 }}",
+              "sha_macos_x64": "${{ needs.extract-release-info.outputs.sha_macos_x64 }}",
+              "sha_macos_arm64": "${{ needs.extract-release-info.outputs.sha_macos_arm64 }}"
+            }
+
+  dispatch-scoop:
+    name: Dispatch Scoop
+    needs: extract-release-info
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Scoop publisher
+        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        with:
+          token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          event-type: publish-scoop
+          client-payload: >-
+            {
+              "version": "${{ needs.extract-release-info.outputs.version }}",
+              "tag": "${{ needs.extract-release-info.outputs.tag }}",
+              "sha_windows_x64": "${{ needs.extract-release-info.outputs.sha_windows_x64 }}"
+            }
+
+  dispatch-aur:
+    name: Dispatch AUR
+    needs: extract-release-info
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger AUR publisher
+        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        with:
+          token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          event-type: publish-aur
+          client-payload: >-
+            {
+              "version": "${{ needs.extract-release-info.outputs.version }}",
+              "tag": "${{ needs.extract-release-info.outputs.tag }}",
+              "sha_linux_x64": "${{ needs.extract-release-info.outputs.sha_linux_x64 }}",
+              "sha_linux_arm64": "${{ needs.extract-release-info.outputs.sha_linux_arm64 }}"
+            }
+
+  dispatch-winget:
+    name: Dispatch WinGet
+    needs: extract-release-info
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger WinGet publisher
+        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        with:
+          token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          event-type: publish-winget
+          client-payload: >-
+            {
+              "version": "${{ needs.extract-release-info.outputs.version }}",
+              "tag": "${{ needs.extract-release-info.outputs.tag }}",
+              "sha_windows_x64": "${{ needs.extract-release-info.outputs.sha_windows_x64 }}"
+            }
+
+  dispatch-chocolatey:
+    name: Dispatch Chocolatey
+    needs: extract-release-info
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Chocolatey publisher
+        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        with:
+          token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          event-type: publish-chocolatey
+          client-payload: >-
+            {
+              "version": "${{ needs.extract-release-info.outputs.version }}",
+              "tag": "${{ needs.extract-release-info.outputs.tag }}",
+              "sha_windows_x64": "${{ needs.extract-release-info.outputs.sha_windows_x64 }}"
+            }
+
+  dispatch-flatpak:
+    name: Dispatch Flatpak
+    needs: extract-release-info
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Flatpak publisher
+        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        with:
+          token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          event-type: publish-flatpak
+          client-payload: >-
+            {
+              "version": "${{ needs.extract-release-info.outputs.version }}",
+              "tag": "${{ needs.extract-release-info.outputs.tag }}"
+            }
+
+  dispatch-macports:
+    name: Dispatch MacPorts
+    needs: extract-release-info
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger MacPorts publisher
+        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        with:
+          token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          event-type: publish-macports
+          client-payload: >-
+            {
+              "version": "${{ needs.extract-release-info.outputs.version }}",
+              "tag": "${{ needs.extract-release-info.outputs.tag }}"
+            }
+
+  dispatch-debian-ppa:
+    name: Dispatch Debian PPA
+    needs: extract-release-info
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Debian PPA publisher
+        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        with:
+          token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          event-type: publish-debian-ppa
+          client-payload: >-
+            {
+              "version": "${{ needs.extract-release-info.outputs.version }}",
+              "tag": "${{ needs.extract-release-info.outputs.tag }}"
+            }
+
+  dispatch-copr:
+    name: Dispatch COPR
+    needs: extract-release-info
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger COPR publisher
+        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        with:
+          token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          event-type: publish-copr
+          client-payload: >-
+            {
+              "version": "${{ needs.extract-release-info.outputs.version }}",
+              "tag": "${{ needs.extract-release-info.outputs.tag }}"
+            }

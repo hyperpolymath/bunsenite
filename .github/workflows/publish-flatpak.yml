@@ -1,0 +1,162 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+name: Publish Flatpak
+
+on:
+  repository_dispatch:
+    types: [publish-flatpak]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version (e.g., 1.0.2)'
+        required: true
+      tag:
+        description: 'Git tag (e.g., v1.0.2)'
+        required: true
+
+permissions: read-all
+
+env:
+  TAP_REPO: hyperpolymath/homebrew-tap
+  APP_ID: dev.hyperpolymath.Bunsenite
+
+jobs:
+  update-flatpak:
+    name: Update Flatpak Manifest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for TAP_GITHUB_TOKEN
+        id: check-secret
+        run: |
+          if [ -z "${{ secrets.TAP_GITHUB_TOKEN }}" ]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "::warning::TAP_GITHUB_TOKEN not configured. Skipping Flatpak manifest update."
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout homebrew-tap
+        if: steps.check-secret.outputs.skip != 'true'
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: ${{ env.TAP_REPO }}
+          token: ${{ secrets.TAP_GITHUB_TOKEN }}
+
+      - name: Get inputs
+        if: steps.check-secret.outputs.skip != 'true'
+        id: inputs
+        run: |
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            echo "version=${{ github.event.client_payload.version }}" >> $GITHUB_OUTPUT
+            echo "tag=${{ github.event.client_payload.tag }}" >> $GITHUB_OUTPUT
+          else
+            echo "version=${{ inputs.version }}" >> $GITHUB_OUTPUT
+            echo "tag=${{ inputs.tag }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get commit hash for tag
+        if: steps.check-secret.outputs.skip != 'true'
+        id: commit
+        run: |
+          TAG="${{ steps.inputs.outputs.tag }}"
+          # Get the commit SHA for the tag
+          COMMIT=$(gh api repos/hyperpolymath/bunsenite/git/refs/tags/$TAG --jq '.object.sha' 2>/dev/null || echo "")
+
+          # If it's an annotated tag, we need to dereference it
+          if [ -z "$COMMIT" ] || [ "$COMMIT" = "null" ]; then
+            COMMIT=$(gh api repos/hyperpolymath/bunsenite/git/refs/tags/$TAG --jq '.object.sha')
+            OBJ_TYPE=$(gh api repos/hyperpolymath/bunsenite/git/tags/$COMMIT --jq '.object.type' 2>/dev/null || echo "commit")
+            if [ "$OBJ_TYPE" = "commit" ]; then
+              COMMIT=$(gh api repos/hyperpolymath/bunsenite/git/tags/$COMMIT --jq '.object.sha')
+            fi
+          fi
+
+          echo "sha=$COMMIT" >> $GITHUB_OUTPUT
+          echo "Found commit: $COMMIT for tag: $TAG"
+        env:
+          GH_TOKEN: ${{ secrets.TAP_GITHUB_TOKEN }}
+
+      - name: Update Flatpak manifest
+        if: steps.check-secret.outputs.skip != 'true'
+        run: |
+          VERSION="${{ steps.inputs.outputs.version }}"
+          TAG="${{ steps.inputs.outputs.tag }}"
+          COMMIT="${{ steps.commit.outputs.sha }}"
+
+          mkdir -p flathub
+
+          cat > flathub/${APP_ID}.yml << EOF
+          # SPDX-License-Identifier: AGPL-3.0-or-later
+          app-id: ${APP_ID}
+          runtime: org.freedesktop.Platform
+          runtime-version: '23.08'
+          sdk: org.freedesktop.Sdk
+          sdk-extensions:
+            - org.freedesktop.Sdk.Extension.rust-stable
+
+          command: bunsenite
+
+          finish-args:
+            - --filesystem=home:ro
+            - --filesystem=xdg-config:ro
+
+          build-options:
+            append-path: /usr/lib/sdk/rust-stable/bin
+            env:
+              CARGO_HOME: /run/build/bunsenite/cargo
+              RUSTUP_HOME: /usr/lib/sdk/rust-stable
+
+          modules:
+            - name: bunsenite
+              buildsystem: simple
+              build-commands:
+                - cargo build --release --features full
+                - install -Dm755 target/release/bunsenite /app/bin/bunsenite
+              sources:
+                - type: git
+                  url: https://github.com/hyperpolymath/bunsenite.git
+                  tag: ${TAG}
+                  commit: ${COMMIT}
+          EOF
+
+          # Create metainfo file
+          cat > flathub/${APP_ID}.metainfo.xml << EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!-- SPDX-License-Identifier: AGPL-3.0-or-later -->
+          <component type="console-application">
+            <id>${APP_ID}</id>
+            <name>Bunsenite</name>
+            <summary>Nickel configuration file parser with multi-language FFI bindings</summary>
+            <metadata_license>CC0-1.0</metadata_license>
+            <project_license>MIT OR LicenseRef-Palimpsest-0.8</project_license>
+            <description>
+              <p>
+                Bunsenite is a Nickel configuration file parser with multi-language FFI bindings.
+                It provides parse, validate, watch mode, interactive REPL, and JSON Schema validation.
+              </p>
+            </description>
+            <url type="homepage">https://github.com/hyperpolymath/bunsenite</url>
+            <url type="bugtracker">https://github.com/hyperpolymath/bunsenite/issues</url>
+            <provides>
+              <binary>bunsenite</binary>
+            </provides>
+            <releases>
+              <release version="${VERSION}" date="$(date +%Y-%m-%d)">
+                <url>https://github.com/hyperpolymath/bunsenite/releases/tag/${TAG}</url>
+              </release>
+            </releases>
+            <content_rating type="oars-1.1" />
+          </component>
+          EOF
+
+          echo "Generated Flatpak manifest:"
+          cat flathub/${APP_ID}.yml
+
+      - name: Commit and push
+        if: steps.check-secret.outputs.skip != 'true'
+        run: |
+          VERSION="${{ steps.inputs.outputs.version }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add flathub/
+          git diff --staged --quiet || git commit -m "flatpak: bunsenite ${VERSION}"
+          git push

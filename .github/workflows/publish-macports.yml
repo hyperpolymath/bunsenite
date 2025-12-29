@@ -1,0 +1,237 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+name: Publish MacPorts
+
+on:
+  repository_dispatch:
+    types: [publish-macports]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version (e.g., 1.0.2)'
+        required: true
+      tag:
+        description: 'Git tag (e.g., v1.0.2)'
+        required: true
+
+permissions: read-all
+
+env:
+  TAP_REPO: hyperpolymath/homebrew-tap
+
+jobs:
+  update-tap:
+    name: Update MacPorts in Tap
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for TAP_GITHUB_TOKEN
+        id: check-secret
+        run: |
+          if [ -z "${{ secrets.TAP_GITHUB_TOKEN }}" ]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "::warning::TAP_GITHUB_TOKEN not configured. Skipping MacPorts tap update."
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout homebrew-tap
+        if: steps.check-secret.outputs.skip != 'true'
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: ${{ env.TAP_REPO }}
+          token: ${{ secrets.TAP_GITHUB_TOKEN }}
+
+      - name: Get inputs
+        if: steps.check-secret.outputs.skip != 'true'
+        id: inputs
+        run: |
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            echo "version=${{ github.event.client_payload.version }}" >> $GITHUB_OUTPUT
+            echo "tag=${{ github.event.client_payload.tag }}" >> $GITHUB_OUTPUT
+          else
+            echo "version=${{ inputs.version }}" >> $GITHUB_OUTPUT
+            echo "tag=${{ inputs.tag }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Download source and compute checksums
+        if: steps.check-secret.outputs.skip != 'true'
+        id: checksums
+        run: |
+          VERSION="${{ steps.inputs.outputs.version }}"
+          TAG="${{ steps.inputs.outputs.tag }}"
+
+          # Download source tarball
+          curl -L -o source.tar.gz "https://github.com/hyperpolymath/bunsenite/archive/refs/tags/${TAG}.tar.gz"
+
+          # Compute checksums
+          SHA256=$(sha256sum source.tar.gz | awk '{print $1}')
+          SIZE=$(stat -c%s source.tar.gz)
+
+          # Compute RIPEMD-160 using openssl
+          RMD160=$(openssl dgst -rmd160 source.tar.gz | awk '{print $2}')
+
+          echo "sha256=$SHA256" >> $GITHUB_OUTPUT
+          echo "rmd160=$RMD160" >> $GITHUB_OUTPUT
+          echo "size=$SIZE" >> $GITHUB_OUTPUT
+
+          echo "Computed checksums:"
+          echo "  SHA256: $SHA256"
+          echo "  RMD160: $RMD160"
+          echo "  Size: $SIZE"
+
+      - name: Update Portfile
+        if: steps.check-secret.outputs.skip != 'true'
+        run: |
+          VERSION="${{ steps.inputs.outputs.version }}"
+          SHA256="${{ steps.checksums.outputs.sha256 }}"
+          RMD160="${{ steps.checksums.outputs.rmd160 }}"
+          SIZE="${{ steps.checksums.outputs.size }}"
+
+          mkdir -p macports/bunsenite
+
+          cat > macports/bunsenite/Portfile << 'EOF'
+          # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+          # SPDX-License-Identifier: AGPL-3.0-or-later
+
+          PortSystem          1.0
+          PortGroup           cargo 1.0
+          PortGroup           github 1.0
+
+          EOF
+
+          cat >> macports/bunsenite/Portfile << EOF
+          github.setup        hyperpolymath bunsenite ${VERSION} v
+          revision            0
+          categories          devel
+          license             MIT Permissive
+          maintainers         {github.com:hyperpolymath @hyperpolymath} openmaintainer
+          description         Nickel configuration file parser with FFI bindings
+          long_description    Bunsenite is a Nickel configuration file parser with \\
+                              multi-language FFI bindings. Features include parse, \\
+                              validate, watch mode, interactive REPL, and JSON Schema validation.
+
+          homepage            https://github.com/hyperpolymath/bunsenite
+
+          checksums           rmd160  ${RMD160} \\
+                              sha256  ${SHA256} \\
+                              size    ${SIZE}
+
+          EOF
+
+          cat >> macports/bunsenite/Portfile << 'EOF'
+          build.args-append   --features=full
+
+          destroot {
+              xinstall -m 755 ${worksrcpath}/target/[cargo.rust_platform]/release/bunsenite \
+                  ${destroot}${prefix}/bin/bunsenite
+          }
+          EOF
+
+          echo "Generated Portfile:"
+          cat macports/bunsenite/Portfile
+
+      - name: Commit and push
+        if: steps.check-secret.outputs.skip != 'true'
+        run: |
+          VERSION="${{ steps.inputs.outputs.version }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add macports/
+          git diff --staged --quiet || git commit -m "macports: bunsenite ${VERSION}"
+          git push
+
+  create-official-pr:
+    name: Create MacPorts Official PR
+    runs-on: macos-latest
+    needs: update-tap
+    if: ${{ inputs.submit_official == true }}
+    steps:
+      - name: Check for MACPORTS_GITHUB_TOKEN
+        id: check-secret
+        run: |
+          if [ -z "${{ secrets.MACPORTS_GITHUB_TOKEN }}" ]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "::warning::MACPORTS_GITHUB_TOKEN not configured. Skipping official MacPorts PR."
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get inputs
+        if: steps.check-secret.outputs.skip != 'true'
+        id: inputs
+        run: |
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            echo "version=${{ github.event.client_payload.version }}" >> $GITHUB_OUTPUT
+            echo "tag=${{ github.event.client_payload.tag }}" >> $GITHUB_OUTPUT
+          else
+            echo "version=${{ inputs.version }}" >> $GITHUB_OUTPUT
+            echo "tag=${{ inputs.tag }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Fork and update macports-ports
+        if: steps.check-secret.outputs.skip != 'true'
+        run: |
+          VERSION="${{ steps.inputs.outputs.version }}"
+          TAG="${{ steps.inputs.outputs.tag }}"
+
+          # Fork macports-ports if not already forked
+          gh repo fork macports/macports-ports --clone=true --remote=true || true
+          cd macports-ports
+
+          # Create branch
+          git checkout -b bunsenite-${VERSION}
+
+          # Download source and compute checksums
+          curl -L -o source.tar.gz "https://github.com/hyperpolymath/bunsenite/archive/refs/tags/${TAG}.tar.gz"
+          SHA256=$(shasum -a 256 source.tar.gz | awk '{print $1}')
+          RMD160=$(openssl dgst -rmd160 source.tar.gz | awk '{print $2}')
+          SIZE=$(stat -f%z source.tar.gz)
+
+          # Create port directory
+          mkdir -p devel/bunsenite
+
+          # Generate Portfile
+          cat > devel/bunsenite/Portfile << EOF
+          # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+          PortSystem          1.0
+          PortGroup           cargo 1.0
+          PortGroup           github 1.0
+
+          github.setup        hyperpolymath bunsenite ${VERSION} v
+          revision            0
+          categories          devel
+          license             MIT Permissive
+          maintainers         {github.com:hyperpolymath @hyperpolymath} openmaintainer
+          description         Nickel configuration file parser with FFI bindings
+          long_description    Bunsenite is a Nickel configuration file parser with \\
+                              multi-language FFI bindings.
+
+          homepage            https://github.com/hyperpolymath/bunsenite
+
+          checksums           rmd160  ${RMD160} \\
+                              sha256  ${SHA256} \\
+                              size    ${SIZE}
+
+          build.args-append   --features=full
+
+          destroot {
+              xinstall -m 755 \${worksrcpath}/target/[cargo.rust_platform]/release/bunsenite \\
+                  \${destroot}\${prefix}/bin/bunsenite
+          }
+          EOF
+
+          # Commit and push
+          git add devel/bunsenite/Portfile
+          git commit -m "bunsenite: new port, version ${VERSION}"
+          git push origin bunsenite-${VERSION}
+
+          # Create PR
+          gh pr create \
+            --title "bunsenite: new port, version ${VERSION}" \
+            --body "New port for bunsenite - Nickel configuration file parser with multi-language FFI bindings.
+
+          Homepage: https://github.com/hyperpolymath/bunsenite
+          License: MIT OR Palimpsest-0.8" \
+            --repo macports/macports-ports
+        env:
+          GH_TOKEN: ${{ secrets.MACPORTS_GITHUB_TOKEN }}

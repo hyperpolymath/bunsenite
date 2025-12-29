@@ -1,0 +1,110 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+name: Publish AUR
+
+on:
+  repository_dispatch:
+    types: [publish-aur]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version (e.g., 1.0.2)'
+        required: true
+      tag:
+        description: 'Git tag (e.g., v1.0.2)'
+        required: true
+      sha_linux_x64:
+        description: 'SHA256 for Linux x64'
+        required: true
+      sha_linux_arm64:
+        description: 'SHA256 for Linux arm64'
+        required: true
+
+permissions: read-all
+
+jobs:
+  publish-aur:
+    name: Publish to AUR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for AUR secrets
+        id: check-secret
+        run: |
+          if [ -z "${{ secrets.AUR_SSH_PRIVATE_KEY }}" ]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "::warning::AUR_SSH_PRIVATE_KEY not configured. Skipping AUR publish."
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout bunsenite
+        if: steps.check-secret.outputs.skip != 'true'
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Get inputs
+        if: steps.check-secret.outputs.skip != 'true'
+        id: inputs
+        run: |
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            echo "version=${{ github.event.client_payload.version }}" >> $GITHUB_OUTPUT
+            echo "tag=${{ github.event.client_payload.tag }}" >> $GITHUB_OUTPUT
+            echo "sha_linux_x64=${{ github.event.client_payload.sha_linux_x64 }}" >> $GITHUB_OUTPUT
+            echo "sha_linux_arm64=${{ github.event.client_payload.sha_linux_arm64 }}" >> $GITHUB_OUTPUT
+          else
+            echo "version=${{ inputs.version }}" >> $GITHUB_OUTPUT
+            echo "tag=${{ inputs.tag }}" >> $GITHUB_OUTPUT
+            echo "sha_linux_x64=${{ inputs.sha_linux_x64 }}" >> $GITHUB_OUTPUT
+            echo "sha_linux_arm64=${{ inputs.sha_linux_arm64 }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Generate PKGBUILD
+        if: steps.check-secret.outputs.skip != 'true'
+        run: |
+          VERSION="${{ steps.inputs.outputs.version }}"
+          TAG="${{ steps.inputs.outputs.tag }}"
+          SHA_X64="${{ steps.inputs.outputs.sha_linux_x64 }}"
+          SHA_ARM64="${{ steps.inputs.outputs.sha_linux_arm64 }}"
+
+          mkdir -p aur-package
+
+          cat > aur-package/PKGBUILD << EOF
+          # Maintainer: hyperpolymath <packages@hyperpolymath.dev>
+          # SPDX-License-Identifier: AGPL-3.0-or-later
+          pkgname=bunsenite-bin
+          pkgver=${VERSION}
+          pkgrel=1
+          pkgdesc="Nickel configuration file parser with multi-language FFI bindings (pre-built binary)"
+          arch=('x86_64' 'aarch64')
+          url="https://github.com/hyperpolymath/bunsenite"
+          license=('MIT' 'custom:Palimpsest-0.8')
+          depends=('gcc-libs')
+          provides=('bunsenite')
+          conflicts=('bunsenite' 'bunsenite-git')
+
+          source_x86_64=("\${pkgname}-\${pkgver}-x86_64.tar.gz::https://github.com/hyperpolymath/bunsenite/releases/download/${TAG}/bunsenite-${TAG}-x86_64-unknown-linux-gnu.tar.gz")
+          source_aarch64=("\${pkgname}-\${pkgver}-aarch64.tar.gz::https://github.com/hyperpolymath/bunsenite/releases/download/${TAG}/bunsenite-${TAG}-aarch64-unknown-linux-gnu.tar.gz")
+          sha256sums_x86_64=('${SHA_X64}')
+          sha256sums_aarch64=('${SHA_ARM64}')
+
+          package() {
+              install -Dm755 "bunsenite" "\$pkgdir/usr/bin/bunsenite"
+              # Install shared library if present
+              if [ -f "libbunsenite.so" ]; then
+                  install -Dm755 "libbunsenite.so" "\$pkgdir/usr/lib/libbunsenite.so"
+              fi
+          }
+          EOF
+
+          echo "Generated PKGBUILD:"
+          cat aur-package/PKGBUILD
+
+      - name: Publish to AUR
+        if: steps.check-secret.outputs.skip != 'true'
+        uses: KSXGitHub/github-actions-deploy-aur@a97f2e14d78d2e3766756048a6056f3d0cf12b92 # v3.0.1
+        with:
+          pkgname: bunsenite-bin
+          pkgbuild: aur-package/PKGBUILD
+          commit_username: ${{ secrets.AUR_USERNAME }}
+          commit_email: ${{ secrets.AUR_EMAIL }}
+          ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
+          commit_message: "Update to ${{ steps.inputs.outputs.tag }}"
+          force_push: true
