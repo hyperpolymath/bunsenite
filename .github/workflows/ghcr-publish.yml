@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT OR Palimpsest-0.8
+# SPDX-License-Identifier: MPL-2.0
 name: Publish to GHCR
 
 permissions: read-all
