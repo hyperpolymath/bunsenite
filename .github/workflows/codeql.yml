@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MPL-2.0
+# SPDX-License-Identifier: AGPL-3.0-or-later
 name: CodeQL Security Analysis
 
 on:
@@ -21,11 +21,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          # Bunsenite has JS/TS files - Rust is not supported by CodeQL
           - language: javascript-typescript
-            build-mode: none
-          - language: rust
-            build-mode: none
-          - language: ruby
             build-mode: none
 
     steps:
