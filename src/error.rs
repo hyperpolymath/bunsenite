@@ -4,6 +4,9 @@
 //! Errors are designed to be informative and actionable for end users.
 //! Uses miette for pretty error output with source context.
 
+// Allow unused_assignments to prevent false positive from cargo-tarpaulin coverage instrumentation
+#![allow(unused_assignments)]
+
 use miette::{Diagnostic, SourceSpan};
 
 /// Result type alias for Bunsenite operations
