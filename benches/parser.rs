@@ -116,9 +116,7 @@ fn benchmark_parse(c: &mut Criterion) {
     group.bench_with_input(
         BenchmarkId::new("simple", SIMPLE_CONFIG.len()),
         &SIMPLE_CONFIG,
-        |b, config| {
-            b.iter(|| loader.parse(black_box(*config), "simple.ncl"))
-        },
+        |b, config| b.iter(|| loader.parse(black_box(*config), "simple.ncl")),
     );
 
     // Medium config
@@ -126,9 +124,7 @@ fn benchmark_parse(c: &mut Criterion) {
     group.bench_with_input(
         BenchmarkId::new("medium", MEDIUM_CONFIG.len()),
         &MEDIUM_CONFIG,
-        |b, config| {
-            b.iter(|| loader.parse(black_box(*config), "medium.ncl"))
-        },
+        |b, config| b.iter(|| loader.parse(black_box(*config), "medium.ncl")),
     );
 
     // Complex config
@@ -136,9 +132,7 @@ fn benchmark_parse(c: &mut Criterion) {
     group.bench_with_input(
         BenchmarkId::new("complex", COMPLEX_CONFIG.len()),
         &COMPLEX_CONFIG,
-        |b, config| {
-            b.iter(|| loader.parse(black_box(*config), "complex.ncl"))
-        },
+        |b, config| b.iter(|| loader.parse(black_box(*config), "complex.ncl")),
     );
 
     group.finish();
@@ -152,25 +146,19 @@ fn benchmark_validate(c: &mut Criterion) {
     group.bench_with_input(
         BenchmarkId::new("simple", SIMPLE_CONFIG.len()),
         &SIMPLE_CONFIG,
-        |b, config| {
-            b.iter(|| loader.validate(black_box(*config), "simple.ncl"))
-        },
+        |b, config| b.iter(|| loader.validate(black_box(*config), "simple.ncl")),
     );
 
     group.bench_with_input(
         BenchmarkId::new("medium", MEDIUM_CONFIG.len()),
         &MEDIUM_CONFIG,
-        |b, config| {
-            b.iter(|| loader.validate(black_box(*config), "medium.ncl"))
-        },
+        |b, config| b.iter(|| loader.validate(black_box(*config), "medium.ncl")),
     );
 
     group.bench_with_input(
         BenchmarkId::new("complex", COMPLEX_CONFIG.len()),
         &COMPLEX_CONFIG,
-        |b, config| {
-            b.iter(|| loader.validate(black_box(*config), "complex.ncl"))
-        },
+        |b, config| b.iter(|| loader.validate(black_box(*config), "complex.ncl")),
     );
 
     group.finish();

@@ -95,24 +95,14 @@ fn main() {
     let cli = Cli::parse();
 
     let result = match cli.command {
-        Some(Commands::Parse { file, pretty }) => {
-            handle_parse(file, pretty, cli.verbose)
-        }
-        Some(Commands::Validate { file }) => {
-            handle_validate(file, cli.verbose)
-        }
+        Some(Commands::Parse { file, pretty }) => handle_parse(file, pretty, cli.verbose),
+        Some(Commands::Validate { file }) => handle_validate(file, cli.verbose),
         #[cfg(feature = "watch")]
-        Some(Commands::Watch { file, pretty }) => {
-            handle_watch(file, pretty, cli.verbose)
-        }
+        Some(Commands::Watch { file, pretty }) => handle_watch(file, pretty, cli.verbose),
         #[cfg(feature = "repl")]
-        Some(Commands::Repl) => {
-            handle_repl(cli.verbose)
-        }
+        Some(Commands::Repl) => handle_repl(cli.verbose),
         #[cfg(feature = "schema")]
-        Some(Commands::Schema { config, schema }) => {
-            handle_schema(config, schema, cli.verbose)
-        }
+        Some(Commands::Schema { config, schema }) => handle_schema(config, schema, cli.verbose),
         Some(Commands::Info) => {
             handle_info();
             Ok(())
@@ -178,7 +168,10 @@ fn handle_watch(file: PathBuf, pretty: bool, verbose: bool) -> bunsenite::Result
     use std::sync::mpsc::channel;
     use std::time::Duration;
 
-    println!("Watching {} for changes (Ctrl+C to stop)...", file.display());
+    println!(
+        "Watching {} for changes (Ctrl+C to stop)...",
+        file.display()
+    );
 
     // Initial parse
     if let Err(e) = handle_parse(file.clone(), pretty, verbose) {
@@ -224,7 +217,11 @@ fn handle_schema(config: PathBuf, schema: PathBuf, verbose: bool) -> bunsenite::
     use bunsenite::SchemaValidator;
 
     if verbose {
-        eprintln!("Validating {} against schema {}", config.display(), schema.display());
+        eprintln!(
+            "Validating {} against schema {}",
+            config.display(),
+            schema.display()
+        );
     }
 
     let loader = NickelLoader::new().with_verbose(verbose);

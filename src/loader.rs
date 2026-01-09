@@ -97,9 +97,8 @@ impl NickelLoader {
 
         // Convert to JSON
         // API change in 0.9.1: Manual conversion required, no into_diagnostics()
-        let json_value = serde_json::to_value(&eval_result).map_err(|e| {
-            Error::serialization_error(format!("Failed to convert to JSON: {}", e))
-        })?;
+        let json_value = serde_json::to_value(&eval_result)
+            .map_err(|e| Error::serialization_error(format!("Failed to convert to JSON: {}", e)))?;
 
         Ok(json_value)
     }
@@ -161,15 +160,12 @@ impl NickelLoader {
     /// ```
     pub fn validate(&self, source: &str, name: &str) -> Result<()> {
         // Just try to create a Program - this performs parsing and type-checking
-        let _program: NickelProgram = Program::new_from_source(
-            Cursor::new(source.as_bytes()),
-            name,
-            std::io::sink(),
-        )
-        .map_err(|e| {
-            let msg = format!("{:?}", e);
-            Error::parse_error(name, msg)
-        })?;
+        let _program: NickelProgram =
+            Program::new_from_source(Cursor::new(source.as_bytes()), name, std::io::sink())
+                .map_err(|e| {
+                    let msg = format!("{:?}", e);
+                    Error::parse_error(name, msg)
+                })?;
 
         Ok(())
     }

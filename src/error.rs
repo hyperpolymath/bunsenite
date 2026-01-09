@@ -60,10 +60,7 @@ pub enum Error {
 
     /// File I/O error
     #[error("File I/O error: {0}")]
-    #[diagnostic(
-        code(bunsenite::io_error),
-        help("Check file permissions and path.")
-    )]
+    #[diagnostic(code(bunsenite::io_error), help("Check file permissions and path."))]
     IoError(#[from] std::io::Error),
 
     /// Invalid input

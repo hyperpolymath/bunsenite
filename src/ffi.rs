@@ -67,10 +67,7 @@ pub unsafe extern "C" fn bunsenite_parse(
 /// - 1 on validation error
 /// - -1 on invalid input (null pointers, invalid UTF-8)
 #[no_mangle]
-pub unsafe extern "C" fn bunsenite_validate(
-    source: *const c_char,
-    name: *const c_char,
-) -> i32 {
+pub unsafe extern "C" fn bunsenite_validate(source: *const c_char, name: *const c_char) -> i32 {
     if source.is_null() || name.is_null() {
         return -1;
     }
