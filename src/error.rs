@@ -185,7 +185,7 @@ impl Error {
             Error::ParseError { message, .. } => message,
             Error::EvaluationError { message, .. } => message,
             Error::SerializationError(msg) => msg,
-            Error::IoError(e) => "I/O error",
+            Error::IoError(_) => "I/O error",
             Error::InvalidInput(msg) => msg,
             Error::WatchError(msg) => msg,
             Error::Internal(msg) => msg,
