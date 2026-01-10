@@ -1,6 +1,9 @@
 = Bunsenite
+image:https://img.shields.io/badge/license-PMPL--1.0-blue.svg[License,link="https://github.com/hyperpolymath/palimpsest-license"]
 
-image:https://img.shields.io/badge/License-MPL_2.0-blue.svg[MPL-2.0,link="https://opensource.org/licenses/MPL-2.0"]
+
+
+
 image:https://img.shields.io/badge/Philosophy-Palimpsest-purple.svg[Palimpsest,link="https://github.com/hyperpolymath/palimpsest-licence"]
 
 
@@ -263,7 +266,11 @@ We take security seriously. See [SECURITY.md](./SECURITY.md) for:
 
 Dual licensed under your choice of:
 
+<<<<<<< HEAD
 - *Palimpsest-MPL-1.0 License* ([LICENSE-MIT](./LICENSE) or http://opensource.org/licenses/MIT)
+=======
+- *Palimpsest-MPL License v1.0 (PMPL-1.0)* ([LICENSE-PMPL-1.0](./LICENSE) or https://github.com/hyperpolymath/palimpsest-license)
+>>>>>>> 5e371e5 (Normalize license badge)
 - *Palimpsest License v0.8* ([LICENSE-PALIMPSEST](./LICENSE) or https://palingenesis.org/palimpsest-license)
 
 This allows maximum flexibility for use while preserving reversibility and emotional safety principles.
