@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: AGPL-3.0-or-later
+# SPDX-License-Identifier: PMPL-1.0
 name: Publish Nixpkgs
 
 on:
@@ -82,7 +82,7 @@ jobs:
 
           # Create default.nix for the package
           cat > nix/bunsenite.nix << EOF
-          # SPDX-License-Identifier: AGPL-3.0-or-later
+          # SPDX-License-Identifier: PMPL-1.0
           { lib
           , rustPlatform
           , fetchFromGitHub
@@ -117,7 +117,7 @@ jobs:
 
           # Create flake.nix for standalone use
           cat > nix/flake.nix << EOF
-          # SPDX-License-Identifier: AGPL-3.0-or-later
+          # SPDX-License-Identifier: PMPL-1.0
           {
             description = "Bunsenite - Nickel configuration file parser with FFI bindings";
 
@@ -152,7 +152,7 @@ jobs:
 
           # Create overlay for use in other flakes
           cat > nix/overlay.nix << EOF
-          # SPDX-License-Identifier: AGPL-3.0-or-later
+          # SPDX-License-Identifier: PMPL-1.0
           final: prev: {
             bunsenite = final.callPackage ./bunsenite.nix { };
           }

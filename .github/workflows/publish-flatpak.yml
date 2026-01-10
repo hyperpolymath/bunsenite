@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: AGPL-3.0-or-later
+# SPDX-License-Identifier: PMPL-1.0
 name: Publish Flatpak
 
 on:
@@ -85,7 +85,7 @@ jobs:
           mkdir -p flathub
 
           cat > flathub/${APP_ID}.yml << EOF
-          # SPDX-License-Identifier: AGPL-3.0-or-later
+          # SPDX-License-Identifier: PMPL-1.0
           app-id: ${APP_ID}
           runtime: org.freedesktop.Platform
           runtime-version: '23.08'
@@ -121,7 +121,7 @@ jobs:
           # Create metainfo file
           cat > flathub/${APP_ID}.metainfo.xml << EOF
           <?xml version="1.0" encoding="UTF-8"?>
-          <!-- SPDX-License-Identifier: AGPL-3.0-or-later -->
+          <!-- SPDX-License-Identifier: PMPL-1.0 -->
           <component type="console-application">
             <id>${APP_ID}</id>
             <name>Bunsenite</name>

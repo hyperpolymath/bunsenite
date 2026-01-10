@@ -263,7 +263,7 @@ We take security seriously. See [SECURITY.md](./SECURITY.md) for:
 
 Dual licensed under your choice of:
 
-- *MIT License* ([LICENSE-MIT](./LICENSE) or http://opensource.org/licenses/MIT)
+- *Palimpsest-MPL-1.0 License* ([LICENSE-MIT](./LICENSE) or http://opensource.org/licenses/MIT)
 - *Palimpsest License v0.8* ([LICENSE-PALIMPSEST](./LICENSE) or https://palingenesis.org/palimpsest-license)
 
 This allows maximum flexibility for use while preserving reversibility and emotional safety principles.

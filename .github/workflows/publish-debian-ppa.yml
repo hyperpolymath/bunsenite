@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: AGPL-3.0-or-later
+# SPDX-License-Identifier: PMPL-1.0
 name: Publish Debian PPA
 
 on:
@@ -112,7 +112,7 @@ jobs:
           # debian/rules
           cat > debian/rules << 'EOF'
           #!/usr/bin/make -f
-          # SPDX-License-Identifier: AGPL-3.0-or-later
+          # SPDX-License-Identifier: PMPL-1.0
 
           export CARGO_HOME = $(CURDIR)/debian/cargo
           export DEB_BUILD_MAINT_OPTIONS = hardening=+all

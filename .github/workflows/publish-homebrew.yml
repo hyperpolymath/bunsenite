@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: AGPL-3.0-or-later
+# SPDX-License-Identifier: PMPL-1.0
 name: Publish Homebrew
 
 on:
@@ -86,7 +86,7 @@ jobs:
 
           cat > Formula/bunsenite.rb << 'FORMULA_EOF'
           # frozen_string_literal: true
-          # SPDX-License-Identifier: AGPL-3.0-or-later
+          # SPDX-License-Identifier: PMPL-1.0
 
           # Homebrew formula for bunsenite
           class Bunsenite < Formula
