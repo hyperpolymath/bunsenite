@@ -6,7 +6,7 @@
     <title>Bunsenite</title>
     <authors>Campaign for Cooler Coding and Programming</authors>
     <owners>Campaign for Cooler Coding and Programming</owners>
-    <licenseUrl>https://github.com/hyperpolymath/bunsenite/-/blob/main/LICENSE-MIT</licenseUrl>
+    <licenseUrl>https://github.com/hyperpolymath/bunsenite/-/blob/main/LICENSE-PMPL-1.0</licenseUrl>
     <projectUrl>https://github.com/hyperpolymath/bunsenite</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Nickel configuration file parser with multi-language FFI bindings.

@@ -4,7 +4,7 @@ class Bunsenite < Formula
   homepage "https://github.com/hyperpolymath/bunsenite"
   url "https://github.com/hyperpolymath/bunsenite/archive/refs/tags/v1.0.0.tar.gz"
   sha256 "TODO"
-  license any_of: ["MIT", "Palimpsest-0.8"]
+  license any_of: ["PMPL-1.0", "Palimpsest-0.8"]
   head "https://github.com/hyperpolymath/bunsenite.git", branch: "main"
 
   depends_on "rust" => :build

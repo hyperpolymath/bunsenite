@@ -1,4 +1,7 @@
 # Bunsenite Deno Bindings
+[![License](https://img.shields.io/badge/license-PMPL--1.0-blue.svg)](https://github.com/hyperpolymath/palimpsest-license)
+
+
 
 TypeScript bindings for [Bunsenite](https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite) using Deno's native FFI.
 
@@ -204,7 +207,7 @@ The bindings automatically detect your platform and load the correct library.
 
 ## License
 
-Dual MIT + Palimpsest License v0.8
+Dual PMPL-1.0 + Palimpsest License v0.8
 
 See [LICENSE](../../LICENSE) for details.
 

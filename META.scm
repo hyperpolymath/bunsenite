@@ -1,4 +1,4 @@
-;; SPDX-License-Identifier: AGPL-3.0-or-later
+;; SPDX-License-Identifier: PMPL-1.0
 ;; SPDX-FileCopyrightText: 2025 Jonathan D.A. Jewell
 
 ;;; META.scm — Architecture Decisions and Development Practices
@@ -47,7 +47,7 @@
      (dependency-scanning . "Dependabot + OSSF Scorecard")
      (credentials . "Environment variables only, never committed")
      (input-validation . "Whitelist + schema validation at boundaries")
-     (license-compliance . "AGPL-3.0-or-later"))
+     (license-PMPL--1.0 . "PMPL-1.0-or-later"))
 
     (testing
      (framework . "language-native")
@@ -85,8 +85,8 @@
       approach to quality across all repositories.")
 
     (why-agpl
-     "AGPL-3.0-or-later chosen to ensure derivative works remain open
-      source while allowing integration with MIT/BSD libraries. The
+     "PMPL-1.0-or-later chosen to ensure derivative works remain open
+      source while allowing integration with PMPL-1.0/BSD libraries. The
       copyleft provision protects community contributions and ensures
       improvements flow back to the ecosystem.")
 

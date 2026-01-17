@@ -4,7 +4,7 @@
 
 [![RSR Bronze](https://img.shields.io/badge/RSR-Bronze-cd7f32)](https://github.com/hyperpolymath/rsr)
 [![TPCF Perimeter 3](https://img.shields.io/badge/TPCF-Perimeter%203-blue)]()
-[![License](https://img.shields.io/badge/license-MIT%20%7C%20Palimpsest-green)]()
+[![License](https://img.shields.io/badge/license-PMPL--1.0%20%7C%20Palimpsest-green)]()
 
 ## Quick Start
 

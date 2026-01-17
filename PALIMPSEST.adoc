@@ -2,22 +2,22 @@
 :toc:
 :toc-placement!:
 
-image:https://img.shields.io/badge/license-MPL--2.0-blue.svg[MPL-2.0,link="https://www.mozilla.org/en-US/MPL/2.0/"]
+image:https://img.shields.io/badge/license-PMPL--1.0[PMPL-1.0,link="https://github.com/hyperpolymath/palimpsest-license"]
 image:https://img.shields.io/badge/philosophy-Palimpsest-purple.svg[Palimpsest,link="https://github.com/hyperpolymath/palimpsest-licence"]
 
 toc::[]
 
 == Legal Status
 
-This project is legally licensed under the **Mozilla Public License 2.0 (MPL-2.0)**.
+This project is legally licensed under the **Palimpsest-MPL License v1.0 (PMPL-1.0) (PMPL-1.0)**.
 
-The Palimpsest Licence is a philosophical and ethical framework that accompanies the legal license. **Palimpsest does not currently provide legal protections** - it is a manifesto and a set of principles that we encourage adopters to embrace alongside the MPL-2.0.
+The Palimpsest Licence is a philosophical and ethical framework that accompanies the legal license. **Palimpsest does not currently provide legal protections** - it is a manifesto and a set of principles that we encourage adopters to embrace alongside the PMPL-1.0.
 
-== Why MPL-2.0 + Palimpsest?
+== Why PMPL-1.0 + Palimpsest?
 
-=== The Legal Foundation: MPL-2.0
+=== The Legal Foundation: PMPL-1.0
 
-The Mozilla Public License 2.0 provides:
+The Palimpsest-MPL License v1.0 (PMPL-1.0) provides:
 
 * **File-level copyleft** - modifications to MPL-licensed files must remain open
 * **Compatibility** - can be combined with proprietary code and other open source licenses
@@ -35,11 +35,11 @@ Palimpsest adds an ethical dimension that legal licenses cannot capture:
 
 == Future Direction
 
-**Palimpsest v0.5** will integrate MPL-2.0 and Palimpsest principles into a single, legally recognized license. This work is ongoing.
+**Palimpsest v0.5** will integrate PMPL-1.0 and Palimpsest principles into a single, legally recognized license. This work is ongoing.
 
 Until then:
 
-1. **MPL-2.0** is the legally binding license for this project
+1. **PMPL-1.0** is the legally binding license for this project
 2. **Palimpsest** is the philosophical framework we encourage you to adopt
 3. Distributing Palimpsest alongside your use of this code is encouraged but not required
 
@@ -75,18 +75,18 @@ While Palimpsest is not yet legally formalized, you can signal your support by:
 |Aspect |Status
 
 |**Legal License**
-|MPL-2.0 (Mozilla Public License 2.0)
+|PMPL-1.0 (Palimpsest-MPL License v1.0 (PMPL-1.0))
 
 |**Philosophical Framework**
 |Palimpsest (encouraged, not legally binding)
 
 |**SPDX Identifier**
-|`MPL-2.0`
+|`PMPL-1.0`
 
 |**Future License**
-|Palimpsest v0.5+ (MPL-2.0 integrated, legally recognized)
+|Palimpsest v0.5+ (PMPL-1.0 integrated, legally recognized)
 |===
 
 ---
 
-_This project uses MPL-2.0 for legal licensing and encourages adoption of the Palimpsest philosophy. See link:LICENSE[LICENSE] for the full legal text._
+_This project uses PMPL-1.0 for legal licensing and encourages adoption of the Palimpsest philosophy. See link:LICENSE[LICENSE] for the full legal text._

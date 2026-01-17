@@ -323,7 +323,7 @@ fn handle_info() {
     println!("Standards Compliance:");
     println!("  • RSR Framework: Bronze Tier");
     println!("  • TPCF Perimeter: 3 (Community Sandbox)");
-    println!("  • License: Dual MIT + Palimpsest 0.8");
+    println!("  • License: Dual PMPL-1.0 + Palimpsest 0.8");
     println!();
     println!("Repository: https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite");
     println!();

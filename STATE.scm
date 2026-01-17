@@ -4,7 +4,7 @@
 ;;; Purpose: Preserve AI conversation context across sessions
 ;;; Reference: https://github.com/hyperpolymath/state.scm
 
-;; SPDX-License-Identifier: AGPL-3.0-or-later
+;; SPDX-License-Identifier: PMPL-1.0
 ;; SPDX-FileCopyrightText: 2025 Jonathan D.A. Jewell
 
 ;;;============================================================================
@@ -27,7 +27,7 @@
   '((name . "bunsenite")
     (tagline . "Nickel configuration file parser with multi-language FFI bindings")
     (version . "1.0.2")
-    (license . "MIT OR Palimpsest-0.8")
+    (license . "PMPL-1.0 OR Palimpsest-0.8")
     (rsr-compliance . "bronze")
 
     (tech-stack

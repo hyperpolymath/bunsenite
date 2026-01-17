@@ -7,7 +7,7 @@
   "version": "0.1.0",
   "dateCreated": "2025-12-10",
   "dateModified": "2025-12-10",
-  "license": "https://spdx.org/licenses/AGPL-3.0-or-later.html",
+  "license": "PMPL-1.0",
   "codeRepository": "https://github.com/hyperpolymath/bunsenite",
   "issueTracker": "https://github.com/hyperpolymath/bunsenite/issues",
   "programmingLanguage": ["Guile Scheme"],

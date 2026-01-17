@@ -60,7 +60,7 @@
             echo ""
             echo "RSR Compliance: Bronze Tier"
             echo "TPCF Perimeter: 3 (Community Sandbox)"
-            echo "License: Dual MIT + Palimpsest 0.8"
+            echo "License: Dual PMPL-1.0 + Palimpsest 0.8"
             echo ""
           '';
 
@@ -96,7 +96,7 @@
           meta = with pkgs.lib; {
             description = "Nickel configuration file parser with multi-language FFI bindings";
             homepage = "https://github.com/hyperpolymath/bunsenite";
-            license = with licenses; [ mit ]; # Dual MIT + Palimpsest
+            license = with licenses; [ mit ]; # Dual PMPL-1.0 + Palimpsest
             maintainers = [ "Campaign for Cooler Coding and Programming" ];
             platforms = platforms.all;
           };

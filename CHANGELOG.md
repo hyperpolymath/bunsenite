@@ -1,22 +1,21 @@
-// SPDX-License-Identifier: PMPL-1.0
-= Changelog
+# Changelog
 
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-== [Unreleased]
+## [Unreleased]
 
-=== Planned
+### Planned
 - TUI (Ada/SPARK)
 - Language Server Protocol (LSP)
 - Additional language bindings (Python, Ruby, Node.js)
 - Plugin system
 
-== [1.0.0] - 2025-12-12
+## [1.0.0] - 2025-12-12
 
-=== Added
+### Added
 - Zig FFI layer for stable C ABI across Rust compiler versions
 - Complete Deno bindings using `Deno.dlopen` FFI
 - Complete ReScript bindings via C FFI
@@ -25,22 +24,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - JSON Schema validation (`bunsenite schema`)
 - miette 7.0 integration for beautiful error diagnostics
 
-=== Changed
+### Changed
 - Upgraded nickel-lang-core to 0.9.1 (CBNCache moved to lazy module)
 - CLI expanded from 3 commands to 6 commands
 - Documentation updated for v1.0.0 release
 
-=== Fixed
+### Fixed
 - CBNCache import path for nickel-lang-core 0.9.1 compatibility
 
-=== Compliance
+### Compliance
 - RSR Bronze Tier: Verified
 - TPCF Perimeter 3: Maintained
 - No plain TypeScript, npm, or Python dependencies
 
-== [0.1.0] - 2025-11-22
+## [0.1.0] - 2025-11-22
 
-=== Added
+### Added
 - 🎉 Initial release of Bunsenite!
 - ✅ Rust core library with nickel-lang-core 0.9.1 integration
 - ✅ `NickelLoader` API for parsing and evaluating Nickel configurations
@@ -58,7 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Build system (Justfile, Nix flake)
   - CI/CD pipeline (GitLab CI)
 - ✅ TPCF Perimeter 3 (Community Sandbox) contribution model
-- ✅ Dual PMPL-1.0 + Palimpsest 0.8 licensing
+- ✅ Dual MIT + Palimpsest 0.8 licensing
 - ✅ Comprehensive documentation:
   - README.md with quick start and examples
   - CLAUDE.md for AI assistants and developers
@@ -72,15 +71,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Rescript bindings
   - C ABI via Zig (planned)
 
-=== Technical Details
+### Technical Details
 
-==== API Compatibility (nickel-lang-core 0.9.1)
+#### API Compatibility (nickel-lang-core 0.9.1)
 - `Program::new_from_source()` with trace parameter
 - `eval_full()` with no arguments
 - Manual error conversion via `serde_json::to_value()`
 - No deprecated `into_diagnostics()` usage
 
-==== Dependencies
+#### Dependencies
 - nickel-lang-core 0.9.1 (core parser)
 - serde 1.0 (serialization)
 - serde_json 1.0 (JSON conversion)
@@ -89,14 +88,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - clap 4.4 (CLI, optional)
 - wasm-bindgen 0.2 (WASM bindings, target-specific)
 
-==== Build Artifacts
+#### Build Artifacts
 - CLI binary: `bunsenite` (~6.5MB optimized)
 - Shared library: `libbunsenite.so/dylib/dll` (~6.1MB optimized)
 - WASM module: `bunsenite.wasm` (size varies by optimization level)
 
-=== Security
+### Security
 
-==== Memory Safety
+#### Memory Safety
 - Zero `unsafe` code blocks (enforced by `#![deny(unsafe_code)]`)
 - Rust ownership model prevents:
   - Use-after-free
@@ -105,60 +104,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Buffer overflows
   - Data races
 
-==== Supply Chain
+#### Supply Chain
 - Minimal dependencies (only essential, well-audited crates)
 - No network dependencies (offline-first design)
 - Pinned dependency versions for reproducibility
 - Regular `cargo audit` checks in CI
 
-=== Performance
+### Performance
 - Native Rust: Baseline performance
 - WebAssembly: ~95% native speed
 - FFI bindings: ~90% native speed (minimal C ABI overhead)
 
-=== Known Limitations
+### Known Limitations
 - Nickel evaluation may consume significant memory/CPU for complex configs
   - **Mitigation**: Plan to add configurable timeouts and memory limits
 - File I/O respects OS permissions (no privilege escalation)
 - WASM runs in browser sandbox (subject to browser security model)
 
-=== Breaking Changes
+### Breaking Changes
 - N/A (initial release)
 
-=== Deprecations
+### Deprecations
 - N/A (initial release)
 
-=== Fixed
+### Fixed
 - N/A (initial release)
 
-=== Contributors
+### Contributors
 - Campaign for Cooler Coding and Programming (@cccp) - Initial implementation
 
 ---
 
-== Version History
+## Version History
 
-=== Version Numbering
+### Version Numbering
 
 We use [Semantic Versioning](https://semver.org/):
 
-[source,]
-----
+```
 MAJOR.MINOR.PATCH
 
 MAJOR: Incompatible API changes
 MINOR: Backwards-compatible new features
 PATCH: Backwards-compatible bug fixes
-[source,]
-----
+```
 
-=== Release Cadence
+### Release Cadence
 
 - **Major releases**: As needed for breaking changes
 - **Minor releases**: Monthly (if new features ready)
 - **Patch releases**: As needed for critical bugs/security
 
-=== Support Policy
+### Support Policy
 
 | Version | Support Status      | End of Life    |
 | ------- | ------------------- | -------------- |
@@ -167,7 +164,7 @@ PATCH: Backwards-compatible bug fixes
 
 ---
 
-== Links
+## Links
 
 - [Repository](https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite)
 - [Issues](https://gitlab.com/campaign-for-cooler-coding-and-programming/bunsenite/-/issues)

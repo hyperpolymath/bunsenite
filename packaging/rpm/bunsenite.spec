@@ -6,7 +6,7 @@ Version:        1.0.0
 Release:        1%{?dist}
 Summary:        Nickel configuration file parser with multi-language FFI bindings
 
-License:        MIT OR Palimpsest-0.8
+License:        PMPL-1.0 OR Palimpsest-0.8
 URL:            https://github.com/hyperpolymath/bunsenite
 Source0:        %{name}-%{version}.tar.gz
 
@@ -61,7 +61,7 @@ ln -s libbunsenite.so.1 %{buildroot}%{_libdir}/libbunsenite.so
 install -D -m 644 README.md %{buildroot}%{_docdir}/%{name}/README.md
 
 %files
-%license LICENSE-MIT LICENSE-PALIMPSEST
+%license LICENSE-PMPL-1.0 LICENSE-PALIMPSEST
 %doc README.md
 %{_bindir}/bunsenite
 %{_libdir}/libbunsenite.so.1*

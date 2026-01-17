@@ -1,4 +1,7 @@
 # Bunsenite Zig FFI Layer
+[![License](https://img.shields.io/badge/license-PMPL--1.0-blue.svg)](https://github.com/hyperpolymath/palimpsest-license)
+
+
 
 This directory contains the Zig wrapper that provides a stable C ABI for the Rust core library.
 

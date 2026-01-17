@@ -6,7 +6,7 @@ Bunsenite is a Nickel configuration file parser with multi-language FFI bindings
 
 **Status**: v1.0.0 - Production ready
 **Repository**: https://github.com/hyperpolymath/bunsenite (mirror: GitLab)
-**License**: Dual MIT + Palimpsest 0.8
+**License**: Dual PMPL-1.0 + Palimpsest 0.8
 
 ## Project Structure
 
@@ -32,7 +32,7 @@ bunsenite/
 ├── Justfile                # Build commands (45+ recipes)
 ├── CLAUDE.md               # This file - AI assistant context
 ├── STATE.scm               # Project state checkpoint
-└── LICENSE                 # MIT + Palimpsest dual license
+└── LICENSE                 # PMPL-1.0 + Palimpsest dual license
 ```
 
 ## Technology Stack

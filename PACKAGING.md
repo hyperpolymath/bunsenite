@@ -115,7 +115,7 @@ The `.github/workflows/release.yml` workflow automates:
 ## RSR Compliance Notes
 
 All packages must include:
-- LICENSE-MIT
+- LICENSE-PMPL-1.0
 - LICENSE-PALIMPSEST (if applicable)
 - README.md with RSR tier disclosure
 

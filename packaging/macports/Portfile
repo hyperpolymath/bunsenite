@@ -7,7 +7,7 @@ PortGroup           github 1.0
 github.setup        hyperpolymath bunsenite 1.0.0 v
 revision            0
 categories          devel
-license             MIT Palimpsest-0.8
+license             PMPL-1.0 Palimpsest-0.8
 maintainers         {github.com:hyperpolymath @maintainer} openmaintainer
 description         Nickel configuration file parser with FFI bindings
 long_description    Bunsenite is a Nickel configuration file parser with \
