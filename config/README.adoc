@@ -1,0 +1,180 @@
+// SPDX-License-Identifier: PMPL-1.0-or-later
+= Bunsenite K9 Configuration
+
+**Meta-Dogfooding in Action**: The Nickel tooling project using K9 (which uses Nickel).
+
+== Overview
+
+This directory contains self-validating K9 configuration files for Bunsenite.
+K9 uses Nickel's contract system to ensure configurations are valid before use.
+
+== Configuration Files
+
+[cols="1,2,1"]
+|===
+| File | Purpose | Security Level
+
+| `rust-fmt.k9.ncl`
+| Rust formatter configuration with validation
+| Yard (validation only)
+
+| `build.k9.ncl`
+| Cargo build configuration with contracts
+| Yard (validation only)
+|===
+
+== Usage
+
+=== Validate Configurations
+
+[source,bash]
+----
+# Validate all K9 configs
+just validate-k9
+
+# Validate specific config
+nickel eval config/rust-fmt.k9.ncl
+
+# Check pedigree
+nickel eval -f 'pedigree' config/rust-fmt.k9.ncl
+----
+
+=== Generate Traditional Config Files
+
+[source,bash]
+----
+# Generate rustfmt.toml from K9 config
+nickel export config/rust-fmt.k9.ncl -f 'rustfmt_toml' > rustfmt.toml
+
+# Generate Cargo.toml sections from K9 config
+nickel export config/build.k9.ncl -f 'config' > build-config.toml
+----
+
+=== Use in Build Pipeline
+
+[source,bash]
+----
+# Validate before formatting
+just validate-k9 && cargo fmt
+
+# Validate before build
+just validate-k9 && cargo build --release
+----
+
+== Why K9 for Bunsenite?
+
+**This is meta-dogfooding at its finest:**
+
+1. **Bunsenite** is Nickel tooling
+2. **K9** uses Nickel for validation
+3. **Result**: The Nickel tool validates itself with K9
+
+**Benefits:**
+
+* Invalid configs refuse to load (fail fast)
+* Nickel contracts enforce validity at compile-time
+* Self-documenting with type signatures
+* Progressive strictness (lax → checked → attested)
+
+== Contract Examples
+
+=== Line Width Validation
+
+[source,nickel]
+----
+max_width
+  | std.number.Positive
+  | std.contract.from_predicate (fun w => w >= 80 && w <= 120)
+----
+
+**Guarantees:**
+- Line width must be positive
+- Line width between 80-120 characters
+
+=== Edition Validation
+
+[source,nickel]
+----
+edition
+  | std.contract.from_predicate
+      (fun e => std.array.elem e ["2015", "2018", "2021", "2024"])
+----
+
+**Guarantees:**
+- Only valid Rust editions accepted
+
+=== Version Format Validation
+
+[source,nickel]
+----
+package.version
+  | std.contract.from_predicate
+      (fun v => std.string.is_match "^[0-9]+\\.[0-9]+\\.[0-9]+(-[a-z0-9]+)?(\\+[a-z0-9]+)?$" v)
+----
+
+**Guarantees:**
+- Semantic versioning format (x.y.z)
+- Optional pre-release and build metadata
+
+== Integration with K9 Ecosystem
+
+**Related Projects:**
+
+* **K9-SVC**: https://github.com/hyperpolymath/k9-svc
+* **RSR Template**: Uses K9 contractiles
+* **MCP Servers**: Production configs with K9
+* **ABI/FFI**: Build configs in K9
+
+== Roadmap
+
+=== Phase 1: Formatter & Build (Current)
+- [x] rust-fmt.k9.ncl
+- [x] build.k9.ncl
+- [ ] Add to CI pipeline
+
+=== Phase 2: Extended Configs
+- [ ] Test configuration (test.k9.ncl)
+- [ ] Bench configuration (bench.k9.ncl)
+- [ ] Documentation generation (doc.k9.ncl)
+
+=== Phase 3: CI Integration
+- [ ] Pre-commit hook validates K9 configs
+- [ ] CI fails if K9 validation fails
+- [ ] Auto-generate rustfmt.toml from K9
+
+=== Phase 4: Full Adoption
+- [ ] All Bunsenite configs in K9
+- [ ] Document patterns for Nickel users
+- [ ] Template for other Nickel projects
+
+== Philosophy
+
+**"If your config can't validate itself, it shouldn't run."**
+
+K9 brings the same rigor to configuration that Nickel brings to data.
+By using K9 in Bunsenite, we demonstrate that self-validating configs
+work for real-world tooling, not just toy examples.
+
+== Contributing
+
+To add new K9 configs:
+
+1. Create `config/name.k9.ncl`
+2. Start with `K9!` magic header
+3. Set `leash = 'Yard` for validation-only
+4. Define `pedigree` with metadata
+5. Define `config` with Nickel contracts
+6. Test with `nickel eval`
+7. Add validation to `justfile`
+
+== References
+
+* **K9 Specification**: https://github.com/hyperpolymath/k9-svc/blob/main/SPEC.adoc
+* **Nickel Documentation**: https://nickel-lang.org/
+* **K9 Dogfooding Strategy**: ../DOGFOODING-OPPORTUNITIES.md (in k9-svc repo)
+
+---
+
+**Maintainer**: Jonathan D.A. Jewell <jonathan.jewell@open.ac.uk> +
+**Status**: Phase 1 Implementation +
+**Last Updated**: 2026-01-30

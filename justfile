@@ -60,6 +60,22 @@ update:
 audit:
     cargo audit
 
-# All checks before commit
-pre-commit: fmt-check lint test
+# Validate K9 configurations
+validate-k9:
+    @echo "Validating K9 configs..."
+    nickel eval config/rust-fmt.k9.ncl > /dev/null && echo "✓ rust-fmt.k9.ncl valid"
+    nickel eval config/build.k9.ncl > /dev/null && echo "✓ build.k9.ncl valid"
+    @echo "All K9 configs valid!"
+
+# Generate rustfmt.toml from K9 config
+generate-rustfmt:
+    nickel export config/rust-fmt.k9.ncl -f 'rustfmt_toml' > rustfmt.toml
+    @echo "Generated rustfmt.toml from K9 config"
+
+# K9 dogfooding: validate configs before use
+dogfood: validate-k9
+    @echo "K9 dogfooding: The Nickel tool validates itself with K9!"
+
+# All checks before commit (including K9 validation)
+pre-commit: validate-k9 fmt-check lint test
     @echo "All checks passed!"
