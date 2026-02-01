@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: PMPL-1.0
+# SPDX-License-Identifier: PMPL-1.0-or-later
 name: Publish COPR
 
 on:
@@ -104,7 +104,7 @@ jobs:
           mkdir -p rpm
 
           cat > rpm/bunsenite.spec << EOF
-          # SPDX-License-Identifier: PMPL-1.0
+          # SPDX-License-Identifier: PMPL-1.0-or-later
           Name:           bunsenite
           Version:        ${VERSION}
           Release:        1%{?dist}

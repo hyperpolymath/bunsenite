@@ -1,0 +1,165 @@
+= Bunsenite Roadmap
+:toc:
+:toclevels: 3
+
+== Overview
+
+This roadmap outlines the development plan for Bunsenite, the Nickel configuration file parser with multi-language FFI bindings.
+
+== v1.0 - Production Release (Current)
+
+**Target:** 2026-02
+**Status:** Active development (85% complete)
+
+=== Core Features
+* ✅ Rust core library with Nickel parsing
+* ✅ Zero `unsafe` blocks (100% safe Rust)
+* ✅ C ABI layer via Zig for FFI
+* ✅ Deno bindings (JavaScript/TypeScript)
+* ✅ ReScript bindings
+* ✅ WebAssembly support (browser + universal)
+* ✅ Offline-first architecture (no network dependencies)
+
+=== Quality & Standards
+* ✅ RSR Bronze tier compliance
+* ✅ TPCF Perimeter 3 compliance
+* ✅ 100% test pass rate
+* ✅ CI/CD pipeline
+* ✅ Comprehensive documentation
+* ✅ ClusterFuzzLite fuzzing
+* ✅ Criterion benchmarks
+
+=== Remaining for v1.0
+* [ ] Complete ROADMAP.adoc (this file)
+* [ ] Address placeholder TODOs in codebase
+* [ ] Final security audit
+* [ ] Performance optimization pass
+* [ ] Release automation
+
+== v1.1 - Enhanced Bindings (Next)
+
+**Target:** 2026-03
+
+=== Additional Language Bindings
+* Python bindings (via PyO3)
+* Ruby bindings (via Magnus)
+* Julia bindings (CCall)
+* Go bindings (cgo)
+
+=== Improved Ergonomics
+* Simplified API for common use cases
+* Better error messages with suggestions
+* Auto-completion support for IDEs
+* Configuration validation helpers
+
+=== Performance
+* Streaming parser for large files
+* Parallel parsing for multi-file configs
+* Memory usage optimization
+* Zero-copy parsing where possible
+
+== v1.2 - Advanced Features
+
+**Target:** 2026-04
+
+=== Nickel Language Features
+* Advanced type inference
+* Custom type definitions
+* Merging strategies
+* Validation schemas
+* Built-in formatters
+
+=== Tooling Integration
+* Language server protocol (LSP)
+* Formatter integration
+* Linter integration
+* Migration tools from other config formats
+
+=== Developer Experience
+* Interactive REPL
+* Web-based playground
+* Configuration templates library
+* Best practices guide
+
+== v2.0 - Neurosymbolic Configuration
+
+**Target:** 2026-Q3
+
+=== AI Integration
+* LLM-based configuration generation
+* Natural language to Nickel translation
+* Configuration validation with AI explanations
+* Auto-fix for common configuration errors
+
+=== Formal Verification
+* Idris integration for proven configuration
+* Type-level guarantees for config correctness
+* Proof-carrying configuration
+* Contract verification
+
+=== Hypatia Integration
+* Hypatia orchestration for config management
+* Fleet-wide configuration validation
+* Dependency tracking across configurations
+* Configuration policy enforcement
+
+== v2.5 - Universal Configuration Standard
+
+**Target:** 2026-Q4
+
+=== Format Interoperability
+* Bidirectional TOML conversion
+* YAML import/export
+* JSON compatibility layer
+* HCL (HashiCorp) migration tools
+
+=== Ecosystem Integration
+* Kubernetes ConfigMap support
+* Docker Compose integration
+* CI/CD pipeline configs
+* Infrastructure as Code (IaC) templates
+
+=== Distributed Configuration
+* Multi-environment support
+* Secret management integration
+* Configuration versioning
+* Rollback mechanisms
+
+== v3.0 - Autonomous Configuration Management
+
+**Target:** 2027
+
+=== Self-Healing Configurations
+* Auto-detection of configuration drift
+* Predictive error prevention
+* Self-optimizing configurations
+* Intelligent defaults learning
+
+=== Enterprise Features
+* Multi-tenant configuration
+* RBAC for configuration access
+* Audit logging
+* Compliance reporting
+
+=== Cloud-Native
+* Native Kubernetes operator
+* Service mesh integration
+* Configuration as a Service (CaaS)
+* Global configuration distribution
+
+== Long-term Vision
+
+* Industry-standard configuration format
+* Formal verification by default
+* AI-assisted configuration authoring
+* Zero-configuration for common scenarios
+* Universal compatibility across all tools
+* Integration with Hyperpolymath proven infrastructure
+
+== Contributing
+
+See link:CONTRIBUTING.md[Contributing Guidelines] for how to contribute to Bunsenite development.
+
+== Versioning
+
+Bunsenite follows semantic versioning (SemVer). Breaking changes will only be introduced in major version releases.

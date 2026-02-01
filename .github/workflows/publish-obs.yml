@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: PMPL-1.0
+# SPDX-License-Identifier: PMPL-1.0-or-later
 name: Publish OBS (openSUSE)
 
 on:
@@ -65,7 +65,7 @@ jobs:
 
           # Create spec file for OBS (openSUSE Build Service)
           cat > obs/bunsenite.spec << EOF
-          # SPDX-License-Identifier: PMPL-1.0
+          # SPDX-License-Identifier: PMPL-1.0-or-later
           #
           # spec file for package bunsenite
           #

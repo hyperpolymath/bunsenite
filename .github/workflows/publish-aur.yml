@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: PMPL-1.0
+# SPDX-License-Identifier: PMPL-1.0-or-later
 name: Publish AUR
 
 on:
@@ -68,7 +68,7 @@ jobs:
 
           cat > aur-package/PKGBUILD << EOF
           # Maintainer: hyperpolymath <packages@hyperpolymath.dev>
-          # SPDX-License-Identifier: PMPL-1.0
+          # SPDX-License-Identifier: PMPL-1.0-or-later
           pkgname=bunsenite-bin
           pkgver=${VERSION}
           pkgrel=1
