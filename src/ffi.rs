@@ -3,10 +3,24 @@
 //! This module provides C-compatible function exports that can be called
 //! from Zig, which then re-exports them with stable ABI guarantees.
 //!
+//! # FFI Architecture
+//!
+//! ```text
+//! ┌──────────────┐      ┌────────────┐      ┌────────────┐
+//! │  Consumers   │      │  Zig FFI   │      │  Rust Core │
+//! │ (Deno, etc.) │ ───> │ (ABI Safe) │ ───> │ (bunsenite)│
+//! └──────────────┘      └────────────┘      └────────────┘
+//! ```
+//!
 //! # Safety
 //!
 //! These functions use `unsafe` for FFI boundary crossing. The Zig layer
 //! provides additional safety guarantees and stable ABI.
+//!
+//! Key Safety Invariants:
+//! 1. All pointers must be checked for null.
+//! 2. Strings allocated by Rust must be freed by Rust (`bunsenite_free_string`).
+//! 3. Static strings must never be freed.
 
 use crate::NickelLoader;
 use std::ffi::{CStr, CString};

@@ -3,6 +3,13 @@
 //! This module provides the core functionality for loading and parsing Nickel
 //! configuration files using nickel-lang-core 0.9.1.
 //!
+//! # Core Responsibilities
+//!
+//! 1. **Loading**: Reading configuration from strings or files.
+//! 2. **Parsing**: Using the upstream `nickel-lang-core` parser to generate an AST.
+//! 3. **Evaluation**: Executing the Nickel program to produce a final configuration.
+//! 4. **Export**: Converting the evaluated configuration into standard formats (JSON).
+//!
 //! # API Compatibility Notes (nickel-lang-core 0.9.1)
 //!
 //! - `Program::new_from_source()` requires trace parameter: `std::io::sink()`
@@ -17,7 +24,10 @@ use serde_json::Value;
 use std::io::Cursor;
 use std::path::Path;
 
-/// Type alias for the standard Program with CBN caching
+/// Type alias for the standard Program with CBN (Call-By-Need) caching.
+///
+/// CBN is the standard evaluation strategy for Nickel, ensuring lazy evaluation
+/// of configuration fields.
 type NickelProgram = Program<CBNCache>;
 
 /// Nickel configuration loader

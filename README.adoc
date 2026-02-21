@@ -323,3 +323,8 @@ Current version: *0.1.0* (Bronze tier compliant, production-ready)
 *Made with ❤️ by the Campaign for Cooler Coding and Programming*
 
 *Politically autonomous software for emotionally safe development*
+
+
+== Architecture
+
+See link:TOPOLOGY.md[TOPOLOGY.md] for a visual architecture map and completion dashboard.
