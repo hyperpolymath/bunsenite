@@ -38,7 +38,7 @@ jobs:
 
       - name: Checkout bunsenite
         if: steps.check-secret.outputs.skip != 'true'
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v4.2.2
 
       - name: Get inputs
         if: steps.check-secret.outputs.skip != 'true'
