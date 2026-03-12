@@ -268,7 +268,7 @@ We take security seriously. See [SECURITY.md](./SECURITY.md) for:
 Dual licensed under your choice of:
 
 <<<<<<< HEAD
-- *Palimpsest-MPL-1.0 License* ([LICENSE-MIT](./LICENSE) or http://opensource.org/licenses/MIT)
+- *Palimpsest-MPL-1.0 License* ([LICENSE-MIT](./LICENSE) or https://opensource.org/licenses/MIT)
 =======
 - *Palimpsest-MPL License v1.0 (PMPL-1.0)* ([LICENSE-PMPL-1.0](./LICENSE) or https://github.com/hyperpolymath/palimpsest-license)
 >>>>>>> 5e371e5 (Normalize license badge)
