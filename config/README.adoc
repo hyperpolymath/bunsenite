@@ -175,6 +175,6 @@ To add new K9 configs:
 
 ---
 
-**Maintainer**: Jonathan D.A. Jewell <jonathan.jewell@open.ac.uk> +
+**Maintainer**: Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk> +
 **Status**: Phase 1 Implementation +
 **Last Updated**: 2026-01-30

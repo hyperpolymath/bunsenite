@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: PMPL-1.0
-# Maintainer: hyperpolymath <jonathan.jewell@open.ac.uk>
+# Maintainer: hyperpolymath <j.d.a.jewell@open.ac.uk>
 pkgname=bunsenite-bin
 pkgver=1.0.2
 pkgrel=1

@@ -49,7 +49,7 @@ config | {
     edition = "2021",
     rust_version = "1.70",
     license = "PMPL-1.0-or-later",
-    authors = ["Jonathan D.A. Jewell <jonathan.jewell@open.ac.uk>"],
+    authors = ["Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>"],
     description = "Nickel language tooling and utilities",
     repository = "https://github.com/hyperpolymath/bunsenite",
   },
@@ -84,7 +84,7 @@ config | {
     | std.contract.from_predicate
         (fun l => std.array.elem l [
           "PMPL-1.0-or-later",
-          "AGPL-3.0-or-later",
+          "PMPL-1.0-or-later",
           "MIT",
           "Apache-2.0"
         ]),
