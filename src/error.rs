@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: PMPL-1.0-or-later
 //! Error types for Bunsenite
 //!
 //! This module provides comprehensive error handling for all Bunsenite operations.

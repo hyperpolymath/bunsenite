@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: PMPL-1.0-or-later
 //! Schema validation for Nickel configurations
 //!
 //! This module provides JSON Schema validation for parsed Nickel configurations.

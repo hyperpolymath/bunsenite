@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: PMPL-1.0-or-later
 //! Bunsenite CLI
 //!
 //! Command-line interface for parsing and evaluating Nickel configuration files

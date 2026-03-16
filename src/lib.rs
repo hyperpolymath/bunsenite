@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: PMPL-1.0-or-later
 //! Bunsenite: Nickel configuration file parser with multi-language FFI bindings
 //!
 //! Bunsenite provides a Rust core library with a stable C ABI layer (via Zig)

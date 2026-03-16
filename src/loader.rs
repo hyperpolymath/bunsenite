@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: PMPL-1.0-or-later
 //! Nickel file loader and parser
 //!
 //! This module provides the core functionality for loading and parsing Nickel
