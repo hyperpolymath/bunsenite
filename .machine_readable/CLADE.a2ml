@@ -1,0 +1,26 @@
+# SPDX-License-Identifier: PMPL-1.0-or-later
+# Clade declaration — part of the gv-clade-index registry
+# See: https://github.com/hyperpolymath/gv-clade-index
+
+[identity]
+uuid = "ef2c8003-70e4-5fee-9b95-9a5fb2f508a9"
+primary-forge = "github"
+primary-owner = "hyperpolymath"
+canonical-name = "bunsenite"
+prefixed-name = "dx-bunsenite"
+
+[clade]
+primary = "dx"
+secondary = []
+assigned = "2026-03-16"
+rationale = ""
+
+[forges]
+github = "hyperpolymath/bunsenite"
+gitlab = "hyperpolymath/bunsenite"
+bitbucket = "hyperpolymath/bunsenite"
+
+[lineage]
+type = "standalone"
+parent = "Nickel configuration tool"
+born = "2026-03-16"
