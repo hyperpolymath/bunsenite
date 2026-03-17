@@ -120,7 +120,7 @@ package.version
 
 **Related Projects:**
 
-* **K9-SVC**: https://github.com/hyperpolymath/k9-svc
+* **K9-SVC**: https://github.com/hyperpolymath/standards/tree/main/k9-svc
 * **RSR Template**: Uses K9 contractiles
 * **MCP Servers**: Production configs with K9
 * **ABI/FFI**: Build configs in K9
@@ -169,7 +169,7 @@ To add new K9 configs:
 
 == References
 
-* **K9 Specification**: https://github.com/hyperpolymath/k9-svc/blob/main/SPEC.adoc
+* **K9 Specification**: https://github.com/hyperpolymath/standards/blob/main/k9-svc/SPEC.adoc
 * **Nickel Documentation**: https://nickel-lang.org/
 * **K9 Dogfooding Strategy**: ../DOGFOODING-OPPORTUNITIES.md (in k9-svc repo)
 
