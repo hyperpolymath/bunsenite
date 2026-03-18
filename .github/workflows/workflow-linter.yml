@@ -63,7 +63,7 @@ jobs:
           echo "=== Checking Action Pinning ==="
           # Find actual YAML uses: declarations that aren't SHA-pinned
           # Excludes: comments, grep commands, echo statements
-          unpinned=$(grep -rn "uses:" .github/workflows/ | \
+          unpinned=$(grep -rnE "^[[:space:]]+uses:" .github/workflows/ | \
             grep -v "@[a-f0-9]\{40\}" | \
             grep -v "uses: \./\|uses: docker://\|uses: actions/github-script" | \
             grep -v 'grep.*uses:\|echo.*uses:\|#.*uses:' || true)
