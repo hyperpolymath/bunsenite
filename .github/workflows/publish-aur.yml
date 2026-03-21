@@ -19,7 +19,8 @@ on:
         description: 'SHA256 for Linux arm64'
         required: true
 
-permissions: read-all
+permissions:
+  contents: read
 
 jobs:
   publish-aur:

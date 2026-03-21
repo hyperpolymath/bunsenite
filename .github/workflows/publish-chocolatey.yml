@@ -16,7 +16,8 @@ on:
         description: 'SHA256 for Windows x64'
         required: true
 
-permissions: read-all
+permissions:
+  contents: read
 
 jobs:
   publish-chocolatey:

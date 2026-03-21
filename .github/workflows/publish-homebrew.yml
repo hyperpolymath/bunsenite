@@ -25,7 +25,8 @@ on:
         description: 'SHA256 for macOS arm64'
         required: true
 
-permissions: read-all
+permissions:
+  contents: read
 
 env:
   TAP_REPO: hyperpolymath/homebrew-tap

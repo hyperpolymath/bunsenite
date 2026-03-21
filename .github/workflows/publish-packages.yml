@@ -12,7 +12,8 @@ on:
         description: 'Release tag (e.g., v1.0.2)'
         required: true
 
-permissions: read-all
+permissions:
+  contents: read
 
 jobs:
   extract-release-info:
