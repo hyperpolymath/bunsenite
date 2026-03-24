@@ -6,7 +6,8 @@ env:
   RUSTFLAGS: -Dwarnings
 
 
-permissions: read-all
+permissions:
+  contents: read
 
 jobs:
   test:

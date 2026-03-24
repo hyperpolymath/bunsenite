@@ -13,7 +13,8 @@ on:
         description: 'Git tag (e.g., v1.0.2)'
         required: true
 
-permissions: read-all
+permissions:
+  contents: read
 
 env:
   TAP_REPO: hyperpolymath/homebrew-tap

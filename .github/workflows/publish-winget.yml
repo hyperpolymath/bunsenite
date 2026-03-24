@@ -20,7 +20,8 @@ on:
         type: boolean
         default: false
 
-permissions: read-all
+permissions:
+  contents: read
 
 env:
   TAP_REPO: hyperpolymath/homebrew-tap
