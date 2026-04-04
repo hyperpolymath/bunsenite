@@ -7,19 +7,28 @@ The README makes claims. This file backs them up.
 
 [quote, README]
 ____
-Bunsenite is a *Nickel configuration file parser* with a Rust core library and multi-language FFI bindings. It provides a stable C ABI layer (via Zig) that enables bindings for *Deno* (JavaScript/TypeScript), *Rescript*, and *WebAssembly* for browser and universal use.
+Bunsenite is a Nickel configuration file parser with Rust core, Zig FFI, and multi-language bindings (Deno, ReScript, WASM).
 ____
 
-== Technology Choices
+The architecture layers Rust (parsing) → Zig (stable C ABI) → language-specific bindings. This prevents Rust ABI churn from breaking downstream consumers; the C ABI is stable across Rust compiler versions.
 
-[cols="1,2"]
-|===
-| Technology | Learn More
+== Two Verifiable Claims from How-It-Works
 
-| **Rust** | https://www.rust-lang.org
-| **Zig** | https://ziglang.org
-| **Idris2 ABI** | https://www.idris-lang.org
-|===
+=== Claim 1: Zig FFI Isolates Consumers from Rust ABI Changes
+
+**Location**: `/var/mnt/eclipse/repos/bunsenite/zig/bunsenite.zig` (Zig C ABI wrapper around Rust core)
+
+**How verified**: The Zig FFI layer exposes a pure C ABI (no Rust `repr(Rust)` types). Functions like `parse_nickel_string()` and `validate_config()` take C-compatible types (pointers, `size_t`, `int`) and call Rust functions via `extern "C"`. README (§Design Rationale) claims "stable C ABI isolates consumers from Rust ABI changes." This is validated by the fact that Deno/ReScript bindings use `Deno.dlopen()` and direct C FFI, not `rustler` or other Rust-specific bridges. If Rust ABI changed, only the Zig layer needs updating, not the bindings themselves.
+
+**Caveat**: The Zig FFI is currently manually maintained. No formal proof that generated C headers match the Rust implementation. This works in practice due to hand verification but is not formally certified.
+
+=== Claim 2: CLI Parse/Validate Commands Route Correctly to Library
+
+**Location**: `/var/mnt/eclipse/repos/bunsenite/src/main.rs` (CLI entry point delegating to lib.rs)
+
+**How verified**: The CLI (`bunsenite parse <file>`, `bunsenite validate <file>`) calls library functions via `src/lib.rs` which wraps `nickel_lang_core 0.9.1`. Each CLI command creates a `NickelLoader` instance (defined in `src/loader.rs`), invokes appropriate methods, and formats output. README (§Usage, CLI section) documents the three commands; the code implements them. The CI/CD runs these commands against example configs to verify correctness.
+
+**Caveat**: CLI and library use different error handling (CLI uses `miette` for pretty errors, library uses `thiserror` types). Some errors may format differently between CLI and programmatic use.
 
 == Dogfooded Across The Account
 
@@ -28,15 +37,33 @@ https://github.com/hyperpolymath/proven[proven],
 https://github.com/hyperpolymath/burble[burble], and
 https://github.com/hyperpolymath/gossamer[gossamer].
 
+Critical path: Idris2 ABI specs → Zig FFI implementation → Deno/ReScript bindings → end-user code.
+
 == File Map
 
 [cols="1,2"]
 |===
 | Path | What's There
 
-| `src/` | Source code
-| `ffi/` | Foreign function interface
+| `src/lib.rs` | Public library API entry point; exports `NickelLoader`, `parse_*`, `validate_*` functions
+| `src/loader.rs` | `NickelLoader` struct wrapping `nickel_lang_core` API; handles file I/O and evaluation
+| `src/main.rs` | CLI entry point with subcommands: parse, validate, watch, repl, schema, info
+| `src/wasm.rs` | WebAssembly bindings via wasm-bindgen; exports `parse_nickel()` function for browser
+| `zig/bunsenite.zig` | Stable C ABI layer; wraps Rust library with C-compatible function signatures
+| `bindings/deno/bunsenite.ts` | Deno FFI bindings using `Deno.dlopen()` to call Zig C ABI functions
+| `bindings/rescript/bindings.res` | ReScript C FFI bindings to call Zig C ABI; compiles to JavaScript
+| `examples/config.ncl` | Example Nickel config demonstrating features (loops, functions, conditionals)
+| `examples/simple.ncl` | Minimal config for testing parsing
+| `Justfile` | Build recipes: `just all`, `just wasm`, `just test`, `just rsr-check`
 |===
+
+== Testing Critical Paths
+
+* **Library correctness**: `cargo test` — Rust unit tests for parser, loader, evaluation
+* **CLI functionality**: `Justfile` test recipes verify `parse`, `validate`, `watch`, `repl` commands
+* **WASM builds**: `just wasm` and `wasm-pack test` validate browser-compatible builds
+* **FFI soundness**: Deno/ReScript bindings tested against known Nickel configs
+* **RSR compliance**: `just rsr-check` validates Bronze tier requirements
 
 == Questions?
 
