@@ -2,6 +2,8 @@
 set shell := ["bash", "-uc"]
 set dotenv-load := true
 
+import? "contractile.just"
+
 project := "bunsenite"
 
 # Show all recipes
