@@ -23,7 +23,7 @@ jobs:
       matrix:
         include:
           # Bunsenite has JS/TS files - Rust is not supported by CodeQL
-          - language: javascript-typescript
+          - language: actions
             build-mode: none
 
     steps:
