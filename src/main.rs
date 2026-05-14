@@ -5,7 +5,6 @@
 
 use bunsenite::{NickelLoader, VERSION};
 use clap::{Parser, Subcommand};
-use miette::IntoDiagnostic;
 use std::path::PathBuf;
 use std::process;
 
