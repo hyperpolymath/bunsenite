@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: PMPL-1.0-or-later
+# SPDX-License-Identifier: MPL-2.0
 K9!
 leash = 'Yard  # Validation only, no I/O
 
@@ -48,7 +48,7 @@ config | {
     version = "0.1.0",
     edition = "2021",
     rust_version = "1.70",
-    license = "PMPL-1.0-or-later",
+    license = "MPL-2.0",
     authors = ["Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>"],
     description = "Nickel language tooling and utilities",
     repository = "https://github.com/hyperpolymath/bunsenite",
@@ -83,8 +83,8 @@ config | {
   package.license
     | std.contract.from_predicate
         (fun l => std.array.elem l [
-          "PMPL-1.0-or-later",
-          "PMPL-1.0-or-later",
+          "MPL-2.0",
+          "MPL-2.0",
           "MIT",
           "Apache-2.0"
         ]),

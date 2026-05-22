@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: PMPL-1.0-or-later
+# SPDX-License-Identifier: MPL-2.0
 name: Publish Flatpak
 
 on:
@@ -86,7 +86,7 @@ jobs:
           mkdir -p flathub
 
           cat > flathub/${APP_ID}.yml << EOF
-          # SPDX-License-Identifier: PMPL-1.0-or-later
+          # SPDX-License-Identifier: MPL-2.0
           app-id: ${APP_ID}
           runtime: org.freedesktop.Platform
           runtime-version: '23.08'

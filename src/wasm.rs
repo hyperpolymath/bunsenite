@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: PMPL-1.0-or-later
+// SPDX-License-Identifier: MPL-2.0
 //! WebAssembly bindings for Bunsenite
 //!
 //! This module provides WASM bindings that enable Bunsenite to run in browsers

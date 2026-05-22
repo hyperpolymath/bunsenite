@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: PMPL-1.0-or-later
+// SPDX-License-Identifier: MPL-2.0
 = Bunsenite K9 Configuration
 
 **Meta-Dogfooding in Action**: The Nickel tooling project using K9 (which uses Nickel).

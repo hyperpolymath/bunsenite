@@ -1,5 +1,5 @@
 K9!
-# SPDX-License-Identifier: PMPL-1.0-or-later
+# SPDX-License-Identifier: MPL-2.0
 # Bunsenite Configuration Validator
 #
 # This K9 component validates Nickel configuration files used in the Bunsenite
@@ -115,7 +115,7 @@ examples = {
     features = ["wasm", "ffi-bindings"],
     metadata = {
       author = "Jonathan D.A. Jewell",
-      license = "PMPL-1.0-or-later",
+      license = "MPL-2.0",
     },
   } | config.schemas.app_config,
 

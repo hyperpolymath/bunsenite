@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: PMPL-1.0-or-later
+# SPDX-License-Identifier: MPL-2.0
 name: Publish WinGet
 
 on:
@@ -73,7 +73,7 @@ jobs:
 
           cat > "winget/Hyperpolymath.Bunsenite/${VERSION}/Hyperpolymath.Bunsenite.yaml" << EOF
           # yaml-language-server: \$schema=https://aka.ms/winget-manifest.singleton.1.6.0.schema.json
-          # SPDX-License-Identifier: PMPL-1.0-or-later
+          # SPDX-License-Identifier: MPL-2.0
           PackageIdentifier: Hyperpolymath.Bunsenite
           PackageVersion: ${VERSION}
           PackageLocale: en-US
