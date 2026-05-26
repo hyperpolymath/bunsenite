@@ -1,68 +1,20 @@
 # SPDX-License-Identifier: MPL-2.0
+# Rust CI — thin wrapper calling the shared estate reusable in
+# hyperpolymath/standards. Configure once, propagate everywhere.
+# See: docs/CI-REUSABLE-WORKFLOWS.adoc in standards.
 name: Rust CI
-on: [push, pull_request]
-env:
-  CARGO_TERM_COLOR: always
-  RUSTFLAGS: -Dwarnings
 
+on:
+  push:
+    branches: [main, master]
+  pull_request:
 
 permissions:
   contents: read
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v4.2.2
-      - uses: dtolnay/rust-toolchain@0b1efabc08b657293548b77fb76cc02d26091c7e # stable
-        with:
-          toolchain: stable
-          components: rustfmt, clippy
-      - uses: Swatinem/rust-cache@9d47c6ad4b02e050fd481d890b2ea34778fd09d6 # v2.7.5
-
-      - name: Check formatting
-        run: cargo fmt --all -- --check
-
-      - name: Clippy lints
-        run: cargo clippy --all-targets --all-features -- -D warnings
-
-      - name: Run tests
-        run: cargo test --all-features
-
-      - name: Build release
-        run: cargo build --release
-
-  security:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v4.2.2
-      - uses: dtolnay/rust-toolchain@0b1efabc08b657293548b77fb76cc02d26091c7e # stable
-        with:
-          toolchain: stable
-      - name: Install cargo-audit
-        run: cargo install cargo-audit
-      - name: Security audit
-        run: cargo audit
-      - name: Check for outdated deps
-        run: cargo install cargo-outdated && cargo outdated --exit-code 1 || true
-
-  coverage:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v4.2.2
-      - uses: dtolnay/rust-toolchain@0b1efabc08b657293548b77fb76cc02d26091c7e # stable
-        with:
-          toolchain: stable
-      - name: Install tarpaulin
-        run: cargo install cargo-tarpaulin
-      - name: Generate coverage
-        run: cargo tarpaulin --out Xml
-      - uses: codecov/codecov-action@0561704f0f02c16a585d4c7555e57fa2e44cf909 # v5.4.2
-        with:
-          files: cobertura.xml
+  rust-ci:
+    uses: hyperpolymath/standards/.github/workflows/rust-ci-reusable.yml@4fdf4314b4ab54269adbaff10e30e483b5e86845
+    with:
+      enable_audit: true
+      enable_coverage: true
