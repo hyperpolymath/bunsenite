@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 // Bunsenite Zig Build Configuration
 //
 // Build the Zig FFI layer as a shared library that wraps the Rust core.

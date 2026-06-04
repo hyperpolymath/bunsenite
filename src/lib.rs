@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 //! Bunsenite: Nickel configuration file parser with multi-language FFI bindings
 //!
 //! Bunsenite provides a Rust core library with a stable C ABI layer (via Zig)

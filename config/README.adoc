@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 = Bunsenite K9 Configuration
 
 **Meta-Dogfooding in Action**: The Nickel tooling project using K9 (which uses Nickel).
@@ -169,7 +170,7 @@ To add new K9 configs:
 
 == References
 
-* **K9 Specification**: https://github.com/hyperpolymath/standards/blob/main/k9-svc/SPEC.adoc
+* **K9 Specification**: https://github.com/hyperpolymath/standards/blob/main/self-validating/SPEC.adoc
 * **Nickel Documentation**: https://nickel-lang.org/
 * **K9 Dogfooding Strategy**: ../DOGFOODING-OPPORTUNITIES.md (in k9-svc repo)
 

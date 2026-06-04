@@ -1,5 +1,9 @@
+<!--
+SPDX-License-Identifier: MPL-2.0
+Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+-->
 # Bunsenite Deno Bindings
-image:https://img.shields.io/badge/License-PMPL--1.0-blue.svg[License: PMPL-1.0,link="https://github.com/hyperpolymath/palimpsest-license"]
+image:https://img.shields.io/badge/License-PMPL--1.0-blue.svg[License: MPL-2.0,link="https://github.com/hyperpolymath/palimpsest-license"]
 
 
 
@@ -207,7 +211,7 @@ The bindings automatically detect your platform and load the correct library.
 
 ## License
 
-Dual PMPL-1.0 + Palimpsest License v0.8
+Dual MPL-2.0 + MPL-2.0 v0.8
 
 See [LICENSE](../../LICENSE) for details.
 

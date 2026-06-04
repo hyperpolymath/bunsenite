@@ -1,3 +1,7 @@
+<!--
+SPDX-License-Identifier: MPL-2.0
+Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+-->
 # Bunsenite Project
 
 ## Project Overview
@@ -6,7 +10,7 @@ Bunsenite is a Nickel configuration file parser with multi-language FFI bindings
 
 **Status**: v1.0.0 - Production ready
 **Repository**: https://github.com/hyperpolymath/bunsenite (mirror: GitLab)
-**License**: Dual PMPL-1.0 + Palimpsest 0.8
+**License**: Dual MPL-2.0 + Palimpsest 0.8
 
 ## Project Structure
 
@@ -32,7 +36,7 @@ bunsenite/
 ├── Justfile                # Build commands (45+ recipes)
 ├── CLAUDE.md               # This file - AI assistant context
 ├── STATE.scm               # Project state checkpoint
-└── LICENSE                 # PMPL-1.0 + Palimpsest dual license
+└── LICENSE                 # MPL-2.0 + Palimpsest dual license
 ```
 
 ## Technology Stack

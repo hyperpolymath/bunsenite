@@ -24,6 +24,7 @@ jobs:
   update-flatpak:
     name: Update Flatpak Manifest
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Check for TAP_GITHUB_TOKEN
         id: check-secret
