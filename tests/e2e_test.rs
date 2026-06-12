@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MPL-2.0
-// Copyright (c) 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 //! End-to-end tests for Bunsenite: create → serialize → deserialize → verify round-trip.
 //!
 //! These tests exercise the full lifecycle of loading a Nickel configuration:

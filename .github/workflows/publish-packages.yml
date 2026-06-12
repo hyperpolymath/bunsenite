@@ -20,6 +20,7 @@ jobs:
     name: Extract Release Info
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     outputs:
       version: ${{ steps.info.outputs.version }}
       tag: ${{ steps.info.outputs.tag }}
@@ -71,6 +72,7 @@ jobs:
     name: Dispatch Homebrew
     needs: extract-release-info
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Trigger Homebrew publisher
         uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
@@ -91,6 +93,7 @@ jobs:
     name: Dispatch Scoop
     needs: extract-release-info
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Trigger Scoop publisher
         uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
@@ -108,6 +111,7 @@ jobs:
     name: Dispatch AUR
     needs: extract-release-info
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Trigger AUR publisher
         uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
@@ -126,6 +130,7 @@ jobs:
     name: Dispatch WinGet
     needs: extract-release-info
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Trigger WinGet publisher
         uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
@@ -143,6 +148,7 @@ jobs:
     name: Dispatch Chocolatey
     needs: extract-release-info
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Trigger Chocolatey publisher
         uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
@@ -160,6 +166,7 @@ jobs:
     name: Dispatch Flatpak
     needs: extract-release-info
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Trigger Flatpak publisher
         uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
@@ -176,6 +183,7 @@ jobs:
     name: Dispatch MacPorts
     needs: extract-release-info
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Trigger MacPorts publisher
         uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
@@ -192,6 +200,7 @@ jobs:
     name: Dispatch Debian PPA
     needs: extract-release-info
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Trigger Debian PPA publisher
         uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
@@ -208,6 +217,7 @@ jobs:
     name: Dispatch COPR
     needs: extract-release-info
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Trigger COPR publisher
         uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
@@ -224,6 +234,7 @@ jobs:
     name: Dispatch OBS (openSUSE)
     needs: extract-release-info
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Trigger OBS publisher
         uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
@@ -240,6 +251,7 @@ jobs:
     name: Dispatch Nixpkgs
     needs: extract-release-info
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Trigger Nixpkgs publisher
         uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0

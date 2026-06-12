@@ -1,5 +1,7 @@
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 = Bunsenite
-image:https://img.shields.io/badge/License-PMPL--1.0-blue.svg[License: PMPL-1.0,link="https://github.com/hyperpolymath/palimpsest-license"]
+image:https://img.shields.io/badge/License-MPL_2.0--1.0-blue.svg[License: MPL-2.0,link="https://github.com/hyperpolymath/palimpsest-license"]
 image:https://img.shields.io/badge/OpenSSF-Best_Practices-green?logo=opensourcesecurity[OpenSSF Best Practices, link="https://www.bestpractices.dev/en/projects/new?repo_url=https://github.com/hyperpolymath/bunsenite"]
 image:https://img.shields.io/badge/Idris-Inside-blueviolet?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTEyIDJMMyA3djEwbDkgNSA5LTVWN2wtOS01em0wIDJsNyA0djhsLTcgNC03LTRWOGw3LTR6Ii8+PC9zdmc+[Idris Inside,link="https://github.com/hyperpolymath/proven"]
 
@@ -269,11 +271,11 @@ We take security seriously. See [SECURITY.md](./SECURITY.md) for:
 Dual licensed under your choice of:
 
 <<<<<<< HEAD
-- *Palimpsest-MPL-1.0 License* ([LICENSE-MIT](./LICENSE) or https://opensource.org/licenses/MIT)
+- *MPL-2.0-1.0 License* ([LICENSE-MIT](./LICENSE) or https://opensource.org/licenses/MIT)
 =======
-- *Palimpsest-MPL License v1.0 (PMPL-1.0)* ([LICENSE-PMPL-1.0](./LICENSE) or https://github.com/hyperpolymath/palimpsest-license)
+- *MPL-2.0 License v1.0 (MPL-2.0)* ([LICENSE-MPL-2.0](./LICENSE) or https://github.com/hyperpolymath/palimpsest-license)
 >>>>>>> 5e371e5 (Normalize license badge)
-- *Palimpsest License v0.8* ([LICENSE-PALIMPSEST](./LICENSE) or https://palingenesis.org/palimpsest-license)
+- *MPL-2.0 v0.8* ([LICENSE-PALIMPSEST](./LICENSE) or https://palingenesis.org/palimpsest-license)
 
 This allows maximum flexibility for use while preserving reversibility and emotional safety principles.
 

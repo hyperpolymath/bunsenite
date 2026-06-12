@@ -25,6 +25,7 @@ jobs:
   build-ffi:
     name: Build FFI (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
     permissions:
       contents: read
     strategy:
@@ -84,6 +85,7 @@ jobs:
   test-ffi:
     name: Test FFI
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     needs: build-ffi
     permissions:
       contents: read
@@ -111,6 +113,7 @@ jobs:
   test-deno-bindings:
     name: Test Deno Bindings
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     needs: build-ffi
     permissions:
       contents: read

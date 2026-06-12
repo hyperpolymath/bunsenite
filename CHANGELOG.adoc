@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 = Changelog
 
 All notable changes to this project will be documented in this file.
@@ -58,7 +59,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Build system (Justfile, Nix flake)
   - CI/CD pipeline (GitLab CI)
 - ✅ TPCF Perimeter 3 (Community Sandbox) contribution model
-- ✅ Dual PMPL-1.0 + Palimpsest 0.8 licensing
+- ✅ Dual MPL-2.0 + Palimpsest 0.8 licensing
 - ✅ Comprehensive documentation:
   - README.md with quick start and examples
   - CLAUDE.md for AI assistants and developers

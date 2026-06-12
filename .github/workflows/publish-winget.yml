@@ -30,6 +30,7 @@ jobs:
   update-tap:
     name: Update WinGet in Tap
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Check for TAP_GITHUB_TOKEN
         id: check-secret
@@ -128,6 +129,7 @@ jobs:
   submit-official:
     name: Submit to Official WinGet
     runs-on: windows-latest
+    timeout-minutes: 15
     if: ${{ inputs.submit_official == true }}
     steps:
       - name: Check for WINGET_GITHUB_TOKEN

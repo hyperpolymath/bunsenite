@@ -25,6 +25,7 @@ jobs:
   publish-ppa:
     name: Publish to Launchpad PPA
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Check for Launchpad secrets
         id: check-secret

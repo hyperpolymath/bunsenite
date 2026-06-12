@@ -23,6 +23,7 @@ jobs:
   update-tap:
     name: Update MacPorts in Tap
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Check for TAP_GITHUB_TOKEN
         id: check-secret
@@ -143,6 +144,7 @@ jobs:
   create-official-pr:
     name: Create MacPorts Official PR
     runs-on: macos-latest
+    timeout-minutes: 15
     needs: update-tap
     if: ${{ inputs.submit_official == true }}
     steps:

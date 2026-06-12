@@ -25,6 +25,7 @@ jobs:
   update-spec:
     name: Update OBS Spec in Tap
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Check for TAP_GITHUB_TOKEN
         id: check-secret
@@ -142,6 +143,7 @@ jobs:
   trigger-obs:
     name: Trigger OBS Build
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     needs: update-spec
     steps:
       - name: Check for OBS credentials

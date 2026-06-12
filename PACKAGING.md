@@ -1,3 +1,7 @@
+<!--
+SPDX-License-Identifier: MPL-2.0
+Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+-->
 # Bunsenite Packaging Guide
 
 This document describes how to package and distribute Bunsenite for various package managers.
@@ -115,7 +119,7 @@ The `.github/workflows/release.yml` workflow automates:
 ## RSR Compliance Notes
 
 All packages must include:
-- LICENSE-PMPL-1.0
+- LICENSE-MPL-2.0
 - LICENSE-PALIMPSEST (if applicable)
 - README.md with RSR tier disclosure
 

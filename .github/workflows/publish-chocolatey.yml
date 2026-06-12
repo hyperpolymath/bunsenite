@@ -23,6 +23,7 @@ jobs:
   publish-chocolatey:
     name: Publish to Chocolatey
     runs-on: windows-latest
+    timeout-minutes: 15
     steps:
       - name: Check for CHOCO_API_KEY
         id: check-secret

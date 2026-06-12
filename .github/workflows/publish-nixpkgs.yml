@@ -23,6 +23,7 @@ jobs:
   update-nix:
     name: Update Nix Expression in Tap
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Check for TAP_GITHUB_TOKEN
         id: check-secret
@@ -175,6 +176,7 @@ jobs:
   create-nixpkgs-pr:
     name: Create nixpkgs PR (Optional)
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     needs: update-nix
     if: ${{ inputs.submit_nixpkgs == true }}
     steps:
