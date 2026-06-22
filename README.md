@@ -1,3 +1,5 @@
+<!-- SPDX-License-Identifier: MPL-2.0-or-later -->
+<!-- Owner: Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk> -->
 [![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-pink?logo=github)](https://github.com/sponsors/hyperpolymath)
 
 = Bunsenite
@@ -270,11 +272,7 @@ We take security seriously. See [SECURITY.md](./SECURITY.md) for:
 
 Dual licensed under your choice of:
 
-<<<<<<< HEAD
-- *Palimpsest-MPL-1.0 License* ([LICENSE-MIT](./LICENSE) or https://opensource.org/licenses/MIT)
-=======
 - *Palimpsest-MPL License v1.0 (PMPL-1.0)* ([LICENSE-PMPL-1.0](./LICENSE) or https://github.com/hyperpolymath/palimpsest-license)
->>>>>>> 5e371e5 (Normalize license badge)
 - *Palimpsest License v0.8* ([LICENSE-PALIMPSEST](./LICENSE) or https://palingenesis.org/palimpsest-license)
 
 This allows maximum flexibility for use while preserving reversibility and emotional safety principles.

@@ -270,11 +270,7 @@ We take security seriously. See [SECURITY.md](./SECURITY.md) for:
 
 Dual licensed under your choice of:
 
-<<<<<<< HEAD
-- *MPL-2.0-1.0 License* ([LICENSE-MIT](./LICENSE) or https://opensource.org/licenses/MIT)
-=======
 - *MPL-2.0 License v1.0 (MPL-2.0)* ([LICENSE-MPL-2.0](./LICENSE) or https://github.com/hyperpolymath/palimpsest-license)
->>>>>>> 5e371e5 (Normalize license badge)
 - *MPL-2.0 v0.8* ([LICENSE-PALIMPSEST](./LICENSE) or https://palingenesis.org/palimpsest-license)
 
 This allows maximum flexibility for use while preserving reversibility and emotional safety principles.
