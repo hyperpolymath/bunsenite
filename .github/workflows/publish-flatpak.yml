@@ -123,7 +123,7 @@ jobs:
           # Create metainfo file
           cat > flathub/${APP_ID}.metainfo.xml << EOF
           <?xml version="1.0" encoding="UTF-8"?>
-          <!-- SPDX-License-Identifier: PMPL-1.0 -->
+          <!-- SPDX-License-Identifier: MPL-2.0 -->
           <component type="console-application">
             <id>${APP_ID}</id>
             <name>Bunsenite</name>

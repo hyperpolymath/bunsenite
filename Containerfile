@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: PMPL-1.0 OR Palimpsest-0.8
+# SPDX-License-Identifier: MPL-2.0 OR Palimpsest-0.8
 # SPDX-FileCopyrightText: 2025 hyperpolymath
 
 FROM rust:1.85-slim-bookworm AS builder
