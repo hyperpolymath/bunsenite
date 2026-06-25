@@ -1,41 +1,52 @@
-<!-- SPDX-License-Identifier: CC-BY-SA-4.0 -->
-<!-- Owner: Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk> -->
-[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-pink?logo=github)](https://github.com/sponsors/hyperpolymath)
+<!--
+SPDX-License-Identifier: CC-BY-SA-4.0
+SPDX-FileCopyrightText: 2025-2026 Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+-->
 
-= Bunsenite
-image:https://img.shields.io/badge/License-MPL--2.0-blue.svg[License: PMPL-1.0,link="https://github.com/hyperpolymath/palimpsest-license"]
-image:https://img.shields.io/badge/OpenSSF-Best_Practices-green?logo=opensourcesecurity[OpenSSF Best Practices, link="https://www.bestpractices.dev/en/projects/new?repo_url=https://github.com/hyperpolymath/bunsenite"]
-image:https://img.shields.io/badge/Idris-Inside-blueviolet?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTEyIDJMMyA3djEwbDkgNSA5LTVWN2wtOS01em0wIDJsNyA0djhsLTcgNC03LTRWOGw3LTR6Ii8+PC9zdmc+[Idris Inside,link="https://github.com/hyperpolymath/proven"]
+[![OpenSSF Best Practices](https://img.shields.io/badge/OpenSSF-Best_Practices-green?logo=opensourcesecurity)](https://www.bestpractices.dev/en/projects/new?repo_url=https://github.com/hyperpolymath/bunsenite) image:<a
+href="https://img.shields.io/badge/Idris-Inside-blueviolet?style=flat&amp;logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTEyIDJMMyA3djEwbDkgNSA5LTVWN2wtOS01em0wIDJsNyA0djhsLTcgNC03LTRWOGw3LTR6Ii8+PC9zdmc+"
+data-link="https://github.com/hyperpolymath/proven">Idris Inside</a>
 
+[![Palimpsest](https://img.shields.io/badge/Philosophy-Palimpsest-indigo.svg)](https://github.com/hyperpolymath/palimpsest-license)
 
+\> Nickel configuration file parser with multi-language FFI bindings
 
+\[\![RSR
+Bronze\]([https://img.shields.io/badge/RSR-Bronze-CD7F32)\](https://example.com/rsr](https://img.shields.io/badge/RSR-Bronze-CD7F32)](https://example.com/rsr))
+\[\![TPCF Perimeter
+3\]([https://img.shields.io/badge/TPCF-Perimeter%203-blue)\](https://example.com/tpcf](https://img.shields.io/badge/TPCF-Perimeter%203-blue)](https://example.com/tpcf))
+\[\![Build
+Status\]([https://github.com/hyperpolymath/bunsenite/actions/workflows/ci.yml/badge.svg)\](https://github.com/hyperpolymath/bunsenite/actions](https://github.com/hyperpolymath/bunsenite/actions/workflows/ci.yml/badge.svg)](https://github.com/hyperpolymath/bunsenite/actions))
 
-image:https://img.shields.io/badge/Philosophy-Palimpsest-indigo.svg[Palimpsest,link="https://github.com/hyperpolymath/palimpsest-license"]
+# Overview
 
+Bunsenite is a **Nickel configuration file parser** with a Rust core
+library and multi-language FFI bindings. It provides a stable C ABI
+layer (via Zig) that enables bindings for **Deno**
+(JavaScript/TypeScript), **Rescript**, and **WebAssembly** for browser
+and universal use.
 
-> Nickel configuration file parser with multi-language FFI bindings
+## Key Features
 
-[![RSR Bronze](https://img.shields.io/badge/RSR-Bronze-CD7F32)](https://example.com/rsr)
-[![TPCF Perimeter 3](https://img.shields.io/badge/TPCF-Perimeter%203-blue)](https://example.com/tpcf)
-[![Build Status](https://github.com/hyperpolymath/bunsenite/actions/workflows/ci.yml/badge.svg)](https://github.com/hyperpolymath/bunsenite/actions)
+- ✅ **Type Safety**: Compile-time guarantees via Rust’s type system
 
-== Overview
+- ✅ **Memory Safety**: Rust ownership model, **zero `unsafe` blocks**
 
-Bunsenite is a *Nickel configuration file parser* with a Rust core library and multi-language FFI bindings. It provides a stable C ABI layer (via Zig) that enables bindings for *Deno* (JavaScript/TypeScript), *Rescript*, and *WebAssembly* for browser and universal use.
+- ✅ **Offline-First**: Works completely air-gapped, no network
+  dependencies
 
-=== Key Features
+- ✅ **Multi-Language**: FFI bindings for Deno, Rescript, and WASM
 
-- ✅ *Type Safety*: Compile-time guarantees via Rust's type system
-- ✅ *Memory Safety*: Rust ownership model, *zero `unsafe` blocks*
-- ✅ *Offline-First*: Works completely air-gapped, no network dependencies
-- ✅ *Multi-Language*: FFI bindings for Deno, Rescript, and WASM
-- ✅ *Standards Compliant*: RSR Bronze tier, TPCF Perimeter 3
-- ✅ *Well-Documented*: Comprehensive API docs, examples, and guides
-- ✅ *Production-Ready*: 100% test pass rate, CI/CD, semantic versioning
+- ✅ **Standards Compliant**: RSR Bronze tier, TPCF Perimeter 3
 
-== Quick Start
+- ✅ **Well-Documented**: Comprehensive API docs, examples, and guides
 
-=== Installation
+- ✅ **Production-Ready**: 100% test pass rate, CI/CD, semantic
+  versioning
+
+# Quick Start
+
+## Installation
 
 ```bash
 = From crates.io
@@ -49,9 +60,9 @@ cd bunsenite
 cargo install --path .
 ```
 
-=== Usage
+## Usage
 
-==== Rust Library
+### Rust Library
 
 ```rust
 use bunsenite::NickelLoader;
@@ -72,7 +83,7 @@ fn main() {
 }
 ```
 
-==== CLI
+### CLI
 
 ```bash
 = Parse and evaluate a config file
@@ -92,7 +103,7 @@ bunsenite validate config.ncl
 bunsenite info
 ```
 
-==== WebAssembly (Browser)
+### WebAssembly (Browser)
 
 ```javascript
 import init, { parse_nickel } from './bunsenite.js';
@@ -105,7 +116,7 @@ async function main() {
 }
 ```
 
-==== Deno (TypeScript)
+### Deno (TypeScript)
 
 ```typescript
 // See bindings/deno/ for full example
@@ -116,86 +127,112 @@ const result = parseNickel(config, "config.ncl");
 console.log(result);
 ```
 
-== Architecture
+# Architecture
 
-```
-┌─────────────────────────────────────────────────┐
-│                   Consumers                     │
-├───────────────┬───────────────┬─────────────────┤
-│     Deno      │   Rescript    │     Browser     │
-│  (TypeScript) │   (ReScript)  │     (WASM)      │
-└───────┬───────┴───────┬───────┴────────┬────────┘
-        │               │                │
-        ▼               ▼                ▼
-  ┌──────────┐   ┌──────────┐    ┌──────────────┐
-  │ Zig FFI  │   │ Zig FFI  │    │ wasm-bindgen │
-  │ (C ABI)  │   │ (C ABI)  │    │              │
-  └─────┬────┘   └─────┬────┘    └──────┬───────┘
-        │              │                 │
-        └──────────────┴─────────────────┘
-                       │
-                       ▼
-              ┌─────────────────┐
-              │   Rust Core     │
-              │   (lib.rs)      │
-              │                 │
-              │ nickel-lang-core│
-              │     0.9.1       │
-              └─────────────────┘
-```
+    ┌─────────────────────────────────────────────────┐
+    │                   Consumers                     │
+    ├───────────────┬───────────────┬─────────────────┤
+    │     Deno      │   Rescript    │     Browser     │
+    │  (TypeScript) │   (ReScript)  │     (WASM)      │
+    └───────┬───────┴───────┬───────┴────────┬────────┘
+            │               │                │
+            ▼               ▼                ▼
+      ┌──────────┐   ┌──────────┐    ┌──────────────┐
+      │ Zig FFI  │   │ Zig FFI  │    │ wasm-bindgen │
+      │ (C ABI)  │   │ (C ABI)  │    │              │
+      └─────┬────┘   └─────┬────┘    └──────┬───────┘
+            │              │                 │
+            └──────────────┴─────────────────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │   Rust Core     │
+                  │   (lib.rs)      │
+                  │                 │
+                  │ nickel-lang-core│
+                  │     0.9.1       │
+                  └─────────────────┘
 
-=== Design Rationale
+## Design Rationale
 
-*Zig FFI Layer*: Provides stable C ABI, isolating consumers from Rust ABI changes. This allows language bindings to remain stable across Rust compiler versions.
+**Zig FFI Layer**: Provides stable C ABI, isolating consumers from Rust
+ABI changes. This allows language bindings to remain stable across Rust
+compiler versions.
 
-*WASM Support*: Enables browser deployment and universal compatibility at ~95% native speed.
+**WASM Support**: Enables browser deployment and universal compatibility
+at ~95% native speed.
 
-*Deno .ts Files*: Required syntax for Deno runtime FFI (NOT plain TypeScript). Uses `Deno.dlopen` for native FFI calls to Zig layer.
+**Deno .ts Files**: Required syntax for Deno runtime FFI (NOT plain
+TypeScript). Uses `Deno.dlopen` for native FFI calls to Zig layer.
 
-== Documentation
+# Documentation
 
-- *[CLAUDE.md](./CLAUDE.md)*: Comprehensive guide for AI assistants and developers
-- *[SECURITY.md](./SECURITY.md)*: Security policies and vulnerability reporting
-- *[CONTRIBUTING.md](./CONTRIBUTING.md)*: Contribution guidelines
-- *[CHANGELOG.md](./CHANGELOG.md)*: Version history and release notes
-- *[API Docs](https://docs.rs/bunsenite)*: Full Rust API documentation
+- **\[CLAUDE.md\](./CLAUDE.md)**: Comprehensive guide for AI assistants
+  and developers
 
-== Standards Compliance
+- **\[SECURITY.md\](./SECURITY.md)**: Security policies and
+  vulnerability reporting
 
-=== RSR Framework: Bronze Tier
+- **\[CONTRIBUTING.md\](./CONTRIBUTING.md)**: Contribution guidelines
 
-Bunsenite meets all *Rhodium Standard Repository (RSR) Bronze tier* requirements:
+- **\[CHANGELOG.md\](./CHANGELOG.md)**: Version history and release
+  notes
+
+- **\[API Docs\](<https://docs.rs/bunsenite>)**: Full Rust API
+  documentation
+
+# Standards Compliance
+
+## RSR Framework: Bronze Tier
+
+Bunsenite meets all **Rhodium Standard Repository (RSR) Bronze tier**
+requirements:
 
 - ✅ Type safety (Rust compile-time guarantees)
+
 - ✅ Memory safety (ownership model, `#![deny(unsafe_code)]`)
+
 - ✅ Offline-first (no network dependencies)
-- ✅ Complete documentation (README, LICENSE, SECURITY, CONTRIBUTING, CODE_OF_CONDUCT, MAINTAINERS)
+
+- ✅ Complete documentation (README, LICENSE, SECURITY, CONTRIBUTING,
+  CODE_OF_CONDUCT, MAINTAINERS)
+
 - ✅ `.well-known/` directory (security.txt, ai.txt, humans.txt)
+
 - ✅ Build system (Justfile, Nix flake)
+
 - ✅ CI/CD pipeline (GitLab CI)
+
 - ✅ 100% test pass rate
 
-=== TPCF: Perimeter 3 (Community Sandbox)
+## TPCF: Perimeter 3 (Community Sandbox)
 
-This project uses the *Tri-Perimeter Contribution Framework (TPCF)*:
+This project uses the **Tri-Perimeter Contribution Framework (TPCF)**:
 
-- *Perimeter 1*: Core maintainers only (restricted)
-- *Perimeter 2*: Trusted contributors (by invitation)
-- *Perimeter 3*: *Community Sandbox* - Open to all contributors
+- **Perimeter 1**: Core maintainers only (restricted)
 
-All contributions are welcome! See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
+- **Perimeter 2**: Trusted contributors (by invitation)
 
-== Building from Source
+- **Perimeter 3**: **Community Sandbox** - Open to all contributors
 
-=== Prerequisites
+All contributions are welcome! See
+\[CONTRIBUTING.md\](./CONTRIBUTING.md) for details.
 
-- Rust 1.70+ (`rustup install stable`)
-- `just` command runner (`cargo install just`)
+# Building from Source
+
+## Prerequisites
+
+- Rust 1.70+ (`rustup` `install` `stable`)
+
+- `just` command runner (`cargo` `install` `just`)
+
 - Optional: Zig compiler (for FFI layer)
-- Optional: `wasm-pack` (for WASM builds: `cargo install wasm-pack`)
+
+- Optional: `wasm-pack` (for WASM builds: `cargo` `install` `wasm-pack`)
+
 - Optional: Deno runtime (for Deno bindings)
 
-=== Build Commands
+## Build Commands
 
 ```bash
 = Build all targets
@@ -229,7 +266,7 @@ just rsr-check
 
 See `Justfile` for all available commands.
 
-== Testing
+# Testing
 
 ```bash
 = Run all tests
@@ -249,83 +286,113 @@ cargo test test_name
 cargo tarpaulin --out Html
 ```
 
-Current status: *100% test pass rate* (30+ tests covering core functionality, error handling, and edge cases)
+Current status: **100% test pass rate** (30+ tests covering core
+functionality, error handling, and edge cases)
 
-== Performance
+# Performance
 
-- *Native Rust*: Baseline performance
-- *WebAssembly*: ~95% native speed
-- *FFI (Deno/Rescript)*: ~90% native speed (C ABI overhead minimal)
+- **Native Rust**: Baseline performance
 
-== Security
+- **WebAssembly**: ~95% native speed
 
-We take security seriously. See [SECURITY.md](./SECURITY.md) for:
+- **FFI (Deno/Rescript)**: ~90% native speed (C ABI overhead minimal)
+
+# Security
+
+We take security seriously. See \[SECURITY.md\](./SECURITY.md) for:
 
 - Supported versions
+
 - Vulnerability reporting process
+
 - Security best practices
+
 - Responsible disclosure policy
 
-*Security contact*: See `.well-known/security.txt` or [SECURITY.md](./SECURITY.md)
+**Security contact**: See `.well-known/security.txt` or
+\[SECURITY.md\](./SECURITY.md)
 
-== License
+# License
 
 Dual licensed under your choice of:
 
-- *Palimpsest-MPL License v1.0 (PMPL-1.0)* ([LICENSE-PMPL-1.0](./LICENSE) or https://github.com/hyperpolymath/palimpsest-license)
-- *Palimpsest License v0.8* ([LICENSE-PALIMPSEST](./LICENSE) or https://palingenesis.org/palimpsest-license)
+- **MPL-2.0 License v1.0 (MPL-2.0)** (\[LICENSE-MPL-2.0\](./LICENSE) or
+  <https://github.com/hyperpolymath/palimpsest-license>)
 
-This allows maximum flexibility for use while preserving reversibility and emotional safety principles.
+- **MPL-2.0 v0.8** (\[LICENSE-PALIMPSEST\](./LICENSE) or
+  <https://palingenesis.org/palimpsest-license>)
 
-== Contributing
+This allows maximum flexibility for use while preserving reversibility
+and emotional safety principles.
 
-Contributions are welcome! This is a *TPCF Perimeter 3* (Community Sandbox) project.
+# Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for:
+Contributions are welcome! This is a **TPCF Perimeter 3** (Community
+Sandbox) project.
+
+See \[CONTRIBUTING.md\](./CONTRIBUTING.md) for:
 
 - Code of Conduct
+
 - Development workflow
+
 - Testing requirements
+
 - Commit message conventions
+
 - Pull request process
 
-== Community
+# Community
 
-- *Issues*: [GitHub Issues](https://github.com/hyperpolymath/bunsenite/issues)
-- *Discussions*: [GitHub Discussions](https://github.com/hyperpolymath/bunsenite/discussions)
-- *Security*: See [SECURITY.md](./SECURITY.md)
+- **Issues**: \[GitHub
+  Issues\](<https://github.com/hyperpolymath/bunsenite/issues>)
 
-== Acknowledgments
+- **Discussions**: \[GitHub
+  Discussions\](<https://github.com/hyperpolymath/bunsenite/discussions>)
 
-- [Nickel Language Team](https://github.com/tweag/nickel) for the excellent configuration language
+- **Security**: See \[SECURITY.md\](./SECURITY.md)
+
+# Acknowledgments
+
+- \[Nickel Language Team\](<https://github.com/tweag/nickel>) for the
+  excellent configuration language
+
 - RSR Framework contributors
+
 - TPCF community
+
 - All contributors to this project
 
-== Roadmap
+# Roadmap
 
-See [NEXT_STEPS.md](./NEXT_STEPS.md) for planned features and enhancements:
+See \[NEXT_STEPS.md\](./NEXT_STEPS.md) for planned features and
+enhancements:
 
 - [ ] Additional language bindings (Python, Ruby, Node.js)
+
 - [ ] Performance benchmarking suite
+
 - [ ] REPL/interactive mode
+
 - [ ] Schema validation
+
 - [ ] Watch mode for auto-reload
+
 - [ ] Plugin system
 
-== Version History
+# Version History
 
-See [CHANGELOG.md](./CHANGELOG.md) for detailed version history.
+See \[CHANGELOG.md\](./CHANGELOG.md) for detailed version history.
 
-Current version: *0.1.0* (Bronze tier compliant, production-ready)
+Current version: **0.1.0** (Bronze tier compliant, production-ready)
 
----
+------------------------------------------------------------------------
 
-*Made with ❤️ by the Campaign for Cooler Coding and Programming*
+**Made with ❤️ by the Campaign for Cooler Coding and Programming**
 
-*Politically autonomous software for emotionally safe development*
+**Politically autonomous software for emotionally safe development**
 
+# Architecture
 
-== Architecture
-
-See link:TOPOLOGY.md[TOPOLOGY.md] for a visual architecture map and completion dashboard.
+See <a href="TOPOLOGY.md" class="md">TOPOLOGY</a> for a visual
+architecture map and completion dashboard.
