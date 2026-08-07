@@ -1,3 +1,4 @@
+# This workflow is managed by gh actions-lock.
 # SPDX-License-Identifier: MPL-2.0
 name: Publish Packages
 
@@ -75,7 +76,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Trigger Homebrew publisher
-        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        uses: peter-evans/repository-dispatch@v3.0.0
         with:
           token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           event-type: publish-homebrew
@@ -96,7 +97,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Trigger Scoop publisher
-        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        uses: peter-evans/repository-dispatch@v3.0.0
         with:
           token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           event-type: publish-scoop
@@ -114,7 +115,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Trigger AUR publisher
-        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        uses: peter-evans/repository-dispatch@v3.0.0
         with:
           token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           event-type: publish-aur
@@ -133,7 +134,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Trigger WinGet publisher
-        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        uses: peter-evans/repository-dispatch@v3.0.0
         with:
           token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           event-type: publish-winget
@@ -151,7 +152,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Trigger Chocolatey publisher
-        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        uses: peter-evans/repository-dispatch@v3.0.0
         with:
           token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           event-type: publish-chocolatey
@@ -169,7 +170,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Trigger Flatpak publisher
-        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        uses: peter-evans/repository-dispatch@v3.0.0
         with:
           token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           event-type: publish-flatpak
@@ -186,7 +187,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Trigger MacPorts publisher
-        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        uses: peter-evans/repository-dispatch@v3.0.0
         with:
           token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           event-type: publish-macports
@@ -203,7 +204,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Trigger Debian PPA publisher
-        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        uses: peter-evans/repository-dispatch@v3.0.0
         with:
           token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           event-type: publish-debian-ppa
@@ -220,7 +221,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Trigger COPR publisher
-        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        uses: peter-evans/repository-dispatch@v3.0.0
         with:
           token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           event-type: publish-copr
@@ -237,7 +238,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Trigger OBS publisher
-        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        uses: peter-evans/repository-dispatch@v3.0.0
         with:
           token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           event-type: publish-obs
@@ -254,7 +255,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Trigger Nixpkgs publisher
-        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        uses: peter-evans/repository-dispatch@v3.0.0
         with:
           token: ${{ secrets.TAP_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           event-type: publish-nixpkgs

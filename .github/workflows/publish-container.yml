@@ -1,3 +1,4 @@
+# This workflow is managed by gh actions-lock.
 # SPDX-License-Identifier: MPL-2.0
 name: Publish Container
 
@@ -20,10 +21,10 @@ jobs:
       id-token: write
       attestations: write
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v4
+      - uses: actions/checkout@v6.0.1
       
       - name: Log in to GitHub Container Registry
-        uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567 # v3
+        uses: docker/login-action@v3.3.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -31,7 +32,7 @@ jobs:
       
       - name: Extract metadata
         id: meta
-        uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81 # v5
+        uses: docker/metadata-action@v5.5.1
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
@@ -42,7 +43,7 @@ jobs:
       
       - name: Build and push
         id: push
-        uses: docker/build-push-action@4f58ea79222b3b9dc2c8bbdd6debcef730109a75 # v6
+        uses: docker/build-push-action@v6.9.0
         with:
           context: .
           file: ./Containerfile
@@ -51,7 +52,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Attest container provenance
-        uses: actions/attest-build-provenance@e8998f949152b193b063cb0ec769d69d929409be # v2
+        uses: actions/attest-build-provenance@v2.4.0
         with:
           subject-name: ghcr.io/${{ github.repository }}
           subject-digest: ${{ steps.push.outputs.digest }}
