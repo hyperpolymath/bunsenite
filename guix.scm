@@ -1,27 +1,28 @@
-;; bunsenite - Guix Package Definition
-;; Run: guix shell -D -f guix.scm
+;; SPDX-License-Identifier: MPL-2.0
+;; Guix development environment.
+;; Usage: guix shell -D -f guix.scm
 
 (use-modules (guix packages)
-             (guix gexp)
-             (guix git-download)
-             (guix build-system cargo)
-             ((guix licenses) #:prefix license:)
-             (gnu packages base))
+             (guix build-system gnu)
+             (guix licenses)
+             (gnu packages base)
+             (gnu packages bash)
+             (gnu packages base)
+             (gnu packages java)
+             (gnu packages rust)
+             (gnu packages cmake)
+             (gnu packages zig)
+             (gnu packages golang)
+             (gnu packages node)
+             (gnu packages python))
 
-(define-public bunsenite
-  (package
-    (name "bunsenite")
-    (version "1.0.2")
-    (source (local-file "." "bunsenite-checkout"
-                        #:recursive? #t
-                        #:select? (git-predicate ".")))
-    (build-system cargo-build-system)
-    (synopsis "Nickel configuration file parser with multi-language FFI bindings")
-    (description "Bunsenite provides a Rust core library with a stable C ABI layer (via Zig)
-that enables bindings for Deno (JavaScript/TypeScript), ReScript, and WebAssembly
-for browser and universal use.")
-    (home-page "https://github.com/hyperpolymath/bunsenite")
-    (license license:expat)))
-
-;; Return package for guix shell
-bunsenite
+(package
+  (name "bunsenite")
+  (version "0.1.0")
+  (source #f)
+  (build-system gnu-build-system)
+  (inputs (list coreutils bash  make openjdk rust cmake zig go node python))
+  (synopsis "bunsenite")
+  (description "bunsenite — part of the hyperpolymath ecosystem.")
+  (home-page "https://github.com/hyperpolymath/bunsenite")
+  (license ((@@ (guix licenses) license) "MPL-2.0" "https://github.com/hyperpolymath/palimpsest-license")))
