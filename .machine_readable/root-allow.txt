@@ -1,2 +1,2 @@
 CLAUDE.md
-flake.nix
+flake.guix

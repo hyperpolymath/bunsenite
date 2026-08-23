@@ -121,7 +121,7 @@ console.log(result);
 │                   Consumers                     │
 ├───────────────┬───────────────┬─────────────────┤
 │     Deno      │   Rescript    │     Browser     │
-│  (TypeScript) │   (ReScript)  │     (WASM)      │
+│  (TypeScript) │   (AffineScript)  │     (WASM)      │
 └───────┬───────┴───────┬───────┴────────┬────────┘
         │               │                │
         ▼               ▼                ▼
@@ -169,7 +169,7 @@ Bunsenite meets all *Rhodium Standard Repository (RSR) Bronze tier* requirements
 - ✅ Offline-first (no network dependencies)
 - ✅ Complete documentation (README, LICENSE, SECURITY, CONTRIBUTING, CODE_OF_CONDUCT, MAINTAINERS)
 - ✅ `.well-known/` directory (security.txt, ai.txt, humans.txt)
-- ✅ Build system (Justfile, Nix flake)
+- ✅ Build system (Justfile, Guix flake)
 - ✅ CI/CD pipeline (GitLab CI)
 - ✅ 100% test pass rate
 

@@ -46,7 +46,7 @@ bunsenite watch config.ncl
 ┌─────────────────────────────────────────┐
 │              Consumers                   │
 ├─────────────┬─────────────┬─────────────┤
-│    Deno     │  ReScript   │   Browser   │
+│    Deno     │  AffineScript   │   Browser   │
 │ (Deno FFI)  │  (C FFI)    │   (WASM)    │
 └──────┬──────┴──────┬──────┴──────┬──────┘
        │             │             │
@@ -78,9 +78,9 @@ const config = parseNickel('{ port = 8080 }', "config.ncl");
 console.log(config.port); // 8080
 ```
 
-### ReScript
+### AffineScript
 
-```rescript
+```affinescript
 let config = Bunsenite.parse("{ port = 8080 }", "config.ncl")
 Js.log(config)
 ```
@@ -102,7 +102,7 @@ Bunsenite follows the **Rhodium Standard Repository** (RSR) Bronze tier:
 - ✅ **Memory Safety**: Rust ownership model
 - ✅ **Offline-First**: No network dependencies
 - ✅ **No TypeScript**: Deno FFI uses `.ts` but calls `Deno.dlopen`
-- ✅ **No npm/bun**: ReScript `package.json` is for npm publishing only
+- ✅ **No npm/bun**: AffineScript `package.json` is for npm publishing only
 - ✅ **No Python**: Clean
 - ✅ **Justfile**: All builds via Justfile
 

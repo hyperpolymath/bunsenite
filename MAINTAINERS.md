@@ -68,7 +68,7 @@ This project uses the **Tri-Perimeter Contribution Framework**:
 
 ### FFI Bindings
 - **Lead**: Core Team (seeking volunteers)
-- **Focus**: `bindings/deno/`, `bindings/rescript/`, Zig layer
+- **Focus**: `bindings/deno/`, `bindings/affinescript/`, Zig layer
 - **Reviewers**: Core Team
 
 ### CLI
@@ -83,7 +83,7 @@ This project uses the **Tri-Perimeter Contribution Framework**:
 
 ### Infrastructure
 - **Lead**: Core Team
-- **Focus**: CI/CD, Justfile, Nix flake, releases
+- **Focus**: CI/CD, Justfile, Guix flake, releases
 - **Reviewers**: Core Team
 
 ### Security

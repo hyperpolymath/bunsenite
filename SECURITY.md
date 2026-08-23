@@ -39,7 +39,7 @@ Bunsenite provides the following security guarantees:
 
 ### Supply Chain Security
 
-- **Reproducible builds**: Nix flake provides bit-for-bit reproducibility
+- **Reproducible builds**: Guix flake provides bit-for-bit reproducibility
 - **Signed releases**: All releases are cryptographically signed (planned)
 - **Transparent development**: All changes tracked in public Git repository
 - **SBOM generation**: Software Bill of Materials available (planned)

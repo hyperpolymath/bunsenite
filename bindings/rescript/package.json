@@ -1,7 +1,7 @@
 {
   "name": "bunsenite",
   "version": "1.0.0",
-  "description": "Nickel configuration file parser - ReScript/Node.js bindings",
+  "description": "Nickel configuration file parser - AffineScript/Node.js bindings",
   "main": "bunsenite_ffi_node.js",
   "module": "bunsenite_ffi.js",
   "types": "bunsenite.d.ts",
@@ -13,8 +13,8 @@
     }
   },
   "scripts": {
-    "build": "rescript build",
-    "clean": "rescript clean",
+    "build": "affinescript build",
+    "clean": "affinescript clean",
     "test": "node test.js"
   },
   "repository": {
@@ -26,7 +26,7 @@
     "config",
     "parser",
     "ffi",
-    "rescript"
+    "affinescript"
   ],
   "author": "Campaign for Cooler Coding and Programming",
   "license": "PMPL-1.0",
@@ -55,7 +55,7 @@
     "Bunsenite.res",
     "Bunsenite.res.js",
     "bunsenite.d.ts",
-    "rescript.json",
+    "affinescript.json",
     "README.md"
   ]
 }

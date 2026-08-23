@@ -17,12 +17,12 @@ Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 - 11 Rust source files — test count unknown (cannot build)
 - 5 Zig source files — only template integration test
 - 3 Idris2 ABI files — no verification tests
-- 4 ReScript files — no tests
+- 4 AffineScript files — no tests
 - 3 TypeScript files — no tests
 
 ### End-to-End (E2E)
 - Core functionality workflow not tested
-- Integration between Rust, Zig, and ReScript layers not tested
+- Integration between Rust, Zig, and AffineScript layers not tested
 
 ### Aspect Tests
 - [ ] Security (depends on what bunsenite does)
@@ -46,4 +46,4 @@ Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 - [ ] Fix .tool-versions to allow cargo to run
 
 ## Priority
-- **MEDIUM** — 11 Rust + 5 Zig + 4 ReScript + 3 TS files. Cannot even build due to tooling mismatch, which itself is a problem. Fix .tool-versions first, then assess test needs.
+- **MEDIUM** — 11 Rust + 5 Zig + 4 AffineScript + 3 TS files. Cannot even build due to tooling mismatch, which itself is a problem. Fix .tool-versions first, then assess test needs.

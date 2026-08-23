@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Zig FFI layer for stable C ABI across Rust compiler versions
 - Complete Deno bindings using `Deno.dlopen` FFI
-- Complete ReScript bindings via C FFI
+- Complete AffineScript bindings via C FFI
 - Watch mode with file change detection (`bunsenite watch`)
 - Interactive REPL (`bunsenite repl`)
 - JSON Schema validation (`bunsenite schema`)
@@ -58,7 +58,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Offline-first (no network dependencies)
   - Complete documentation set
   - `.well-known/` directory (security.txt, ai.txt, humans.txt)
-  - Build system (Justfile, Nix flake)
+  - Build system (Justfile, Guix flake)
   - CI/CD pipeline (GitLab CI)
 - ✅ TPCF Perimeter 3 (Community Sandbox) contribution model
 - ✅ Dual MIT + Palimpsest 0.8 licensing

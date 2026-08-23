@@ -38,7 +38,7 @@ This document describes how to package and distribute Bunsenite for various pack
 | Manager | Language | Location |
 |---------|----------|----------|
 | cargo | Rust | `Cargo.toml` (publish to crates.io) |
-| npm | Node.js | `bindings/rescript/package.json` |
+| npm | Node.js | `bindings/affinescript/package.json` |
 | deno.land/x | Deno | `bindings/deno/` (publish to deno.land) |
 
 ## Build Requirements
@@ -90,7 +90,7 @@ cargo publish
 
 ### npm (Node.js bindings)
 ```bash
-cd bindings/rescript
+cd bindings/affinescript
 npm publish --access public
 ```
 

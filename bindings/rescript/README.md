@@ -22,7 +22,7 @@ cargo build --release
 
 ```bash
 # Copy bindings to your project
-cp bindings/rescript/Bunsenite.res src/
+cp bindings/affinescript/Bunsenite.res src/
 ```
 
 3. Configure FFI in your `bsconfig.json`:
@@ -45,7 +45,7 @@ cp bindings/rescript/Bunsenite.res src/
 
 ### Basic Parsing
 
-```rescript
+```affinescript
 open Bunsenite
 
 let config = parseNickel(
@@ -65,7 +65,7 @@ switch config {
 
 ### Parse File
 
-```rescript
+```affinescript
 open Bunsenite
 
 let config = parseFile("./config.ncl")
@@ -82,7 +82,7 @@ switch config {
 
 ### Validation
 
-```rescript
+```affinescript
 open Bunsenite
 
 let result = validateNickel("{foo = 42}", "config.ncl")
@@ -95,7 +95,7 @@ switch result {
 
 ### Library Info
 
-```rescript
+```affinescript
 open Bunsenite
 
 Js.log2("Version:", getVersion())
@@ -107,7 +107,7 @@ Js.log2("TPCF Perimeter:", getTPCFPerimeter())
 
 ### Types
 
-```rescript
+```affinescript
 type result<'a, 'e> = Ok('a) | Error('e)
 
 type error =
@@ -176,7 +176,7 @@ Get TPCF perimeter number.
 Get a value from a configuration object by key path.
 
 Example:
-```rescript
+```affinescript
 let port = getConfigValue(config, list{"server", "port"})
 ```
 

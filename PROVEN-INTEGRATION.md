@@ -51,7 +51,7 @@ SafeSchema ensures:
 Bunsenite's C ABI boundary is where safety is most critical:
 
 ```
-Rust → SafeFFI.marshal → C ABI → SafeFFI.unmarshal → Deno/ReScript
+Rust → SafeFFI.marshal → C ABI → SafeFFI.unmarshal → Deno/AffineScript
 ```
 
 SafeFFI guarantees:
@@ -94,7 +94,7 @@ SafeFFI proves:
 | Binding | FFI Layer | proven Module |
 |---------|-----------|---------------|
 | Deno | Deno.dlopen | SafeFFI |
-| ReScript | External FFI | SafeFFI |
+| AffineScript | External FFI | SafeFFI |
 | WASM | Wasm bindgen | SafeBuffer |
 
 ## Implementation Notes

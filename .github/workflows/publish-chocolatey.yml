@@ -102,7 +102,7 @@ jobs:
           - Watch mode for live reloading
           - Interactive REPL
           - JSON Schema validation
-          - FFI bindings for Deno, ReScript, and WebAssembly
+          - FFI bindings for Deno, AffineScript, and WebAssembly
               </description>
               <releaseNotes>https://github.com/hyperpolymath/bunsenite/releases/tag/v${VERSION}</releaseNotes>
             </metadata>

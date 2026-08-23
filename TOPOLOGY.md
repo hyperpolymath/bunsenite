@@ -12,7 +12,7 @@ Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 ```
                         ┌─────────────────────────────────────────┐
                         │              CONSUMERS                  │
-                        │    (Deno, ReScript, Browser, CLI)       │
+                        │    (Deno, AffineScript, Browser, CLI)       │
                         └───────────────────┬─────────────────────┘
                                             │
                                             ▼
@@ -41,7 +41,7 @@ Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 
                         ┌─────────────────────────────────────────┐
                         │          REPO INFRASTRUCTURE            │
-                        │  Justfile / Nix     .machine_readable/  │
+                        │  Justfile / Guix     .machine_readable/  │
                         │  RSR Compliance     .well-known/        │
                         └─────────────────────────────────────────┘
 ```
@@ -60,10 +60,10 @@ BINDINGS & FFI
   Zig FFI (C ABI)                   ██████████ 100%    Stable boundary for bindings
   Deno Bindings                     ██████████ 100%    Deno.dlopen integration active
   WASM / Browser                    ██████████ 100%    95% native speed verified
-  ReScript Bindings                 ████████░░  80%    Type definitions refining
+  AffineScript Bindings                 ████████░░  80%    Type definitions refining
 
 REPO INFRASTRUCTURE
-  Justfile / Nix                    ██████████ 100%    Reproducible builds stable
+  Justfile / Guix                    ██████████ 100%    Reproducible builds stable
   .machine_readable/                ██████████ 100%    STATE.a2ml tracking
   RSR Bronze Tier                   ██████████ 100%    Compliance certified
 

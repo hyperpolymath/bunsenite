@@ -11,7 +11,7 @@ This directory contains the Zig wrapper that provides a stable C ABI for the Rus
 
 ## Purpose
 
-The Zig layer isolates consumers (Deno, ReScript) from Rust ABI changes across compiler versions, providing:
+The Zig layer isolates consumers (Deno, AffineScript) from Rust ABI changes across compiler versions, providing:
 
 - **Stable C ABI**: Guaranteed binary compatibility
 - **Cross-platform**: Builds for Linux, macOS, Windows
@@ -20,7 +20,7 @@ The Zig layer isolates consumers (Deno, ReScript) from Rust ABI changes across c
 ## Architecture
 
 ```
-Deno/ReScript → Zig (stable C ABI) → Rust (native)
+Deno/AffineScript → Zig (stable C ABI) → Rust (native)
 ```
 
 ## Prerequisites
@@ -69,9 +69,9 @@ cd zig && zig build test
 
 The Zig library is used by `bindings/deno/bunsenite.ts` via `Deno.dlopen()`.
 
-### ReScript
+### AffineScript
 
-The Zig library is used by `bindings/rescript/Bunsenite.res` via C FFI.
+The Zig library is used by `bindings/affinescript/Bunsenite.res` via C FFI.
 
 ## RSR Compliance
 
