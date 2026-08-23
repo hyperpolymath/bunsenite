@@ -45,7 +45,6 @@ jobs:
 
       - name: Install Nix
         if: steps.check-secret.outputs.skip != 'true'
-        uses: cachix/install-nix-action@08dcb3a5e62fa31e2da3d490afc4176ef55ecd72 # v30
         with:
           nix_path: nixpkgs=channel:nixos-unstable
 
