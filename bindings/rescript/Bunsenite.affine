@@ -1,7 +1,176 @@
 // SPDX-License-Identifier: MPL-2.0
-// SPDX-FileCopyrightText: 2026 Jonathan D.A. Jewell
-// Ported via Harvard Engine bulk-processor
+// Ported via Harvard Engine (Semantic pass)
 
 module Bunsenite;
 
-// TODO: Complete semantic implementation
+// Bunsenite Rescript Bindings
+// Type-safe Rescript bindings for Bunsenite via C FFI
+//
+// Usage:
+//   open Bunsenite
+//   fn config = parseNickel("{foo = 42}", "config.ncl")
+//   Js.log(config)
+
+// External C FFI declarations
+// These bind to the C ABI provided by the Zig layer
+
+@module("./bunsenite_ffi")
+external parseNickelRaw: (string, string) => Js.Nullable.t<string> = "parse_nickel"
+
+@module("./bunsenite_ffi")
+external validateNickelRaw: (string, string) => int = "validate_nickel"
+
+@module("./bunsenite_ffi")
+external versionRaw: unit => string = "version"
+
+@module("./bunsenite_ffi")
+external rsrTierRaw: unit => string = "rsr_tier"
+
+@module("./bunsenite_ffi")
+external tpcfPerimeterRaw: unit => int = "tpcf_perimeter"
+
+// Result struct for error handling
+struct result<'a, 'e> = Ok('a) | Error('e)
+
+// Error struct
+struct error {
+  | ParseError(string)
+  | ValidationError(string)
+  | InvalidInput(string)
+
+// Parse and evaluate a Nickel configuration string
+//
+// Example:
+//   fn config = parseNickel("{name = \"example\", port = 8080}", "config.ncl")
+//   switch config {
+//   | Ok(json) => Js.log(json)
+//   | Error(err) => Js.log2("Error:", err)
+//   }
+fn parseNickel = (source: string, name: string): result<Js.Json.t, error> => {
+  fn result = parseNickelRaw(source, name)
+
+  switch Js.Nullable.toOption(result) {
+  | Some(jsonString) =>
+    try {
+      fn parsed = Js.Json.parseExn(jsonString)
+      Ok(parsed)
+    } catch {
+    | _ => Error(ParseError("Failed to parse JSON result"))
+    }
+  | None => Error(ParseError("Failed to parse Nickel configuration: " ++ name))
+  }
+}
+
+// Validate a Nickel configuration without evaluating it
+//
+// Example:
+//   fn result = validateNickel("{foo = 42}", "config.ncl")
+//   switch result {
+//   | Ok() => Js.log("Valid!")
+//   | Error(err) => Js.log2("Invalid:", err)
+//   }
+fn validateNickel = (source: string, name: string): result<unit, error> => {
+  fn resultCode = validateNickelRaw(source, name)
+
+  if resultCode == 0 {
+    Ok()
+  } else {
+    Error(ValidationError("Validation failed for: " ++ name))
+  }
+}
+
+// Get library version
+//
+// Example:
+//   fn ver = getVersion()
+//   Js.log2("Version:", ver)
+fn getVersion = (): string => {
+  versionRaw()
+}
+
+// Get RSR compliance tier
+//
+// Example:
+//   fn tier = getRSRTier()
+//   Js.log2("RSR Tier:", tier)
+fn getRSRTier = (): string => {
+  rsrTierRaw()
+}
+
+// Get TPCF perimeter number
+//
+// Example:
+//   fn perimeter = getTPCFPerimeter()
+//   Js.log2("TPCF Perimeter:", perimeter)
+fn getTPCFPerimeter = (): int => {
+  tpcfPerimeterRaw()
+}
+
+// Helper: Parse Nickel file from filesystem
+// Requires Node.js fs module
+//
+// Example:
+//   fn config = parseFile("./config.ncl")
+//   switch config {
+//   | Ok(json) => Js.log(json)
+//   | Error(err) => Js.log2("Error:", err)
+//   }
+@module("fs")
+external readFileSync: (string, string) => string = "readFileSync"
+
+fn parseFile = (path: string): result<Js.Json.t, error> => {
+  try {
+    fn source = readFileSync(path, "utf8")
+    parseNickel(source, path)
+  } catch {
+  | _ => Error(InvalidInput("Failed to read file: " ++ path))
+  }
+}
+
+// Helper: Validate Nickel file from filesystem
+//
+// Example:
+//   fn result = validateFile("./config.ncl")
+//   switch result {
+//   | Ok() => Js.log("Valid!")
+//   | Error(err) => Js.log2("Invalid:", err)
+//   }
+fn validateFile = (path: string): result<unit, error> => {
+  try {
+    fn source = readFileSync(path, "utf8")
+    validateNickel(source, path)
+  } catch {
+  | _ => Error(InvalidInput("Failed to read file: " ++ path))
+  }
+}
+
+// Helper: Get config value by key path
+// Example: getConfigValue(config, ["server", "port"])
+fn rec getConfigValue = (json: Js.Json.t, path: list<string>): option<Js.Json.t> => {
+  switch path {
+  | list{} => Some(json)
+  | list{key, ...rest} =>
+    switch Js.Json.decodeObject(json) {
+    | Some(obj) =>
+      switch Js.Dict.get(obj, key) {
+      | Some(value) => getConfigValue(value, rest)
+      | None => None
+      }
+    | None => None
+    }
+  }
+}
+
+// Helper: Convert error to string for display
+fn errorToString = (err: error): string => {
+  switch err {
+  | ParseError(msg) => "Parse Error: " ++ msg
+  | ValidationError(msg) => "Validation Error: " ++ msg
+  | InvalidInput(msg) => "Invalid Input: " ++ msg
+  }
+}
+
+// Re-export result struct for convenience
+struct parseResult { result<Js.Json.t, error>
+struct validateResult { result<unit, error>
+
