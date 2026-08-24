@@ -1,18 +1,17 @@
-<!--
-SPDX-License-Identifier: CC-BY-SA-4.0
-Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
--->
-# Bunsenite
+== Bunsenite
 
-**Nickel configuration file parser with multi-language FFI bindings**
+*Nickel configuration file parser with multi-language FFI bindings*
 
-[![RSR Bronze](https://img.shields.io/badge/RSR-Bronze-cd7f32)](https://github.com/hyperpolymath/rsr)
-[![TPCF Perimeter 3](https://img.shields.io/badge/TPCF-Perimeter%203-blue)]()
-[![License](https://img.shields.io/badge/license-PMPL--1.0%20%7C%20Palimpsest-green)]()
+https://github.com/hyperpolymath/rsr[image:https://img.shields.io/badge/RSR-Bronze-cd7f32[RSR
+Bronze]]
+link:[image:https://img.shields.io/badge/TPCF-Perimeter%203-blue[TPCF
+Perimeter 3]]
+link:[image:https://img.shields.io/badge/license-PMPL--1.0%20%7C%20Palimpsest-green[License]]
 
-## Quick Start
+=== Quick Start
 
-```bash
+[source,bash]
+----
 # Install from crates.io
 cargo install bunsenite
 
@@ -27,22 +26,24 @@ bunsenite repl
 
 # Watch mode
 bunsenite watch config.ncl
-```
+----
 
-## Features
+=== Features
 
-| Feature | Description |
-|---------|-------------|
-| **Parse** | Parse Nickel configs to JSON |
-| **Validate** | Validate without full evaluation |
-| **Watch** | Auto-reload on file changes |
-| **REPL** | Interactive Nickel evaluation |
-| **Schema** | JSON Schema validation |
-| **FFI** | Stable C ABI via Zig |
+[cols=",",options="header",]
+|===
+|Feature |Description
+|*Parse* |Parse Nickel configs to JSON
+|*Validate* |Validate without full evaluation
+|*Watch* |Auto-reload on file changes
+|*REPL* |Interactive Nickel evaluation
+|*Schema* |JSON Schema validation
+|*FFI* |Stable C ABI via Zig
+|===
 
-## Architecture
+=== Architecture
 
-```
+....
 ┌─────────────────────────────────────────┐
 │              Consumers                   │
 ├─────────────┬─────────────┬─────────────┤
@@ -65,58 +66,62 @@ bunsenite watch config.ncl
 │  miette error diagnostics                │
 │  serde serialization                     │
 └─────────────────────────────────────────┘
-```
+....
 
-## Bindings
+=== Bindings
 
-### Deno (JavaScript/TypeScript)
+==== Deno (JavaScript/TypeScript)
 
-```typescript
+[source,typescript]
+----
 import { parseNickel, validateNickel } from "./bunsenite.ts";
 
 const config = parseNickel('{ port = 8080 }', "config.ncl");
 console.log(config.port); // 8080
-```
+----
 
-### AffineScript
+==== AffineScript
 
-```affinescript
+[source,affinescript]
+----
 let config = Bunsenite.parse("{ port = 8080 }", "config.ncl")
 Js.log(config)
-```
+----
 
-### WebAssembly
+==== WebAssembly
 
-```javascript
+[source,javascript]
+----
 import init, { parse } from './bunsenite.js';
 
 await init();
 const config = parse('{ port = 8080 }', 'config.ncl');
-```
+----
 
-## RSR Compliance
+=== RSR Compliance
 
-Bunsenite follows the **Rhodium Standard Repository** (RSR) Bronze tier:
+Bunsenite follows the *Rhodium Standard Repository* (RSR) Bronze tier:
 
-- ✅ **Type Safety**: Compile-time (Rust)
-- ✅ **Memory Safety**: Rust ownership model
-- ✅ **Offline-First**: No network dependencies
-- ✅ **No TypeScript**: Deno FFI uses `.ts` but calls `Deno.dlopen`
-- ✅ **No npm/bun**: AffineScript `package.json` is for npm publishing only
-- ✅ **No Python**: Clean
-- ✅ **Justfile**: All builds via Justfile
+* ✅ *Type Safety*: Compile-time (Rust)
+* ✅ *Memory Safety*: Rust ownership model
+* ✅ *Offline-First*: No network dependencies
+* ✅ *No TypeScript*: Deno FFI uses `+.ts+` but calls `+Deno.dlopen+`
+* ✅ *No npm/bun*: AffineScript `+package.json+` is for npm publishing
+only
+* ✅ *No Python*: Clean
+* ✅ *Justfile*: All builds via Justfile
 
-## Pages
+=== Pages
 
-- [[Installation]]
-- [[CLI Reference]]
-- [[API Reference]]
-- [[FFI Guide]]
-- [[Examples]]
-- [[Contributing]]
+* [[Installation]]
+* [[CLI Reference]]
+* [[API Reference]]
+* [[FFI Guide]]
+* [[Examples]]
+* [[Contributing]]
 
-## Links
+=== Links
 
-- [GitHub Repository](https://github.com/hyperpolymath/bunsenite)
-- [crates.io](https://crates.io/crates/bunsenite)
-- [Documentation](https://docs.rs/bunsenite)
+* https://github.com/hyperpolymath/bunsenite[GitHub Repository]
+* https://crates.io/crates/bunsenite[crates.io]
+* https://docs.rs/bunsenite[Documentation]
