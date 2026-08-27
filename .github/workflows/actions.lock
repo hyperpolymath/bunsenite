@@ -3,6 +3,12 @@
 # Docs: https://gh.io/actions-lockfile
 version: 'v0.0.2'
 workflows:
+    '.github/workflows/governance.yml': []
+    '.github/workflows/hypatia-scan.yml': []
+    '.github/workflows/mirror.yml': []
+    '.github/workflows/rust-ci.yml': []
+    '.github/workflows/scorecard.yml': []
+    '.github/workflows/secret-scanner.yml': []
     '.github/workflows/boj-build.yml':
         - 'actions/checkout@v4.1.7'
     '.github/workflows/cargo-audit.yml':
@@ -77,10 +83,12 @@ workflows:
         - 'actions/download-artifact@v4.1.8'
         - 'actions/setup-node@v4.0.2'
         - 'actions/upload-artifact@v4.6.2'
-        - 'dtolnay/rust-toolchain@master'
+        - 'dtolnay/rust-toolchain@v1'
         - 'goto-bus-stop/setup-zig@v2.2.1'
         - 'softprops/action-gh-release@v2.2.1'
-    '.github/workflows/stress-test.yml': []
+    '.github/workflows/stress-test.yml':
+        - 'actions/checkout@v6.0.1'
+        - 'dtolnay/rust-toolchain@v1'
     '.github/workflows/workflow-linter.yml':
         - 'actions/checkout@v4.1.1'
     '.github/workflows/zig-ffi.yml':
@@ -88,7 +96,7 @@ workflows:
         - 'actions/checkout@v6.0.1'
         - 'actions/upload-artifact@v4.6.2'
         - 'denoland/setup-deno@v1.5.2'
-        - 'dtolnay/rust-toolchain@master'
+        - 'dtolnay/rust-toolchain@v1'
         - 'goto-bus-stop/setup-zig@v2.2.1'
 dependencies:
     'actions/attest-build-provenance@1176ef556905f349f669722abf30bce1a6e16e01':
@@ -188,7 +196,7 @@ dependencies:
         repo_id: 212301524
     'dawidd6/action-send-mail@v3.12.0':
         ref: 'v3.12.0'
-        commit: 'sha1-6e502825a508b867ab2954ad6343b68787624c01'
+        commit: 'sha1-2cea9617b09d79a095af21254fbcb7ae95903dde'
         owner_id: 9713907
         repo_id: 222439721
     'denoland/setup-deno@v1.5.2':
@@ -216,9 +224,9 @@ dependencies:
         commit: 'sha1-8e5442c4ef9f78752691e2d8f8d19755c6f78e81'
         owner_id: 5429470
         repo_id: 306769011
-    'dtolnay/rust-toolchain@master':
-        ref: 'master'
-        commit: 'sha1-0b1efabc08b657293548b77fb76cc02d26091c7e'
+    'dtolnay/rust-toolchain@v1':
+        ref: 'v1'
+        commit: 'sha1-6c977a6ca4077a0ceb28ffbe03f59d46e9ac8772'
         owner_id: 1940490
         repo_id: 260749683
     'github/codeql-action@v4.34.0':
@@ -243,12 +251,12 @@ dependencies:
         repo_id: 623796603
     'hyperpolymath/a2ml-ecosystem@main':
         ref: 'main'
-        commit: 'sha1-aa4b836bd969df2bc58128cb8e3d20bbc88d5e79'
+        commit: 'sha1-c572785aab3898d9955f9e0370439631265802c9'
         owner_id: 6759885
         repo_id: 1275649586
     'hyperpolymath/k9-ecosystem@main':
         ref: 'main'
-        commit: 'sha1-89f3c2702f4f650a92aa7411502f38da06abd562'
+        commit: 'sha1-921f599d0b5bc6de4627338b014059ab6bcea5b8'
         owner_id: 6759885
         repo_id: 1275650185
     'ksxgithub/github-actions-deploy-aur@v3.0.1':
