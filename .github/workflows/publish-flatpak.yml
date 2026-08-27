@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: MPL-2.0
 # This workflow is managed by gh actions-lock.
+# This workflow is managed by gh actions-lock.
 name: Publish Flatpak
 
 on:
@@ -39,7 +40,7 @@ jobs:
 
       - name: Checkout homebrew-tap
         if: steps.check-secret.outputs.skip != 'true'
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@v6.0.1
         with:
           repository: ${{ env.TAP_REPO }}
           token: ${{ secrets.TAP_GITHUB_TOKEN }}
