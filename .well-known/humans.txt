@@ -108,7 +108,7 @@ Rescript
 
 Cargo: Rust package manager
 just: Command runner (Justfile)
-Nix: Reproducible builds (flake.nix)
+Guix: Reproducible builds (flake.guix)
 GitLab CI: Continuous integration
 wasm-pack: WebAssembly builds (optional)
 
@@ -120,7 +120,7 @@ RSR Framework: Bronze Tier
   ✓ Offline-first (no network deps)
   ✓ Complete documentation
   ✓ .well-known/ directory
-  ✓ Build system (Justfile, Nix)
+  ✓ Build system (Justfile, Guix)
   ✓ CI/CD pipeline
   ✓ 100% test pass rate
 

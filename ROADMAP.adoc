@@ -18,7 +18,7 @@ This roadmap outlines the development plan for Bunsenite, the Nickel configurati
 * ✅ Zero `unsafe` blocks (100% safe Rust)
 * ✅ C ABI layer via Zig for FFI
 * ✅ Deno bindings (JavaScript/TypeScript)
-* ✅ ReScript bindings
+* ✅ AffineScript bindings
 * ✅ WebAssembly support (browser + universal)
 * ✅ Offline-first architecture (no network dependencies)
 

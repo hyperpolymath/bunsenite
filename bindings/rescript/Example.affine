@@ -1,13 +1,18 @@
 // SPDX-License-Identifier: MPL-2.0
+// Ported via Harvard Engine (Semantic pass)
+
+module Example;
+
+// SPDX-License-Identifier: MPL-2.0
 // Bunsenite ReScript Bindings Example
 
 open Bunsenite
 
 // Example 1: Simple parsing
-let example1 = () => {
+fn example1 = () => {
   Console.log("\n📝 Example 1: Simple Configuration Parsing\n")
 
-  let config = parseNickel(
+  fn config = parseNickel(
     "{
       app_name = \"my-application\",
       version = \"1.0.0\",
@@ -37,10 +42,10 @@ let example1 = () => {
 }
 
 // Example 2: Nested configuration
-let example2 = () => {
+fn example2 = () => {
   Console.log("\n📝 Example 2: Nested Configuration\n")
 
-  let config = parseNickel(
+  fn config = parseNickel(
     "{
       server = {
         host = \"0.0.0.0\",
@@ -79,17 +84,17 @@ let example2 = () => {
 }
 
 // Example 3: Validation before parsing
-let example3 = () => {
+fn example3 = () => {
   Console.log("\n📝 Example 3: Configuration Validation\n")
 
-  let configSource = "{
+  fn configSource = "{
     api_key = \"secret-key-123\",
     timeout = 30,
     retries = 3
   }"
 
   // First validate
-  let validation = validateNickel(configSource, "api-config.ncl")
+  fn validation = validateNickel(configSource, "api-config.ncl")
 
   switch validation {
   | Ok() => {
@@ -109,14 +114,14 @@ let example3 = () => {
 }
 
 // Example 4: Error handling
-let example4 = () => {
+fn example4 = () => {
   Console.log("\n📝 Example 4: Error Handling\n")
 
-  let invalidConfig = "{
+  fn invalidConfig = "{
     this is not = valid nickel syntax
   }"
 
-  let result = parseNickel(invalidConfig, "bad-config.ncl")
+  fn result = parseNickel(invalidConfig, "bad-config.ncl")
 
   switch result {
   | Ok(json) => {
@@ -133,10 +138,10 @@ let example4 = () => {
 }
 
 // Example 5: Array configuration
-let example5 = () => {
+fn example5 = () => {
   Console.log("\n📝 Example 5: Array Configuration\n")
 
-  let config = parseNickel(
+  fn config = parseNickel(
     "{
       users = [
         \"alice\",
@@ -170,7 +175,7 @@ let example5 = () => {
 }
 
 // Example 6: Library information
-let example6 = () => {
+fn example6 = () => {
   Console.log("\n📝 Example 6: Library Information\n")
 
   Console.log(`Bunsenite version: ${getVersion()}`)
@@ -179,10 +184,10 @@ let example6 = () => {
 }
 
 // Example 7: Type-safe configuration with pattern matching
-let example7 = () => {
+fn example7 = () => {
   Console.log("\n📝 Example 7: Type-Safe Configuration Access\n")
 
-  let config = parseNickel(
+  fn config = parseNickel(
     "{
       mode = \"production\",
       debug = false,
@@ -192,7 +197,7 @@ let example7 = () => {
   )
 
   // Type-safe access with exhaustive pattern matching
-  let mode = switch config {
+  fn mode = switch config {
   | Ok(json) =>
     switch getConfigValue(json, list{"mode"}) {
     | Some(value) =>
@@ -214,7 +219,7 @@ let example7 = () => {
 }
 
 // Run all examples
-let runExamples = () => {
+fn runExamples = () => {
   Console.log("🎯 Bunsenite ReScript Bindings Examples")
   Console.log("=" |> Js.String.repeat(50))
 
@@ -230,15 +235,16 @@ let runExamples = () => {
 }
 
 // Export for use in other files
-let examples = [
+fn examples = [
   ("simple", example1),
   ("nested", example2),
   ("validation", example3),
   ("error-handling", example4),
   ("arrays", example5),
   ("library-info", example6),
-  ("type-safe", example7),
+  ("struct-safe", example7),
 ]
 
 // Run if executed directly
 runExamples()
+

@@ -1,4 +1,9 @@
 // SPDX-License-Identifier: MPL-2.0
+// Ported via Harvard Engine (Semantic pass)
+
+module bunsenite.d;
+
+// SPDX-License-Identifier: MPL-2.0
 // Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 // TypeScript type definitions for bunsenite
 // These types are for the Node.js/Bun FFI bindings
@@ -9,7 +14,7 @@
  * @param name - The name of the file (for error messages)
  * @returns The parsed configuration as a JSON string, or null on error
  */
-export function parse_nickel(source: string, name: string): string | null;
+fn parse_nickel(source: string, name: string): string | null;
 
 /**
  * Validate a Nickel configuration without evaluating it
@@ -17,22 +22,23 @@ export function parse_nickel(source: string, name: string): string | null;
  * @param name - The name of the file (for error messages)
  * @returns 0 if valid, non-zero on error
  */
-export function validate_nickel(source: string, name: string): number;
+fn validate_nickel(source: string, name: string): number;
 
 /**
  * Get the library version
  * @returns The version string (e.g., "1.0.0")
  */
-export function version(): string;
+fn version(): string;
 
 /**
  * Get the RSR compliance tier
  * @returns The RSR tier (e.g., "bronze")
  */
-export function rsr_tier(): string;
+fn rsr_tier(): string;
 
 /**
  * Get the TPCF perimeter assignment
  * @returns The perimeter number (e.g., 3)
  */
-export function tpcf_perimeter(): number;
+fn tpcf_perimeter(): number;
+

@@ -1,4 +1,9 @@
 // SPDX-License-Identifier: MPL-2.0
+// Ported via Harvard Engine (Semantic pass)
+
+module bunsenite;
+
+// SPDX-License-Identifier: MPL-2.0
 // Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 // Bunsenite Deno FFI Bindings
 // TypeScript bindings for Deno runtime using native FFI
@@ -8,18 +13,18 @@
 //
 // Usage:
 //   import { parseNickel, validateNickel } from "./bunsenite.ts";
-//   const result = parseNickel('{ foo = 42 }', "config.ncl");
+//   let result = parseNickel('{ foo = 42 }', "config.ncl");
 //   console.log(result);
 
 // Detect library path based on platform
-function getLibraryPath(): string {
-  const platform = Deno.build.os;
-  const libName = platform === "windows" ? "bunsenite.dll"
+fn getLibraryPath(): string {
+  let platform = Deno.build.os;
+  let libName = platform === "windows" ? "bunsenite.dll"
     : platform === "darwin" ? "libbunsenite.dylib"
     : "libbunsenite.so";
 
   // Try common locations
-  const paths = [
+  let paths = [
     `../../target/release/${libName}`,
     `./target/release/${libName}`,
     `./${libName}`,
@@ -41,7 +46,7 @@ function getLibraryPath(): string {
 
 // FFI symbol definitions
 // These match the C ABI exported by the Zig layer
-const symbols = {
+let symbols = {
   // Parse Nickel string to JSON
   // char* parse_nickel(const char* source, const char* name)
   parse_nickel: {
@@ -88,27 +93,27 @@ const symbols = {
 // Load the native library
 let lib: Deno.DynamicLibrary<typeof symbols> | null = null;
 
-function getLib(): Deno.DynamicLibrary<typeof symbols> {
+fn getLib(): Deno.DynamicLibrary<typeof symbols> {
   if (!lib) {
-    const libPath = getLibraryPath();
+    let libPath = getLibraryPath();
     lib = Deno.dlopen(libPath, symbols);
   }
   return lib;
 }
 
 // Helper: Convert JS string to C string (null-terminated)
-function toCString(str: string): Uint8Array {
-  const encoder = new TextEncoder();
-  const encoded = encoder.encode(str + "\0");
+fn toCString(str: string): Uint8Array {
+  let encoder = new TextEncoder();
+  let encoded = encoder.encode(str + "\0");
   return encoded;
 }
 
 // Helper: Convert C string pointer to JS string
-function fromCString(ptr: Deno.UnsafePointer): string {
+fn fromCString(ptr: Deno.UnsafePointer): string {
   if (!ptr) {
     throw new Error("Null pointer received from C");
   }
-  const view = new Deno.UnsafePointerView(ptr);
+  let view = new Deno.UnsafePointerView(ptr);
   return view.getCString();
 }
 
@@ -122,17 +127,17 @@ function fromCString(ptr: Deno.UnsafePointer): string {
  *
  * @example
  * ```typescript
- * const config = parseNickel('{ name = "example", port = 8080 }', "config.ncl");
+ * let config = parseNickel('{ name = "example", port = 8080 }', "config.ncl");
  * console.log(config.port); // 8080
  * ```
  */
-export function parseNickel(source: string, name: string): unknown {
-  const library = getLib();
+fn parseNickel(source: string, name: string): unknown {
+  let library = getLib();
 
-  const sourceBytes = toCString(source);
-  const nameBytes = toCString(name);
+  let sourceBytes = toCString(source);
+  let nameBytes = toCString(name);
 
-  const resultPtr = library.symbols.parse_nickel(
+  let resultPtr = library.symbols.parse_nickel(
     sourceBytes,
     nameBytes,
   ) as Deno.UnsafePointer;
@@ -142,7 +147,7 @@ export function parseNickel(source: string, name: string): unknown {
   }
 
   try {
-    const jsonString = fromCString(resultPtr);
+    let jsonString = fromCString(resultPtr);
     return JSON.parse(jsonString);
   } finally {
     // Free the string allocated by Rust
@@ -168,13 +173,13 @@ export function parseNickel(source: string, name: string): unknown {
  * }
  * ```
  */
-export function validateNickel(source: string, name: string): boolean {
-  const library = getLib();
+fn validateNickel(source: string, name: string): boolean {
+  let library = getLib();
 
-  const sourceBytes = toCString(source);
-  const nameBytes = toCString(name);
+  let sourceBytes = toCString(source);
+  let nameBytes = toCString(name);
 
-  const result = library.symbols.validate_nickel(
+  let result = library.symbols.validate_nickel(
     sourceBytes,
     nameBytes,
   );
@@ -196,9 +201,9 @@ export function validateNickel(source: string, name: string): boolean {
  * console.log("Bunsenite version:", getVersion());
  * ```
  */
-export function getVersion(): string {
-  const library = getLib();
-  const ptr = library.symbols.version() as Deno.UnsafePointer;
+fn getVersion(): string {
+  let library = getLib();
+  let ptr = library.symbols.version() as Deno.UnsafePointer;
   return fromCString(ptr);
 }
 
@@ -212,9 +217,9 @@ export function getVersion(): string {
  * console.log("RSR tier:", getRSRTier());
  * ```
  */
-export function getRSRTier(): string {
-  const library = getLib();
-  const ptr = library.symbols.rsr_tier() as Deno.UnsafePointer;
+fn getRSRTier(): string {
+  let library = getLib();
+  let ptr = library.symbols.rsr_tier() as Deno.UnsafePointer;
   return fromCString(ptr);
 }
 
@@ -228,8 +233,8 @@ export function getRSRTier(): string {
  * console.log("TPCF perimeter:", getTPCFPerimeter());
  * ```
  */
-export function getTPCFPerimeter(): number {
-  const library = getLib();
+fn getTPCFPerimeter(): number {
+  let library = getLib();
   return library.symbols.tpcf_perimeter();
 }
 
@@ -242,12 +247,12 @@ export function getTPCFPerimeter(): number {
  *
  * @example
  * ```typescript
- * const config = await parseFile("./config.ncl");
+ * let config = await parseFile("./config.ncl");
  * console.log(config);
  * ```
  */
-export async function parseFile(path: string): Promise<unknown> {
-  const source = await Deno.readTextFile(path);
+async fn parseFile(path: string): unknown {
+  let source = await Deno.readTextFile(path);
   return parseNickel(source, path);
 }
 
@@ -268,8 +273,8 @@ export async function parseFile(path: string): Promise<unknown> {
  * }
  * ```
  */
-export async function validateFile(path: string): Promise<boolean> {
-  const source = await Deno.readTextFile(path);
+async fn validateFile(path: string): boolean {
+  let source = await Deno.readTextFile(path);
   return validateNickel(source, path);
 }
 
@@ -282,10 +287,10 @@ globalThis.addEventListener("unload", () => {
 });
 
 // Export type definitions
-export type BunseniteConfig = Record<string, unknown>;
+struct BunseniteConfig { Record<string, unknown>;
 
-// Re-export for convenience
-export default {
+// Re-for convenience
+default {
   parseNickel,
   validateNickel,
   parseFile,
@@ -294,3 +299,4 @@ export default {
   getRSRTier,
   getTPCFPerimeter,
 };
+

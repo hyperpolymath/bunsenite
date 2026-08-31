@@ -6,7 +6,7 @@ Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 
 ## Project Overview
 
-Bunsenite is a Nickel configuration file parser with multi-language FFI bindings. It provides a Rust core library with a Zig C ABI layer that enables bindings for Deno (JavaScript/TypeScript), ReScript, and WebAssembly for browser and universal use.
+Bunsenite is a Nickel configuration file parser with multi-language FFI bindings. It provides a Rust core library with a Zig C ABI layer that enables bindings for Deno (JavaScript/TypeScript), AffineScript, and WebAssembly for browser and universal use.
 
 **Status**: v1.0.0 - Production ready
 **Repository**: https://github.com/hyperpolymath/bunsenite (mirror: GitLab)
@@ -25,7 +25,7 @@ bunsenite/
 │   └── bunsenite.zig       # Zig C ABI layer (stable FFI interface)
 ├── bindings/
 │   ├── deno/               # Deno FFI bindings (Deno.dlopen)
-│   ├── rescript/           # ReScript C FFI bindings
+│   ├── affinescript/           # AffineScript C FFI bindings
 │   └── wasm/               # WASM build target
 ├── examples/
 │   ├── config.ncl          # Full configuration example
@@ -52,7 +52,7 @@ bunsenite/
 
 **Bindings:**
 - Deno: TypeScript with Deno.dlopen for native FFI (NOT plain TypeScript)
-- ReScript: Direct C FFI bindings
+- AffineScript: Direct C FFI bindings
 - WebAssembly: wasm-bindgen for browser/universal deployment
 
 **CLI Features:**
@@ -77,7 +77,7 @@ bunsenite/
 - Memory Safety: Rust ownership model
 - Offline-First: No network dependencies
 - No Plain TypeScript: Deno FFI uses .ts but calls Deno.dlopen
-- No npm/bun: ReScript package.json is for npm publishing of compiled output
+- No npm/bun: AffineScript package.json is for npm publishing of compiled output
 - No Python: Clean
 - No Shell Scripts: All builds via Justfile
 
@@ -140,7 +140,7 @@ just rsr-report        # Generate compliance report
 ┌─────────────────────────────────────────────────┐
 │                   Consumers                     │
 ├───────────────┬───────────────┬─────────────────┤
-│     Deno      │   ReScript    │     Browser     │
+│     Deno      │   AffineScript    │     Browser     │
 │  (Deno FFI)   │   (C FFI)     │     (WASM)      │
 └───────┬───────┴───────┬───────┴────────┬────────┘
         │               │                │
@@ -171,7 +171,7 @@ just rsr-report        # Generate compliance report
 4. **src/wasm.rs**: WebAssembly bindings
 5. **zig/bunsenite.zig**: Stable C ABI wrapper
 6. **bindings/deno/**: Deno FFI (Deno.dlopen)
-7. **bindings/rescript/**: ReScript C FFI
+7. **bindings/affinescript/**: AffineScript C FFI
 
 ## Critical Design Decisions
 
@@ -179,14 +179,14 @@ just rsr-report        # Generate compliance report
 - Rust core
 - Zig C ABI layer (stable FFI)
 - Deno bindings (Deno.dlopen, NOT plain TypeScript)
-- ReScript bindings (via C FFI)
+- AffineScript bindings (via C FFI)
 - WebAssembly bindings
 - Justfile for builds
 
 **NOT ALLOWED (RSR Compliance):**
 - Plain TypeScript (Deno .ts files are FFI, not compiled TS)
 - Shell scripts (use Justfile)
-- npm/bun for primary build (package.json for ReScript npm publishing only)
+- npm/bun for primary build (package.json for AffineScript npm publishing only)
 - bun:ffi (ALWAYS use Deno.dlopen instead)
 - ffi-napi / Node.js FFI (ALWAYS use Deno.dlopen instead)
 - Python (except SaltStack support contexts)
@@ -235,7 +235,7 @@ The `STATE.scm` file tracks project state in machine-readable Scheme format. Upd
 ### User Preferences
 
 - Deno preferred over npm/bun
-- ReScript preferred over TypeScript
+- AffineScript preferred over TypeScript
 - Ada/SPARK for TUI (future)
 - No shell scripts (Justfile only)
 - Offline-first design

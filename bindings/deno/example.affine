@@ -1,4 +1,9 @@
 // SPDX-License-Identifier: MPL-2.0
+// Ported via Harvard Engine (Semantic pass)
+
+module example;
+
+// SPDX-License-Identifier: MPL-2.0
 // Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 #!/usr/bin/env deno run --allow-ffi --allow-read
 
@@ -25,7 +30,7 @@ console.log("");
 
 // Example 1: Parse simple inline config
 console.log("Example 1: Parse inline config");
-const config1 = parseNickel(
+let config1 = parseNickel(
   `{
     name = "deno-example",
     version = "1.0.0",
@@ -38,7 +43,7 @@ console.log("");
 
 // Example 2: Parse with computations
 console.log("Example 2: Parse with computations");
-const config2 = parseNickel(
+let config2 = parseNickel(
   `{
     base_port = 8000,
     api_port = base_port + 80,
@@ -73,11 +78,11 @@ console.log("");
 // Example 5: Parse file (if it exists)
 console.log("Example 5: Parse file");
 try {
-  const config = await parseFile("../../examples/config.ncl");
+  let config = await parseFile("../../examples/config.ncl");
   console.log("Parsed config from file:");
-  console.log(`  Name: ${(config as any).name}`);
-  console.log(`  Version: ${(config as any).version}`);
-  console.log(`  Server port: ${(config as any).server.port}`);
+  console.log(`  Name: ${(config as unknown).name}`);
+  console.log(`  Version: ${(config as unknown).version}`);
+  console.log(`  Server port: ${(config as unknown).server.port}`);
 } catch (e) {
   console.log(`Could not parse file: ${e.message}`);
   console.log("(This is expected if bunsenite hasn't been built yet)");
@@ -86,7 +91,7 @@ console.log("");
 
 // Example 6: Advanced features
 console.log("Example 6: Advanced features");
-const config6 = parseNickel(
+let config6 = parseNickel(
   `{
     # Comments work!
     app_name = "bunsenite",
@@ -109,3 +114,4 @@ const config6 = parseNickel(
 console.log("Advanced config:", JSON.stringify(config6, null, 2));
 
 console.log("\n✓ All examples completed successfully!");
+
