@@ -104,9 +104,7 @@ fn aspect_moderately_deep_nesting_no_panic() {
 /// important guarantee is no crash.
 #[test]
 fn aspect_large_flat_record_no_panic() {
-    let fields: String = (0..1000)
-        .map(|i| format!("  field_{i} = {i},\n"))
-        .collect();
+    let fields: String = (0..1000).map(|i| format!("  field_{i} = {i},\n")).collect();
     let source = format!("{{\n{fields}}}");
     let result = loader().parse_string(&source, "large.ncl");
     // Must not panic.  Nickel may or may not handle 1000 fields; we only
@@ -202,7 +200,11 @@ fn aspect_internal_error_not_recoverable() {
 fn aspect_error_message_accessor_round_trips() {
     let msg = "custom diagnostic text";
     let err = Error::parse_error("test.ncl", msg);
-    assert_eq!(err.message(), msg, "message() should return the original message verbatim");
+    assert_eq!(
+        err.message(),
+        msg,
+        "message() should return the original message verbatim"
+    );
 }
 
 /// A `SerializationError` must be non-recoverable (it indicates an internal

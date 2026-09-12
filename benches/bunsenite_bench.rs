@@ -7,7 +7,8 @@
 //! creation overhead and the `validate`-only fast path.
 
 use bunsenite::NickelLoader;
-use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
+use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
+use std::hint::black_box;
 
 // ---------------------------------------------------------------------------
 // Payload corpus
@@ -97,11 +98,9 @@ fn bench_throughput_parse(c: &mut Criterion) {
         ("large", LARGE_PAYLOAD),
     ] {
         group.throughput(Throughput::Bytes(payload.len() as u64));
-        group.bench_with_input(
-            BenchmarkId::new(label, payload.len()),
-            payload,
-            |b, src| b.iter(|| loader.parse_string(black_box(src), "bench.ncl")),
-        );
+        group.bench_with_input(BenchmarkId::new(label, payload.len()), payload, |b, src| {
+            b.iter(|| loader.parse_string(black_box(src), "bench.ncl"))
+        });
     }
 
     group.finish();
@@ -124,11 +123,9 @@ fn bench_throughput_validate(c: &mut Criterion) {
         ("large", LARGE_PAYLOAD),
     ] {
         group.throughput(Throughput::Bytes(payload.len() as u64));
-        group.bench_with_input(
-            BenchmarkId::new(label, payload.len()),
-            payload,
-            |b, src| b.iter(|| loader.validate(black_box(src), "bench.ncl")),
-        );
+        group.bench_with_input(BenchmarkId::new(label, payload.len()), payload, |b, src| {
+            b.iter(|| loader.validate(black_box(src), "bench.ncl"))
+        });
     }
 
     group.finish();
