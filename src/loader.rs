@@ -3,7 +3,7 @@
 //! Nickel file loader and parser
 //!
 //! This module provides the core functionality for loading and parsing Nickel
-//! configuration files using nickel-lang-core 0.9.1.
+//! configuration files using nickel-lang-core 0.18.0.
 //!
 //! # Core Responsibilities
 //!
@@ -12,18 +12,17 @@
 //! 3. **Evaluation**: Executing the Nickel program to produce a final configuration.
 //! 4. **Export**: Converting the evaluated configuration into standard formats (JSON).
 //!
-//! # API Compatibility Notes (nickel-lang-core 0.9.1)
+//! # API Compatibility Notes (nickel-lang-core 0.18.0)
 //!
-//! - `Program::new_from_source()` requires trace parameter: `std::io::sink()`
-//! - `eval_full()` takes no arguments (changed in 0.9.1)
-//! - Manual error conversion required via `serde_json::to_value()`
-//! - NO `into_diagnostics()` method available (deprecated)
+//! - In-memory sources are loaded through `ProgramBuilder`.
+//! - `eval_full()` takes no arguments.
+//! - Evaluated values are converted with `serde_json::to_value()`.
 
 use crate::error::{Error, Result};
 use nickel_lang_core::eval::cache::lazy::CBNCache;
-use nickel_lang_core::program::Program;
+use nickel_lang_core::program::{Program, ProgramBuilder};
+use nickel_lang_core::typecheck::TypecheckMode;
 use serde_json::Value;
-use std::io::Cursor;
 use std::path::Path;
 
 /// Type alias for the standard Program with CBN (Call-By-Need) caching.
@@ -88,27 +87,18 @@ impl NickelLoader {
     /// assert!(result.is_ok());
     /// ```
     pub fn parse_string(&self, source: &str, name: &str) -> Result<Value> {
-        // Create a Program from source
-        // API in 0.9.1: Program<CBNCache>::new_from_source(impl Read, impl Into<SourceName>, impl Write)
-        let mut program: NickelProgram = Program::new_from_source(
-            Cursor::new(source.as_bytes()),
-            name,
-            std::io::sink(), // Trace output (discarded)
-        )
-        .map_err(|e| {
-            let msg = format!("{:?}", e);
-            Error::parse_error(name, msg)
-        })?;
+        let mut program: NickelProgram = ProgramBuilder::new()
+            .add_source_string(source, name)
+            .build()
+            .map_err(|e| Error::parse_error(name, format!("{:?}", e)))?;
 
         // Evaluate the program
-        // API change in 0.9.1: eval_full takes no arguments
         let eval_result = program.eval_full().map_err(|e| {
             let msg = format!("{:?}", e);
             Error::evaluation_error(name, msg)
         })?;
 
         // Convert to JSON
-        // API change in 0.9.1: Manual conversion required, no into_diagnostics()
         let json_value = serde_json::to_value(&eval_result)
             .map_err(|e| Error::serialization_error(format!("Failed to convert to JSON: {}", e)))?;
 
@@ -171,13 +161,14 @@ impl NickelLoader {
     /// assert!(loader.validate("{ foo = }", "bad.ncl").is_err());
     /// ```
     pub fn validate(&self, source: &str, name: &str) -> Result<()> {
-        // Just try to create a Program - this performs parsing and type-checking
-        let _program: NickelProgram =
-            Program::new_from_source(Cursor::new(source.as_bytes()), name, std::io::sink())
-                .map_err(|e| {
-                    let msg = format!("{:?}", e);
-                    Error::parse_error(name, msg)
-                })?;
+        let mut program: NickelProgram = ProgramBuilder::new()
+            .add_source_string(source, name)
+            .build()
+            .map_err(|e| Error::parse_error(name, format!("{:?}", e)))?;
+
+        program
+            .typecheck(TypecheckMode::Walk)
+            .map_err(|e| Error::parse_error(name, format!("{:?}", e)))?;
 
         Ok(())
     }

@@ -5,7 +5,8 @@
 //! Run with: cargo bench
 
 use bunsenite::NickelLoader;
-use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
+use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
+use std::hint::black_box;
 
 /// Simple configuration (~100 bytes)
 const SIMPLE_CONFIG: &str = r#"

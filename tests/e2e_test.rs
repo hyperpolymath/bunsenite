@@ -134,7 +134,9 @@ fn e2e_array_round_trip() {
     assert_eq!(tags[1], "nickel");
     assert_eq!(tags[2], "config");
 
-    let counts = json["counts"].as_array().expect("counts should be an array");
+    let counts = json["counts"]
+        .as_array()
+        .expect("counts should be an array");
     assert_eq!(counts.len(), 3);
 }
 
@@ -249,8 +251,7 @@ fn e2e_validate_then_parse_consistent() {
 #[test]
 fn e2e_key_count_matches_source() {
     // Source has exactly 5 top-level fields.
-    let source =
-        r#"{ a = 1, b = 2, c = 3, d = 4, e = 5 }"#;
+    let source = r#"{ a = 1, b = 2, c = 3, d = 4, e = 5 }"#;
     let json = loader()
         .parse_string(source, "keycount.ncl")
         .expect("E2E: key-count config must parse");
