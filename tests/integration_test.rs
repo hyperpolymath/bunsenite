@@ -6,7 +6,7 @@
 //! that configuration parsing, error handling, and metadata constants
 //! behave correctly from an external consumer's perspective.
 
-use bunsenite::{NickelLoader, Error, NAME, RSR_TIER, TPCF_PERIMETER, VERSION};
+use bunsenite::{Error, NickelLoader, NAME, RSR_TIER, TPCF_PERIMETER, VERSION};
 
 /// Verify that NickelLoader can be constructed with default settings.
 #[test]
@@ -31,7 +31,11 @@ fn test_parse_simple_record() {
     let loader = NickelLoader::new();
     let input = r#"{ name = "bunsenite", version = "1.0.0" }"#;
     let result = loader.parse_string(input, "simple.ncl");
-    assert!(result.is_ok(), "Simple record should parse: {:?}", result.err());
+    assert!(
+        result.is_ok(),
+        "Simple record should parse: {:?}",
+        result.err()
+    );
     let json = result.unwrap();
     assert!(json.to_string().contains("bunsenite"));
     assert!(json.to_string().contains("1.0.0"));
@@ -43,7 +47,11 @@ fn test_parse_numeric_values() {
     let loader = NickelLoader::new();
     let input = r#"{ port = 8080, retries = 3 }"#;
     let result = loader.parse_string(input, "numeric.ncl");
-    assert!(result.is_ok(), "Numeric record should parse: {:?}", result.err());
+    assert!(
+        result.is_ok(),
+        "Numeric record should parse: {:?}",
+        result.err()
+    );
     let json = result.unwrap();
     let text = json.to_string();
     assert!(text.contains("8080"), "Should contain port value");
@@ -56,7 +64,11 @@ fn test_parse_boolean_values() {
     let loader = NickelLoader::new();
     let input = r#"{ enabled = true, debug = false }"#;
     let result = loader.parse_string(input, "bool.ncl");
-    assert!(result.is_ok(), "Boolean record should parse: {:?}", result.err());
+    assert!(
+        result.is_ok(),
+        "Boolean record should parse: {:?}",
+        result.err()
+    );
 }
 
 /// Verify that empty records parse without error.
@@ -65,7 +77,11 @@ fn test_parse_empty_record() {
     let loader = NickelLoader::new();
     let input = "{}";
     let result = loader.parse_string(input, "empty.ncl");
-    assert!(result.is_ok(), "Empty record should parse: {:?}", result.err());
+    assert!(
+        result.is_ok(),
+        "Empty record should parse: {:?}",
+        result.err()
+    );
 }
 
 /// Verify that invalid Nickel syntax produces an error, not a panic.
@@ -84,7 +100,10 @@ fn test_error_recoverability() {
     assert!(parse_err.is_recoverable(), "Parse errors are recoverable");
 
     let internal_err = Error::internal("unexpected state");
-    assert!(!internal_err.is_recoverable(), "Internal errors are not recoverable");
+    assert!(
+        !internal_err.is_recoverable(),
+        "Internal errors are not recoverable"
+    );
 }
 
 /// Verify crate metadata constants are correctly populated.

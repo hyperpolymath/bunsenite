@@ -34,21 +34,18 @@ const CORPUS: &[(&str, &str)] = &[
     // 0 — single string field
     ("single_string", r#"{ greeting = "hello" }"#),
     // 1 — three scalar types
-    ("multi_scalar", r#"{ name = "cfg", count = 42, active = true }"#),
-    // 2 — nested record (one level)
     (
-        "nested_one",
-        r#"{ outer = { inner = "value", num = 7 } }"#,
+        "multi_scalar",
+        r#"{ name = "cfg", count = 42, active = true }"#,
     ),
+    // 2 — nested record (one level)
+    ("nested_one", r#"{ outer = { inner = "value", num = 7 } }"#),
     // 3 — array of strings
     ("array_strings", r#"{ tags = ["a", "b", "c", "d"] }"#),
     // 4 — array of integers
     ("array_ints", r#"{ nums = [10, 20, 30] }"#),
     // 5 — three-level nesting
-    (
-        "deep_nest",
-        r#"{ l1 = { l2 = { l3 = "leaf" } } }"#,
-    ),
+    ("deep_nest", r#"{ l1 = { l2 = { l3 = "leaf" } } }"#),
     // 6 — computed arithmetic
     ("computed", r#"{ x = 3 * 4, y = 100 - 1 }"#),
     // 7 — string concatenation
@@ -279,8 +276,5 @@ fn property_deep_nesting_preserved() {
 
     assert!(json["l1"].is_object(), "l1 should be an object");
     assert!(json["l1"]["l2"].is_object(), "l1.l2 should be an object");
-    assert_eq!(
-        json["l1"]["l2"]["l3"], "leaf",
-        "l1.l2.l3 should be 'leaf'"
-    );
+    assert_eq!(json["l1"]["l2"]["l3"], "leaf", "l1.l2.l3 should be 'leaf'");
 }
