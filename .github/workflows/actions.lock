@@ -19,8 +19,8 @@ workflows:
     '.github/workflows/cflite_pr.yml':
         - 'google/clusterfuzzlite@v1'
     '.github/workflows/codeql.yml':
-        - 'actions/checkout@v6.0.2'
-        - 'github/codeql-action@v4.34.0'
+        - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
+        - 'github/codeql-action@cdf488f595d80d6e07e03d4674febd5ab45fa938'
     '.github/workflows/dependabot-automerge.yml':
         - 'dependabot/fetch-metadata@v2.2.0'
     '.github/workflows/dogfood-gate.yml':
@@ -124,6 +124,11 @@ dependencies:
         commit: 'sha1-0057852bfaa89a56745cba8c7296529d2fc39830'
         owner_id: 44036562
         repo_id: 215566462
+    'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1':
+        ref: 'v7.0.1'
+        commit: 'sha1-3d3c42e5aac5ba805825da76410c181273ba90b1'
+        owner_id: 44036562
+        repo_id: 197814629
     'actions/checkout@v4.1.1':
         ref: 'v4.1.1'
         commit: 'sha1-b4ffde65f46336ab88eb53be808477a3936bae11'
@@ -147,11 +152,6 @@ dependencies:
     'actions/checkout@v6.0.1':
         ref: 'v6.0.1'
         commit: 'sha1-8e8c483db84b4bee98b60c0593521ed34d9990e8'
-        owner_id: 44036562
-        repo_id: 197814629
-    'actions/checkout@v6.0.2':
-        ref: 'v6.0.2'
-        commit: 'sha1-de0fac2e4500dabe0009e67214ff5f5447ce83dd'
         owner_id: 44036562
         repo_id: 197814629
     'actions/configure-pages@v5.0.0':
@@ -231,9 +231,9 @@ dependencies:
         commit: 'sha1-6c977a6ca4077a0ceb28ffbe03f59d46e9ac8772'
         owner_id: 1940490
         repo_id: 260749683
-    'github/codeql-action@v4.34.0':
-        ref: 'v4.34.0'
-        commit: 'sha1-c6f931105cb2c34c8f901cc885ba1e2e259cf745'
+    'github/codeql-action@cdf488f595d80d6e07e03d4674febd5ab45fa938':
+        ref: 'v4.37.9'
+        commit: 'sha1-cdf488f595d80d6e07e03d4674febd5ab45fa938'
         owner_id: 9919
         repo_id: 259445878
     'google/clusterfuzzlite@v1':
@@ -253,7 +253,7 @@ dependencies:
         repo_id: 623796603
     'hyperpolymath/deed-ecosystem@main':
         ref: 'main'
-        commit: 'sha1-f7a40a4d5cc82b2e73f861119baa6818d77a448d'
+        commit: 'sha1-f9d999b60cb5f383679ea19912bcdc49c944973a'
         owner_id: 6759885
         repo_id: 1275649586
     'hyperpolymath/k9-ecosystem@main':
