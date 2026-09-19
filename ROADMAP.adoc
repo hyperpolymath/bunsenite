@@ -160,7 +160,7 @@ This roadmap outlines the development plan for Bunsenite, the Nickel configurati
 
 == Contributing
 
-See link:CONTRIBUTING.md[Contributing Guidelines] for how to contribute to Bunsenite development.
+See link:.github/CONTRIBUTING.md[Contributing Guidelines] for how to contribute to Bunsenite development.
 
 == Versioning
 
