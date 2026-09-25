@@ -8,6 +8,11 @@ https://semver.org/spec/v2.0.0.html[Semantic Versioning].
 
 === [Unreleased]
 
+==== Security
+
+* Resolve dependency advisories by disabling unused Nickel Markdown, documentation, REPL and formatter features, updating `crossbeam-epoch`, and overriding Nickel's vector crate to use `imbl-sized-chunks` 0.2.0 (removing the affected `bitmaps` dependency). See `crates/nickel-lang-vector/README.adoc` for the upstream override and removal plan.
+* Raise the declared minimum Rust version and pinned development toolchain to 1.90, as required by the resolved Nickel dependencies.
+
 ==== Planned
 
 * TUI (Ada/SPARK)

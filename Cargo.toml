@@ -3,7 +3,7 @@ name = "bunsenite"
 version = "1.0.2"
 authors = ["Campaign for Cooler Coding and Programming"]
 edition = "2021"
-rust-version = "1.70"
+rust-version = "1.90"
 description = "Nickel configuration file parser with multi-language FFI bindings"
 documentation = "https://docs.rs/bunsenite"
 repository = "https://github.com/hyperpolymath/bunsenite"
@@ -28,8 +28,9 @@ name = "bunsenite"
 path = "src/main.rs"
 
 [dependencies]
-# Core Nickel parser - pinned to 0.9.1 for API stability
-nickel-lang-core = "0.19.0"
+# Parsing/evaluation does not use Nickel's Markdown, documentation, REPL or
+# formatter features. Avoid their optional dependency trees (and advisories).
+nickel-lang-core = { version = "0.19.0", default-features = false }
 
 # Serialization
 serde = { version = "1.0", features = ["derive"] }
@@ -58,6 +59,12 @@ wasm-bindgen = "0.2"
 console_error_panic_hook = "0.1"
 # Note: wee_alloc was removed as it is unmaintained and has known memory leaks.
 # Rust 1.71+ provides a suitable default allocator for wasm32 targets.
+
+# Until upstream nickel-lang-vector supports imbl-sized-chunks 0.2, use its
+# unchanged 0.2.0 sources with only that dependency updated. See the local
+# crate README for provenance and the plan to remove this override.
+[patch.crates-io]
+nickel-lang-vector = { path = "crates/nickel-lang-vector" }
 
 [dev-dependencies]
 # Testing

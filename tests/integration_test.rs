@@ -58,6 +58,22 @@ fn test_parse_numeric_values() {
     assert!(text.contains("3"), "Should contain retries value");
 }
 
+/// Arrays spanning multiple vector nodes must still evaluate correctly with
+/// the locally patched Nickel vector dependency.
+#[test]
+fn test_parse_large_array() {
+    let numbers = (0..130).map(|i| i.to_string()).collect::<Vec<_>>().join(", ");
+    let source = format!("{{ numbers = [{numbers}] }}");
+    let json = NickelLoader::new()
+        .parse_string(&source, "large-array.ncl")
+        .expect("large Nickel array should evaluate");
+    let values = json["numbers"].as_array().expect("numbers should be an array");
+    assert_eq!(values.len(), 130);
+    for (index, value) in values.iter().enumerate() {
+        assert_eq!(value.as_f64(), Some(index as f64), "element {index}");
+    }
+}
+
 /// Verify that boolean values round-trip correctly.
 #[test]
 fn test_parse_boolean_values() {

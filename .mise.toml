@@ -2,4 +2,4 @@
 # = "SPDX-License-Identifier: MPL-2.0"
 # = "asdf/mise tool versions"
 # = "See: https://asdf-vm.com/"
-rust = "1.83.0"
+rust = "1.90.0"

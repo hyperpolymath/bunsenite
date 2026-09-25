@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: MIT
+# Nickel's 0.2.0 vector crate, with its chunk dependency updated (see README.adoc).
+[package]
+name = "nickel-lang-vector"
+version = "0.2.0"
+authors = ["The Nickel Team <nickel-lang@protonmail.com>"]
+edition = "2024"
+rust-version = "1.89"
+description = "Persistent vectors for Nickel"
+homepage = "https://nickel-lang.org"
+repository = "https://github.com/nickel-lang/nickel"
+license = "MIT"
+
+[dependencies]
+imbl-sized-chunks = "0.2.0"
+serde = "1"
