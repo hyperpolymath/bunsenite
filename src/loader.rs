@@ -3,7 +3,7 @@
 //! Nickel file loader and parser
 //!
 //! This module provides the core functionality for loading and parsing Nickel
-//! configuration files using nickel-lang-core 0.18.0.
+//! configuration files using nickel-lang-core 0.19.0.
 //!
 //! # Core Responsibilities
 //!
@@ -12,7 +12,7 @@
 //! 3. **Evaluation**: Executing the Nickel program to produce a final configuration.
 //! 4. **Export**: Converting the evaluated configuration into standard formats (JSON).
 //!
-//! # API Compatibility Notes (nickel-lang-core 0.18.0)
+//! # API Compatibility Notes (nickel-lang-core 0.19.0)
 //!
 //! - In-memory sources are loaded through `ProgramBuilder`.
 //! - `eval_full()` takes no arguments.

@@ -51,7 +51,7 @@ various package managers.
 All packaging scripts assume:
 
 [arabic]
-. *Rust 1.70+* - For the core library
+. *Rust 1.90+* - Required by the resolved Nickel dependencies
 . *Zig 0.11+* - For the FFI layer
 . *Git* - For source fetching
 

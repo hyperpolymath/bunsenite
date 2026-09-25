@@ -27,7 +27,7 @@ The architecture layers Rust (parsing) → Zig (stable C ABI) → language-speci
 
 **Location**: `/var/mnt/eclipse/repos/bunsenite/src/main.rs` (CLI entry point delegating to lib.rs)
 
-**How verified**: The CLI (`bunsenite parse <file>`, `bunsenite validate <file>`) calls library functions via `src/lib.rs` which wraps `nickel_lang_core 0.9.1`. Each CLI command creates a `NickelLoader` instance (defined in `src/loader.rs`), invokes appropriate methods, and formats output. README (§Usage, CLI section) documents the three commands; the code implements them. The CI/CD runs these commands against example configs to verify correctness.
+**How verified**: The CLI (`bunsenite parse <file>`, `bunsenite validate <file>`) calls library functions via `src/lib.rs` which wraps `nickel_lang_core 0.19.0`. Each CLI command creates a `NickelLoader` instance (defined in `src/loader.rs`), invokes appropriate methods, and formats output. README (§Usage, CLI section) documents the three commands; the code implements them. The CI/CD runs these commands against example configs to verify correctness.
 
 **Caveat**: CLI and library use different error handling (CLI uses `miette` for pretty errors, library uses `thiserror` types). Some errors may format differently between CLI and programmatic use.
 

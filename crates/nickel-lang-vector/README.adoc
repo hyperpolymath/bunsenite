@@ -1,0 +1,8 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+= Local Nickel vector dependency override
+
+This is `nickel-lang-vector` 0.2.0 from https://github.com/nickel-lang/nickel/tree/1.18.0/vector[Nickel 1.18.0] (commit `e6515c4073262785b868c23a415a1544cf8dc555`). Its three `src/` files are unmodified; see `LICENSE` (MIT) for upstream copyright and licensing.
+
+The only change to the crate is in `Cargo.toml`: use `imbl-sized-chunks` 0.2.0 instead of 0.1.x. The new release fixes RUSTSEC-2026-0292 and no longer depends on the unmaintained and unsound `bitmaps` crate (RUSTSEC-2025-0167, RUSTSEC-2026-0247). Nickel's published vector crate still requires 0.1.x, so updating a top-level dependency alone cannot fix the lockfile. The vector's use of `Chunk` remains API-compatible with 0.2.0.
+
+Keep the `[patch.crates-io]` override in the root `Cargo.toml` until an upstream `nickel-lang-vector` release depends on `imbl-sized-chunks` 0.2 or later. Then remove this directory and override, update `Cargo.lock`, and rerun the tests and `cargo audit --deny warnings` / `cargo audit --deny unmaintained`.

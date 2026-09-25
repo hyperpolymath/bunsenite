@@ -19,7 +19,7 @@ bunsenite/
 ├── src/
 │   ├── lib.rs              # Main library entry point
 │   ├── main.rs             # CLI with parse, validate, watch, repl, schema
-│   ├── loader.rs           # Nickel file loader (nickel-lang-core 0.9.1 API)
+│   ├── loader.rs           # Nickel file loader (nickel-lang-core 0.19.0 API)
 │   └── wasm.rs             # WebAssembly bindings
 ├── zig/
 │   └── bunsenite.zig       # Zig C ABI layer (stable FFI interface)
@@ -42,8 +42,8 @@ bunsenite/
 ## Technology Stack
 
 **Core:**
-- Language: Rust (2021 edition, 1.70+)
-- Parser: nickel-lang-core 0.9.1
+- Language: Rust (2021 edition, 1.90+)
+- Parser: nickel-lang-core 0.19.0 (without its unused default features)
 - Error handling: miette 7.0 (fancy diagnostics)
 - Serialization: serde, serde_json
 
@@ -85,7 +85,7 @@ bunsenite/
 
 ### Prerequisites
 
-- Rust toolchain (2021 edition, 1.70+)
+- Rust toolchain (2021 edition, 1.90+)
 - Zig compiler (for C ABI layer)
 - just command runner (`cargo install just`)
 - Optional: wasm-pack for WebAssembly builds
@@ -157,7 +157,7 @@ just rsr-report        # Generate compliance report
               │   Rust Core     │
               │                 │
               │ nickel-lang-core│
-              │     0.9.1       │
+              │     0.19.0      │
               │                 │
               │ miette errors   │
               └─────────────────┘
@@ -166,7 +166,7 @@ just rsr-report        # Generate compliance report
 ### Key Components
 
 1. **src/lib.rs**: Public API entry point
-2. **src/loader.rs**: Nickel parser using nickel-lang-core 0.9.1
+2. **src/loader.rs**: Nickel parser using nickel-lang-core 0.19.0
 3. **src/main.rs**: CLI with parse, validate, watch, repl, schema commands
 4. **src/wasm.rs**: WebAssembly bindings
 5. **zig/bunsenite.zig**: Stable C ABI wrapper
@@ -200,11 +200,12 @@ Never create bun:ffi or node ffi-napi files. This is a strict RSR requirement.
 
 ## API Compatibility Notes
 
-**nickel-lang-core 0.9.1:**
-1. `Program::new_from_source()` requires trace parameter: `std::io::sink()`
-2. `eval_full()` takes no arguments
-3. Manual error conversion via `serde_json::to_value()`
-4. NO `into_diagnostics()` method
+**nickel-lang-core 0.19.0:**
+1. `ProgramBuilder::new().add_source_string(source, name).build()` loads in-memory sources.
+2. `eval_full()` takes no arguments.
+3. Evaluated values are converted with `serde_json::to_value()`.
+4. Nickel's Markdown, documentation, REPL and formatter features are disabled; Bunsenite's parsing/evaluation API does not need them.
+5. The local `nickel-lang-vector` override upgrades `imbl-sized-chunks` to 0.2.0; see `crates/nickel-lang-vector/README.adoc`.
 
 See `src/loader.rs` for correct usage patterns.
 
