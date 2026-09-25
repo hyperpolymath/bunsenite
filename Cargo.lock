@@ -259,11 +259,11 @@ dependencies = [
  "nickel-lang-core",
  "notify",
  "pretty_assertions",
- "rustyline 15.0.0",
+ "rustyline",
  "serde",
  "serde_json",
  "tempfile",
- "thiserror 1.0.69",
+ "thiserror",
  "wasm-bindgen",
 ]
 
@@ -1221,7 +1221,7 @@ dependencies = [
  "base64",
  "bytecount",
  "clap",
- "fancy-regex 0.13.0",
+ "fancy-regex",
  "fraction",
  "getrandom 0.2.16",
  "iso8601",
@@ -1999,7 +1999,7 @@ version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c069c179fcdc6a2fe24d8d18305cf085fdbd4f922c041943e203685d6a1c58fd"
 dependencies = [
- "endian-type 0.1.2",
+ "endian-type",
  "nibble_vec",
 ]
 
@@ -2146,8 +2146,8 @@ dependencies = [
  "libc",
  "log",
  "memchr",
- "nix 0.29.0",
- "radix_trie 0.2.1",
+ "nix",
+ "radix_trie",
  "unicode-segmentation",
  "unicode-width 0.2.2",
  "utf8parse",
@@ -2509,7 +2509,7 @@ version = "1.0.69"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b6aaf5339b578ea85b50e080feb250a3e8ae8cfcdff9a461c9ec2904bc923f52"
 dependencies = [
- "thiserror-impl 1.0.69",
+ "thiserror-impl",
 ]
 
 [[package]]
