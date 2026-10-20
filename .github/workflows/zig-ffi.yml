@@ -48,6 +48,7 @@ jobs:
       - name: Install Rust
         uses: dtolnay/rust-toolchain@v1
         with:
+          toolchain: stable
           components: rustfmt, clippy
 
       - name: Install Zig
@@ -97,6 +98,8 @@ jobs:
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@v1
+        with:
+          toolchain: stable
 
       - name: Install Zig
         uses: goto-bus-stop/setup-zig@v2.2.1
@@ -125,6 +128,8 @@ jobs:
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@v1
+        with:
+          toolchain: stable
 
       - name: Install Zig
         uses: goto-bus-stop/setup-zig@v2.2.1
