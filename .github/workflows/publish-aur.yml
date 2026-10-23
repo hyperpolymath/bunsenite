@@ -43,7 +43,7 @@ jobs:
 
       - name: Checkout bunsenite
         if: steps.check-secret.outputs.skip != 'true'
-        uses: actions/checkout@v6.0.1
+        uses: actions/checkout@v7.0.1
 
       - name: Get inputs
         if: steps.check-secret.outputs.skip != 'true'
@@ -104,7 +104,7 @@ jobs:
 
       - name: Publish to AUR
         if: steps.check-secret.outputs.skip != 'true'
-        uses: KSXGitHub/github-actions-deploy-aur@v3.0.1
+        uses: KSXGitHub/github-actions-deploy-aur@v4.2.0
         with:
           pkgname: bunsenite-bin
           pkgbuild: aur-package/PKGBUILD

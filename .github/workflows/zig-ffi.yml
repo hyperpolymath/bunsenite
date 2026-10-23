@@ -43,7 +43,7 @@ jobs:
             lib_ext: dll
 
     steps:
-      - uses: actions/checkout@v6.0.1
+      - uses: actions/checkout@v7.0.1
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@v1
@@ -57,7 +57,7 @@ jobs:
           version: 0.11.0
 
       - name: Cache Cargo
-        uses: actions/cache@v4.3.0
+        uses: actions/cache@v6.1.0
         with:
           path: |
             ~/.cargo/registry
@@ -79,7 +79,7 @@ jobs:
           nm -D zig/zig-out/lib/libbunsenite.so | grep -E "parse_nickel|validate_nickel|free_string|version|rsr_tier|tpcf_perimeter" || true
 
       - name: Upload FFI library
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v7.0.2
         with:
           name: libbunsenite-${{ matrix.os }}
           path: |
@@ -94,7 +94,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v6.0.1
+      - uses: actions/checkout@v7.0.1
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@v1
@@ -124,7 +124,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v6.0.1
+      - uses: actions/checkout@v7.0.1
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@v1
@@ -137,7 +137,7 @@ jobs:
           version: 0.11.0
 
       - name: Install Deno
-        uses: denoland/setup-deno@v1.5.2
+        uses: denoland/setup-deno@v2.0.5
         with:
           deno-version: v1.x
 
