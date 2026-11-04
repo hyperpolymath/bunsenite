@@ -27,7 +27,7 @@ jobs:
           errors=0
           for f in .github/workflows/*.yml .github/workflows/*.yaml; do
             [ -f "$f" ] || continue
-            if ! head -1 "$f" | grep -q "SPDX-License-Identifier"; then
+            if ! awk '/^[[:space:]]*(#|$)/ { if (/SPDX-License-Identifier/) found = 1; next } { exit } END { exit !found }' "$f"; then
               echo "ERROR: $f missing SPDX header"
               errors=$((errors + 1))
             fi
