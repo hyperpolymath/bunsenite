@@ -10,7 +10,7 @@ cargo +nightly fuzz build
 # Copy fuzz targets to $OUT
 for target in $(cargo +nightly fuzz list); do
     cp ./fuzz/target/x86_64-unknown-linux-gnu/release/$target $OUT/
-    if [ -f .clusterfuzzlite/$target.options ]; then
+    if [[ -f .clusterfuzzlite/$target.options ]]; then
         cp .clusterfuzzlite/$target.options $OUT/
     fi
 done
