@@ -1,10 +1,11 @@
-# SPDX-License-Identifier: MPL-2.0
 K9!
+# SPDX-License-Identifier: MPL-2.0
 leash = 'Yard  # Validation only, no I/O
 
 pedigree = {
   schema_version = "1.0.0",
   component_type = "rust-formatter-config",
+  name = "bunsenite-rust-fmt-config",
   tool = "bunsenite",
   validation_level = "strict",
   description = "Self-validating Rust formatter configuration for Bunsenite"
