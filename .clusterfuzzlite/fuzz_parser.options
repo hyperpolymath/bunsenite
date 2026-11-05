@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: MPL-2.0
+# Runtime options for the fuzz_parser target. build.sh copies this file to
+# $OUT next to the binary, where the ClusterFuzzLite runner picks it up.
+#
+# Leak detection is off because nickel-lang-parser allocates AST nodes in a
+# bumpalo arena, which never runs destructors. Strings held by those nodes
+# therefore leak by design, on every input, including a single newline.
+# Without this, every run reports that upstream leak as a crash and no real
+# finding can surface. Memory-safety errors (overflows, use-after-free) are
+# still reported by AddressSanitizer.
+[libfuzzer]
+detect_leaks = 0
+
+[asan]
+detect_leaks = 0
