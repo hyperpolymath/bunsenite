@@ -11,6 +11,7 @@ leash = 'Hunt
 pedigree = {
   schema_version = "1.0.0",
   component_type = "dev-env-setup",
+  signature_required = true,
   author = "Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>",
   description = "Automated development environment setup for Bunsenite",
   created = "2026-01-30",
